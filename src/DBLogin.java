@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -15,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class dblogin
  */
-public class dblogin extends HttpServlet {
+public class DBLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public dblogin() {
+    public DBLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,27 +31,26 @@ public class dblogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<h1>DBLogin</h1>");
+		out.println("<p>Post here to test db connection<p>");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("login");
+		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		JDBC.setLogin(username, password);
 		JDBC.getConnection();
 
-		String dropString = "drop table TOFFEES;";
-		String createString = "create table TOFFEES " +
-
-              "(T_NAME VARCHAR(32), " +
-              "SUP_ID INTEGER, " +
-              "PRICE FLOAT, " +
-              "SALES INTEGER, " +
-              "TOTAL INTEGER)";
+		String dropString = "drop table PEOPLE";
+		String createString = "create table PEOPLE " +
+              "(NAME VARCHAR(32), " +
+              "ADDRESS VARCHAR(100))";
 		
 		JDBC.executeUpdate(dropString);
 		JDBC.executeUpdate(createString);

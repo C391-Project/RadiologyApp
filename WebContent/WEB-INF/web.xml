@@ -20,19 +20,29 @@
     <url-pattern>/HelloWorld</url-pattern>
   </servlet-mapping>
   <servlet>
-      <servlet-name>FirstServlet</servlet-name>
-      <servlet-class>FirstServlet</servlet-class>
+    <servlet-name>FirstServlet</servlet-name>
+    <servlet-class>FirstServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>FirstServlet</servlet-name>
-      <url-pattern>/firstservlet</url-pattern>
+    <servlet-name>FirstServlet</servlet-name>
+    <url-pattern>/firstservlet</url-pattern>
   </servlet-mapping>
   <servlet>
-      <servlet-name>Asn2Sample</servlet-name>
-      <servlet-class>Asn2Sample</servlet-class>
+    <servlet-name>Asn2Sample</servlet-name>
+    <servlet-class>Asn2Sample</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>Asn2Sample</servlet-name>
-      <url-pattern>/Asn2Sample</url-pattern>
+    <servlet-name>Asn2Sample</servlet-name>
+    <url-pattern>/Asn2Sample</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DBLogin</display-name>
+    <servlet-name>DBLogin</servlet-name>
+    <servlet-class>DBLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBLogin</servlet-name>
+    <url-pattern>/DBLogin</url-pattern>
   </servlet-mapping>
 </web-app>

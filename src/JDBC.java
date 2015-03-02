@@ -17,7 +17,7 @@ public class JDBC {
     private static Connection connection = null;
     private static String username = null;
     private static String password = null;
-    private final static String URL = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+    private final static String URL = "jdbc:oracle:thin:@localhost:1525:CRS";
     private final static String DRIVER   = "oracle.jdbc.driver.OracleDriver";
     
     /**
@@ -123,13 +123,20 @@ public class JDBC {
      **/
     
     public static void executeUpdate(String sql) {
-    	Statement stmt;
+    	Statement stmt = null;
     	try {
     		stmt = connection.createStatement();
     		stmt.executeUpdate(sql);
-    		stmt.close();
     	} catch (SQLException e) {
     		errorHandler("Could not execute update", e);
+    	} finally {
+    		if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					errorHandler("Could not close statement", e);
+				}
+    		}
     	}
     }
 }
