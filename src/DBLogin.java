@@ -12,6 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import db.JDBC;
 
 /**
  * Servlet implementation class dblogin
@@ -43,9 +46,14 @@ public class DBLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		session.setAttribute("dbusername", request.getParameter("username"));
+		session.setAttribute("dbpassword", request.getParameter("password"));
+		
+		String username = session.getAttribute("dbusername").toString();
+		String password = session.getAttribute("dbpassword").toString();
+		
 		JDBC.setLogin(username, password);
 		JDBC.connect();
 		

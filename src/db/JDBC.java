@@ -1,3 +1,4 @@
+package db;
 /**
  * Singleton for connecting to a database through JDBC
  * 
@@ -9,6 +10,7 @@
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -138,6 +140,26 @@ public class JDBC {
 				}
     		}
     	}
+    }
+    
+    public static ResultSet executeQuery(String sql) {
+    	Statement stmt = null;
+    	ResultSet rset = null;
+    	try {
+    		stmt = connection.createStatement();
+    		rset = stmt.executeQuery(sql);
+    	} catch (SQLException e) {
+    		errorHandler("Could not execute update", e);
+    	} finally {
+    		if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					errorHandler("Could not close statement", e);
+				}
+    		}
+    	}
+    	return rset;
     }
 
 	public static boolean hasConnection() {
