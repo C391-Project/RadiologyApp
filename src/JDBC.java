@@ -86,7 +86,7 @@ public class JDBC {
      * @return {Connection} connection
      **/
     
-    public static Connection getConnection() {
+    public static Connection connect() {
         if (connection == null) {
             loadDriver();
             loadConnection();
@@ -139,4 +139,12 @@ public class JDBC {
     		}
     	}
     }
+
+	public static boolean hasConnection() {
+		boolean valid = false;
+		if (connection != null) {
+			valid = true;
+		}
+		return valid;
+	}
 }

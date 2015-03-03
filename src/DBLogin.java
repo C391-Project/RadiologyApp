@@ -41,20 +41,20 @@ public class DBLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
 		JDBC.setLogin(username, password);
-		JDBC.getConnection();
-
-		String dropString = "drop table PEOPLE";
-		String createString = "create table PEOPLE " +
-              "(NAME VARCHAR(32), " +
-              "ADDRESS VARCHAR(100))";
+		JDBC.connect();
 		
-		JDBC.executeUpdate(dropString);
-		JDBC.executeUpdate(createString);
-		
+		if (JDBC.hasConnection()) {
+			out.println("<p>Login Successful</p>");
+		} else {
+			out.println("<p>Login Failed.</p>");
+		}
+			
 		JDBC.closeConnection();
 
 	} // END doPost
