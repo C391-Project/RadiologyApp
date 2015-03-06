@@ -19,8 +19,8 @@ public class JDBC {
     private static Connection connection = null;
     private static String username = null;
     private static String password = null;
-    //private final static String URL = "jdbc:oracle:thin:@localhost:1525:CRS"; // Work from Home
-    private final static String URL = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; // Lab Machines		
+    private final static String URL = "jdbc:oracle:thin:@localhost:1525:CRS"; // Work from Home
+    //private final static String URL = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; // Lab Machines		
     private final static String DRIVER   = "oracle.jdbc.driver.OracleDriver";
     
     /**
