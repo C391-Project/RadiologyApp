@@ -19,9 +19,11 @@ public class JDBC {
     private static Connection connection = null;
     private static String username = null;
     private static String password = null;
-    private final static String URL = "jdbc:oracle:thin:@localhost:1525:CRS"; // Work from Home
-    //private final static String URL = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; // Lab Machines		
+	private static Boolean connectingFromLab = null;
+    private final static String REMOTE_URL = "jdbc:oracle:thin:@localhost:1525:CRS"; // Work from Home
+    private final static String LAB_URL = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; // Lab Machines		
     private final static String DRIVER   = "oracle.jdbc.driver.OracleDriver";
+	private static final int LOGIN_TIMEOUT = 3;
     
     /**
      * Method that loads the specified driver
@@ -46,14 +48,16 @@ public class JDBC {
      **/
     
     private static void loadConnection() {
-    	if (username == null || password == null) {
-    		errorHandler("Please set login (username and password)", null);
+    	if (username == null || password == null || connectingFromLab == null) {
+    		errorHandler("Please configure username, password, connecting from lab", null);
     	} else {
+    		String url = (connectingFromLab) ? LAB_URL : REMOTE_URL;
+    		DriverManager.setLoginTimeout(LOGIN_TIMEOUT);
 	        try {
-	            connection = DriverManager.getConnection(URL, username, password);
+	            connection = DriverManager.getConnection(url, username, password);
 	        }
 	        catch (SQLException e) {
-	            errorHandler("Failed to connect to the database " + URL, e);         
+	            errorHandler("Failed to connect to the database " + url, e);         
 	        }
     	}
     }
@@ -78,9 +82,10 @@ public class JDBC {
      * @param newPassword
      * @return void
      */
-    public static void setLogin(String newUsername, String newPassword) {
+    public static void configure(String newUsername, String newPassword, boolean isConnectingFromLab) {
     	username = newUsername;
     	password = newPassword;
+    	connectingFromLab  = isConnectingFromLab;
     }
     
     /**

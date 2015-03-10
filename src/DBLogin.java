@@ -50,11 +50,15 @@ public class DBLogin extends HttpServlet {
 		
 		session.setAttribute("dbusername", request.getParameter("username"));
 		session.setAttribute("dbpassword", request.getParameter("password"));
+		session.setAttribute("dblab", 
+				(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes"))
+		);
 		
 		String username = session.getAttribute("dbusername").toString();
 		String password = session.getAttribute("dbpassword").toString();
+		Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
 		
-		JDBC.setLogin(username, password);
+		JDBC.configure(username, password, isConnectingFromLab);
 		JDBC.connect();
 		
 		if (JDBC.hasConnection()) {
