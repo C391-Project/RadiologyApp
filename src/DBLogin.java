@@ -63,6 +63,7 @@ public class DBLogin extends HttpServlet {
 		
 		if (JDBC.hasConnection()) {
 			out.println("<p>Login Successful</p>");
+			out.println("<a href=\"/RadiologyApp/dbinterface.jsp\">dbinterface.jsp</a>");
 		} else {
 			out.println("<p>Login Failed.</p>");
 		}
