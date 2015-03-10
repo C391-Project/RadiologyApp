@@ -15,7 +15,7 @@ public class FirstServlet extends GenericServlet {
         out.println("<html>"); 
         out.println("<body>");
         out.println("<h1>Welcome to CMPUT391 Lab!</h1>");
-	out.println("<p>Custom Paragraph</p>");
+        out.println("<p>Custom Paragraph</p>");
         out.println("</body>");
         out.println("</html>");
     }

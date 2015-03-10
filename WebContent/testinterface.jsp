@@ -10,20 +10,19 @@
 </head>
 <body>
 	<%
-		JDBC.setLogin(session.getAttribute("dbusername").toString(), 
-			session.getAttribute("dbpassword").toString());
 		Connection connection = JDBC.connect();
-			
 		String sql;
+		boolean isPost = "POST".equals(request.getMethod());
 		
-		String newName = request.getParameter("name");
-		String newAddress = request.getParameter("address");
-			
-		if (newName != null && newAddress != null && JDBC.hasConnection()) {
-			sql = "INSERT INTO PEOPLE VALUES ('" + newName + "', '" + newAddress + "')";
-			JDBC.executeUpdate(sql);
+		if (isPost) {
+			String newName = request.getParameter("name");
+			String newAddress = request.getParameter("address");
+				
+			if (newName != null && newAddress != null && JDBC.hasConnection()) {
+				sql = "INSERT INTO PEOPLE VALUES ('" + newName + "', '" + newAddress + "')";
+				JDBC.executeUpdate(sql);
+			}
 		}
-		
 	%>
 	
 	<h1>DBInterface</h1>
