@@ -108,3 +108,198 @@ values
 'random6@gmail.com','823-1023');
 
 /* Load Users */
+
+insert into users
+values
+('devito','pass','a',2,sysdate);
+
+insert into users
+values
+('cheng','pass','a',3,sysdate);
+
+insert into users
+values
+('comm','pass','a',4,sysdate);
+
+insert into users
+values
+('tom','pass','d',5,sysdate);
+
+insert into users
+values
+('bob','pass','d',6,sysdate);
+
+insert into users
+values
+('dan','pass','r',7,sysdate);
+
+insert into users
+values
+('stan','pass','r',8,sysdate);
+
+insert into users
+values
+('auser','pass','d',9,sysdate);
+
+insert into users
+values
+('pedro','pass','d',10,sysdate);
+
+insert into users
+values
+('alan','pass','d',11,sysdate);
+
+insert into users
+values
+('alex','pass','p',12,sysdate);
+
+insert into users
+values
+('snake','pass','p',13,sysdate);
+
+insert into users
+values
+('max','pass','p',14,sysdate);
+
+insert into users
+values
+('ray','pass','p',15,sysdate);
+
+insert into users
+values
+('bat','pass','p',16,sysdate);
+
+insert into users
+values
+('wally','pass','p',17,sysdate);
+
+insert into users
+values
+('random','pass','p',18,sysdate);
+
+insert into users
+values
+('2','pass','p',19,sysdate);
+
+insert into users
+values
+('3','pass','p',20,sysdate);
+
+insert into users
+values
+('4','pass','p',21,sysdate);
+
+insert into users
+values
+('5','pass','p',22,sysdate);
+
+insert into users
+values
+('6','pass','p',23,sysdate);
+
+/* Load Doctors */
+
+insert into family_doctor
+values
+(8,12);
+
+INSERT INTO family_doctor
+VALUES
+(5,13);
+
+INSERT INTO family_doctor
+VALUES
+(9,14);
+
+INSERT INTO family_doctor
+VALUES
+(10,15);
+
+INSERT INTO family_doctor
+VALUES
+(9,16);
+
+INSERT INTO family_doctor
+VALUES
+(9,17);
+
+INSERT INTO family_doctor
+VALUES
+(10,18);
+
+INSERT INTO family_doctor
+VALUES
+(5,19);
+
+INSERT INTO family_doctor
+VALUES
+(5,20);
+
+INSERT INTO family_doctor
+VALUES
+(5,21);
+
+INSERT INTO family_doctor
+VALUES
+(9,22);
+
+INSERT INTO family_doctor
+VALUES
+(8,23);
+
+INSERT INTO family_doctor
+VALUES
+(8,2);
+
+/* 
+Types of radiology tests as found on 
+http://www.cancer.org/treatment/understandingyourdiagnosis/examsandtestdescriptions/imagingradiologytests/imaging-radiology-tests-types
+Computed tomography scan
+Magnetic resonance imaging scan
+Radiographic studies
+Mammography
+Nuclear scans
+Ultrasound
+*/
+
+INSERT INTO radiology_record
+(record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date
+, test_date, diagnosis, description)
+VALUES
+(1,12, 8, 4, 'Computed tomography scan', sysdate, sysdate, 'Bi Polar',
+'OK');
+
+INSERT INTO radiology_record
+VALUES
+(2,13, 5, 19, 'MRI', sysdate, sysdate, 'Large Brain Tumor',
+'It looks alright I guess. Its kind oflike a little head pet');
+
+INSERT INTO radiology_record
+VALUES
+(3,14, 9, 6, 'Radiographic studies', sysdate, sysdate, 'Lung cancer',
+'Lungs confirmed for cancer');
+
+INSERT INTO radiology_record
+VALUES
+(4,15, 10, 7, 'Mammography', sysdate, sysdate, 'Breast cancer',
+'Not looking good');
+
+INSERT INTO radiology_record
+VALUES
+(5,16, 8, 7, 'Nuclear scans', sysdate, sysdate, 'Some cancer',
+'Probably wont see this guy again wont make it to thursday and thats if hes lucky');
+
+INSERT INTO radiology_record
+VALUES
+(6,17, 9, 5, 'Ultrasound', sysdate, sysdate, 'Pregnant',
+'Oh my god what is that thing');
+
+INSERT INTO radiology_record
+VALUES
+(7,12, 8, 4, 'Computed tomography scan', sysdate, sysdate, 'Bi Polar',
+'I do not know what I am doing');
+
+INSERT INTO radiology_record
+VALUES
+(8,17, 9, 5, 'Ultrasound', sysdate, sysdate, 'Bi Polar',
+'Probably not the greatest');
