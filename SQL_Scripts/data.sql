@@ -46,3 +46,65 @@ insert into persons
 values
 (11, 'Alan', 'Major', '8567 Major Street, majorTown, YT, T4Y-0S2, CA',
 'alan@gmail.com', '634-2432');
+
+insert into persons
+values
+(12, 'Alexander','Roma', '5345 MainStreet, Rome, TX, R3Q-2P0, US',
+'alex@hotmail.com', '999-0123');
+
+insert into persons
+values
+(13, 'Snake', 'Plisken', '5211 BigStreet, NewYork, NY, N2N-5N5, US',
+'snake@gmail.com','222-0019');
+
+insert into persons
+values
+(14, 'Mad','Max', '0012 MadRoad, MaxTown, AB, P1I-1I0, CA',
+'thunderdome@gmail.com','034-1233');
+
+insert into persons
+values
+(15, 'Ray', 'Sipe', '9434 tubeblvrd, SomeTown, AB, L4D-3M3, CA',
+'raysipe@gmail.com', '424-0230');
+
+insert into persons
+values
+(16, 'Bat', 'Man', '9348 WayneManor, Gotham, NJ, U8I-2Q1, US',
+'wayne@batmail.com', '978-5341');
+
+insert into persons
+values
+(17, 'Wally', 'West', '4819 fastroad, BigCity, NJ, P3P-0D5, US',
+'flash@fastmail.com','654-8234');
+
+insert into persons
+values
+(18,'random','name', '6425 road1, randomtown, AB, O4K-9A1, US',
+'random@gmail.com', '412-0121');
+
+insert into persons
+values
+(19,'name2','2nd','9090 road1, randomtown, AB, O1W-9W2, US',
+'random2@gmail.com', '410-0111');
+
+insert into persons
+values
+(20,'name3','3rd','9191 road2, randomtown, AB, O2A-9D4, US',
+'RANDOM3@gmail.com','400-5783');
+
+insert into persons
+values
+(21,'name4','4th','9292 road3, randomtown, AB, O3A-9F3, US',
+'random4@gmail.com','401-2342');
+
+insert into persons
+values
+(22,'name5','5th','9019 road4, randomtown, AB, O4A-9T4, US',
+'random5@gmail.com','492-9231');
+
+insert into persons
+values
+(23, 'name6','6h','9023 road6, randomtown, AB, O1M-6R9, US',
+'random6@gmail.com','823-1023');
+
+/* Load Users */
