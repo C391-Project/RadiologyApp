@@ -19,7 +19,7 @@
 	        String usertype=(request.getParameter("usertype")).trim();
         	out.println("<p>Your input User Name is: "+userName+"</p>");
         	out.println("<p>Your input password is: "+passwd+"</p>");
-        	out.println("<p>Your unput usertype is: "+usertype+"</p>");
+        	out.println("<p>Your input usertype is: "+usertype+"</p>");
 
 
 	        //establish the connection to the underlying database
@@ -93,7 +93,7 @@
 	        {
 		        out.println("<p><b>Your Login is Successful!</b></p>");
         	
-	        	if(usertype.equals("Admin"))
+	        	if(usertype.equals("a"))
         			{
         		out.println("Redirecting to Admin Homepage in 5 seconeds...");
         		response.setHeader("Refresh", "5; URL=Admin_Homepage.html");
