@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="db.JDBC" %>
+<%@ page import="db.*" %>
 <!DOCTYPE html">
 <html>
 <head>
@@ -27,34 +27,18 @@
 </head>
 <body>
 	<%
-	// TODO extract all sql stuff into JDBC, JDBC will return objects to work with in the page.
-		Connection connection = JDBC.connect();
-		String sql;
+		DataSource ds = new DataSource();
+	
 		boolean isPost = "POST".equals(request.getMethod());
-		
-		if (isPost && request.getParameter("person_submit") != null) {
-			String newPersonId = request.getParameter("p_person_id");
-			String newFirstName = request.getParameter("p_first_name");
-			String newLastName = request.getParameter("p_last_name");
-			String newAddress = request.getParameter("p_address");
-			String newEmail = request.getParameter("p_email");
-			String newPhone = request.getParameter("p_phone");
-				
-			if (newPersonId != null 
-					&& newFirstName != null
-					&& newLastName != null
-					&& newAddress != null
-					&& newPhone != null
-					&& newEmail != null
-					&& JDBC.hasConnection()) {
-				sql = "INSERT INTO PERSONS VALUES ('" 
-					+ newPersonId + "', '"
-					+ newFirstName + "', '"
-					+ newLastName + "', '"
-					+ newAddress + "', '"
-					+ newEmail + "', '"
-					+ newPhone + "')";
-				JDBC.executeUpdate(sql);
+		boolean isPersonSubmit = (request.getParameter("person_submit") != null);
+		if (isPost && isPersonSubmit) {
+			Person person = new Person(request);
+			if (person.isValid()) {
+				ds.submitPerson(person);
+			} else {
+	%>
+		<p>Could not submit person. Missing fields required.</p>
+	<%
 			}
 		}
 	%>
@@ -73,38 +57,21 @@
 			</tr>
 		</thead>
 		<tbody>
-		<% // BEGIN PERSON TABLE GENERATOR
-			sql = "SELECT * FROM PERSONS";
-			if (JDBC.hasConnection()) {
-				Statement stmt = null;
-		    	ResultSet rs = null;
-		    	try {
-		    		stmt = connection.createStatement();
-		    		rs = stmt.executeQuery(sql);
-		    		while (rs.next()) {
-		    		// PRINT TABLE RESULTS %> 
-		    			<tr>
-		    				<td><%= rs.getInt("PERSON_ID") %></td>
-		    				<td><%= rs.getString("FIRST_NAME") %></td>
-		    				<td><%= rs.getString("LAST_NAME") %></td>
-		    				<td><%= rs.getString("ADDRESS") %></td>
-		    				<td><%= rs.getString("EMAIL") %></td>
-		    				<td><%= rs.getString("PHONE") %></td>
-		    			</tr>
-		    		<% }
-		    	} catch (SQLException e) {
-		    		e.printStackTrace();
-		    	} finally {
-		    		if (stmt != null) {
-						try {
-							stmt.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-		    		}
-		    	}
+		<%
+			List<Person> personList = ds.getPersonList();
+			for (Person person : personList) {
+		%>
+				<tr>
+					<td><%= person.getPersonId() %></td>
+					<td><%= person.getFirstName() %></td>
+					<td><%= person.getLastName() %></td>
+					<td><%= person.getAddress() %></td>
+					<td><%= person.getEmail() %></td>
+					<td><%= person.getPhone() %></td>
+				</tr>
+		<%
 			}
-		// END PERSON TABLE TABLE GENERATOR %>
+		%>
 		</tbody>
 	</table>
 	
@@ -136,8 +103,5 @@
 			<p><input type="submit" name="person_submit" value="Submit"></p>
 		</fieldset>
 	</form>
-	<%
-		JDBC.closeConnection(); 
-	%>
 </body>
 </html>
