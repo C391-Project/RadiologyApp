@@ -263,8 +263,6 @@ Ultrasound
 */
 
 INSERT INTO radiology_record
-(record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date
-, test_date, diagnosis, description)
 VALUES
 (1,12, 8, 4, 'Computed tomography scan', sysdate, sysdate, 'Bi Polar',
 'OK');
