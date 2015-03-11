@@ -1,8 +1,18 @@
-drop table login;
-create table login(id char(20), pwd char(20));
-insert into login values('chen', '0');
-insert into login values('bret', '0');
-insert into login values('james', '0');
-insert into login values('john', '0');
-insert into login values('mary', '0');
+--just insert 4 users with different class for the purpose of tesing the login moduel
+
+insert into persons values('99999','admin',null,null,null,null);
+insert into persons values('99998','radiologist',null,null,null,null);
+insert into persons values('99997','patient',null,null,null,null);
+insert into persons values('99996','doctor',null,null,null,null);
+
+insert into users values('admin', '0', 'a', '99999',null);
+insert into users values('radiologist', '0', 'r', '99998',null);
+insert into users values('patient','0','p','99997',null);
+insert into users values('doctor','0','d','99996',null);
+
+insert into family_doctor values('99997','99996');
+
+insert into RADIOLOGY_RECORD values('9999','99996','99997','99998',null,null,null,null,null);
+
+insert into PACS_IMAGES values('9999','8888',null,null,null);
 

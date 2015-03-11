@@ -16,8 +16,10 @@
 	        //get the user input from the login page
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
-        	out.println("<p>Your input User Name is "+userName+"</p>");
-        	out.println("<p>Your input password is "+passwd+"</p>");
+	        String usertype=(request.getParameter("usertype")).trim();
+        	out.println("<p>Your input User Name is: "+userName+"</p>");
+        	out.println("<p>Your input password is: "+passwd+"</p>");
+        	out.println("<p>Your usertype is: "+usertype+"</p>");
 
 
 	        //establish the connection to the underlying database
@@ -51,7 +53,7 @@
 	        //select the user table from the underlying db and validate the user name and password
         	Statement stmt = null;
 	        ResultSet rset = null;
-        	String sql = "select PWD from login where id = '"+userName+"'";
+        	String sql = "select password from users where user_name = '"+userName+"'";
 	        out.println(sql);
         	try{
 	        	stmt = conn.createStatement();
@@ -66,13 +68,49 @@
 	
         	while(rset != null && rset.next())
 	        	truepwd = (rset.getString(1)).trim();
+        	/*
+			//select usertype from the table
+        	Statement stmt1 = null;
+	        ResultSet rset1 = null;
+        	String sql1 = "select class from users where user_name = '"+userName+"'";
+	        out.println(sql1);
+        	try{
+	        	stmt1 = conn.createStatement();
+		        rset1 = stmt.executeQuery(sql);
+        	}
 	
+	        catch(Exception ex){
+		        out.println("<hr>" + ex.getMessage() + "<hr>");
+        	}
+
+	        String truetype = "";
+	
+        	while(rset1 != null && rset1.next())
+	        	truetype = (rset1.getString(1)).trim();
+        	*/
         	//display the result
 	        if(passwd.equals(truepwd))
+	        {
 		        out.println("<p><b>Your Login is Successful!</b></p>");
+        	
+	        	if(usertype.equals("Admin"))
+        			{
+        		out.println("Redirecting to Admin Homepage in 5 seconeds...");
+        		response.setHeader("Refresh", "5; URL=Admin_Homepage.html");
+        		//response.sendRedirect("Admin_Homepage.html");
+        			}
+        		else
+        			{	
+        		out.println("Redirecting to User Homepage in 5 seconeds...");
+        		response.setHeader("Refresh", "5; URL=User_Homepage.html");
+        		//response.sendRedirect("User_Homepage.html");
+        			}	
+	        }
+        	
         	else
-	        	out.println("<p><b>Either your userName or Your password is inValid!</b></p>");
+	        	out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
 
+        	
                 try{
                         conn.close();
                 }
@@ -85,7 +123,7 @@
                 out.println("<form method=post action=login.jsp>");
                 out.println("UserName: <input type=text name=USERID maxlength=20><br>");
                 out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
-                out.println("<input type=submit name=bSubmit value=Submit>");
+                out.println("<input type=submit name=Submit value=Submit>");
                 out.println("</form>");
         }      
 %>

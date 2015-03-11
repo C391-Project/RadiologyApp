@@ -4,33 +4,33 @@
 </HEAD>
 
 <BODY>
-<!--This is the login page-->
 <h1>User Login</h1>
-
-<FORM NAME="LoginForm" ACTION="login.jsp" METHOD="post" >
-
-<P>To login successfully, you need to submit a valid userid and password</P>
-<TABLE>
-<TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>Userid:</I></B></TD>
-<TD><INPUT TYPE="text" NAME="USERID" VALUE="" placeholder="username"><BR></TD>
-</TR>
-<TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>Password:</I></B></TD>
-<TD><INPUT TYPE="password" NAME="PASSWD" VALUE="" placeholder="password"></TD>
-</TR>
-</TABLE>
-
-<INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">
-</FORM>
+	<form method="post" action="login.jsp">
+		<p><input type="text" name="USERID" value="" placeholder="Username"></p>
+		<p><input type="password" name="PASSWD" value="" placeholder="Password"></p>
+		<p>user type: 
+			<select name="usertype">
+				<option value="p">Patient</option>
+				<option value="d">Doctor</option>
+				<option value="r">Radiologist</option>
+				<option value="a">Admin</option>
+			</select>
+		</p>
+		<p class="submit"><input type="submit" name="Submit" value="Login"></p>
+	</form>
 <hr>
 <p>Test Cases:</p>
-<p>Username: chen; bret; james</p>
-<p>Password: 0;</p>
+<p>Username: admin; Password: 0; Class: Admin;</p>
+<p>Username: patient; Password: 0; Class: Patient;</p>
 Notice: 
 1.The Database connection in login.jsp assumes you are working from home.
 If you are working on lab machine, please change the corresponding line in login.jsp.  
-2.excute login.sql in your database first to initialize the database(it will create a table called "login").  
+2.execute login.sql in your database first to initialize the database(you will have to create all the required tables first).
+<p>
+PS. when i try to validate password, if it is a string password, it always fail. 
+However,if the password is a integer,it works. I am pretty confused. 
+And that stops me from validating the usertype either.  
+</p>
 <hr>
 </BODY>
 </HTML>
