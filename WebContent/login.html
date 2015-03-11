@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>User Login</TITLE>
+</HEAD>
+
+<BODY>
+<!--This is the login page-->
+<h1>User Login</h1>
+
+<FORM NAME="LoginForm" ACTION="login.jsp" METHOD="post" >
+
+<P>To login successfully, you need to submit a valid userid and password</P>
+<TABLE>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD><B><I>Userid:</I></B></TD>
+<TD><INPUT TYPE="text" NAME="USERID" VALUE="" placeholder="username"><BR></TD>
+</TR>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD><B><I>Password:</I></B></TD>
+<TD><INPUT TYPE="password" NAME="PASSWD" VALUE="" placeholder="password"></TD>
+</TR>
+</TABLE>
+
+<INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">
+</FORM>
+<hr>
+<p>Test Cases:</p>
+<p>Username: chen; bret; james</p>
+<p>Password: 0;</p>
+Notice: 
+1.The Database connection in login.jsp assumes you are working from home.
+If you are working on lab machine, please change the corresponding line in login.jsp.  
+2.excute login.sql in your database first to initialize the database(it will create a table called "login").  
+<hr>
+</BODY>
+</HTML>
