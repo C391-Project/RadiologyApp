@@ -5,10 +5,10 @@ insert into persons values('99998','radiologist',null,null,null,null);
 insert into persons values('99997','patient',null,null,null,null);
 insert into persons values('99996','doctor',null,null,null,null);
 
-insert into users values('admin', '0', 'a', '99999',null);
-insert into users values('radiologist', '0', 'r', '99998',null);
-insert into users values('patient','0','p','99997',null);
-insert into users values('doctor','0','d','99996',null);
+insert into users values('admin', 'pass', 'a', '99999',null);
+insert into users values('radiologist', 'pass', 'r', '99998',null);
+insert into users values('patient','pass','p','99997',null);
+insert into users values('doctor','pass','d','99996',null);
 
 insert into family_doctor values('99997','99996');
 
