@@ -17,6 +17,7 @@
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
 	        String usertype=(request.getParameter("usertype")).trim();
+	        boolean ifconnetingformlab=request.getParameter("labconnection").equals("yes");
         	out.println("<p>Your input User Name is: "+userName+"</p>");
         	out.println("<p>Your input password is: "+passwd+"</p>");
         	out.println("<p>Your input usertype is: "+usertype+"</p>");
@@ -26,9 +27,10 @@
         	Connection conn = null;
 	
 	        String driverName = "oracle.jdbc.driver.OracleDriver";
-	        	String dbstring="jdbc:oracle:thin:@localhost:1525:CRS"; //working from home
-	        	//String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; //working form school
-	
+	        String dbhomestring="jdbc:oracle:thin:@localhost:1525:CRS"; //working from home
+	        String dblabstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; //working form school
+			String dbstring=(ifconnetingformlab)?dblabstring:dbhomestring;
+	        
 	        try{
 		        //load and register the driver
         		Class drvClass = Class.forName(driverName); 
@@ -108,7 +110,12 @@
 	        }
         	
         	else
-	        	out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
+        		{
+        			out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
+        			out.println("Redirecting to Login page in 5 seconeds...");
+        			response.setHeader("Refresh", "5; URL=login.html");
+        		}
+	        	
 
         	
                 try{
