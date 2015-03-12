@@ -17,11 +17,13 @@
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
 	        String usertype=(request.getParameter("usertype")).trim();
-	        boolean ifconnetingformlab=request.getParameter("labconnection").equals("yes");
         	out.println("<p>Your input User Name is: "+userName+"</p>");
         	out.println("<p>Your input password is: "+passwd+"</p>");
         	out.println("<p>Your input usertype is: "+usertype+"</p>");
-
+        	session.setAttribute("dblab", 
+    				(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes"))
+    		);
+        	Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
 
 	        //establish the connection to the underlying database
         	Connection conn = null;
@@ -29,7 +31,12 @@
 	        String driverName = "oracle.jdbc.driver.OracleDriver";
 	        String dbhomestring="jdbc:oracle:thin:@localhost:1525:CRS"; //working from home
 	        String dblabstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; //working form school
-			String dbstring=(ifconnetingformlab)?dblabstring:dbhomestring;
+			String dbstring="jdbc:oracle:thin:@localhost:1525:CRS";
+	        if(isConnectingFromLab)
+	        	dbstring=dblabstring;
+	        //if(((request.getParameter("labconnection")).trim()).equals("yes"))
+			//	dbstring=dblabstring;
+	        //	dbstring=dbhomestring;
 	        
 	        try{
 		        //load and register the driver
