@@ -12,7 +12,7 @@
 </html>
 
 <% String pageName = "search"; %>
-<%@ include file="menu.jsp" %>
+<%@ include file="layout.jsp" %>
 <div class="container">
 	<form name="searchForm" method="post" role="form">
 	<h1>Search</h1>
