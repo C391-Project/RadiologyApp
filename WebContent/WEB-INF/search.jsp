@@ -10,3 +10,23 @@
 
 </body>
 </html>
+
+<% String pageName = "search"; %>
+<%@ include file="menu.jsp" %>
+<div class="container">
+	<form name="searchForm" method="post" role="form">
+	<h1>Search</h1>
+	<input type="text" name="KEYWORDS" size="100" placeholder="Keywords...">
+	<BR>
+		From: <input type="text" name="FROM" size="12" maxlength="11" placeholder="DD-MMM-YYYY">
+		To: <input type="text" name="TO" size="12" maxlength="11" placeholder="DD-MMM-YYYY">
+	<BR>
+		Ordered by: <select name="ORDER">
+		<option value="newest">Newest</option>
+		<option value="oldest">Oldest</option>
+		<option value="rank">Rank</option>
+	</select>
+	<BR>
+		<button type="submit" name="Submit">Fetch</button>
+	</form>
+</div>
