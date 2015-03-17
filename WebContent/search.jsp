@@ -59,9 +59,9 @@
 	" WHERE p1.person_id = r.patient_id AND p2.person_id = r.doctor_id AND p3.person_id = r.radiologist_id";
 	
 	//TODO GET THE USER INFORMATION FROM THE db AND PARSE ALL OF THAT STUFF
-	if (UserType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
-	else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
-	else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
+	//if (UserType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
+	//else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
+	//else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
 	
 	if (!keywords[0].isEmpty()) {
 		//TODO This could wind up being very difficult
