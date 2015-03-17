@@ -5,25 +5,33 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Person {
-	String personId = null;
+public class Person implements Table {
+	
+	// Done
+	
+	Integer personId = null;
 	String firstName = null;
 	String lastName = null;
 	String address = null;
 	String email = null;
 	String phone = null;
+	boolean isValid = false;
 	
 	public Person (HttpServletRequest request) {
-		personId = request.getParameter("p_person_id");
-		firstName = request.getParameter("p_first_name");
-		lastName = request.getParameter("p_last_name");
-		address = request.getParameter("p_address");
-		email = request.getParameter("p_email");
-		phone = request.getParameter("p_phone");
+		try {
+			personId = Integer.parseInt(request.getParameter("p_person_id"));
+			firstName = request.getParameter("p_first_name");
+			lastName = request.getParameter("p_last_name");
+			address = request.getParameter("p_address");
+			email = request.getParameter("p_email");
+			phone = request.getParameter("p_phone");
+		} catch (NullPointerException e) {
+			isValid = false;
+		}
 	}
 	
 	public Person (ResultSet rs) throws SQLException {
-		personId = "" + rs.getInt("PERSON_ID");
+		personId = rs.getInt("PERSON_ID");
 		firstName = rs.getString("FIRST_NAME");
 		lastName = rs.getString("LAST_NAME");
 		address = rs.getString("ADDRESS");
@@ -31,27 +39,25 @@ public class Person {
 		phone = rs.getString("PHONE");
 	}
 
+	@Override
 	public boolean isValid() {
-		if (personId != null && firstName != null
-				&& lastName != null && address != null
-				&& phone != null && email != null) {
+		if (personId != null 
+				&& firstName != null
+				&& lastName != null 
+				&& address != null
+				&& phone != null 
+				&& email != null) {
 			return true;
 		}
-		return false;
+		return isValid;
 	}
 	
-	public String generateSqlInsert() {
-		String sql = "INSERT INTO PERSONS VALUES ('" 
-				+ personId + "', '"
-				+ firstName + "', '"
-				+ lastName + "', '"
-				+ address + "', '"
-				+ email + "', '"
-				+ phone + "')";
-		return sql;
+	@Override
+	public String generateInsertSql() {
+		return "INSERT INTO PERSONS VALUES (?,?,?,?,?,?)";
 	}
 	
-	public String getPersonId() {
+	public int getPersonId() {
 		return personId;
 	}
 

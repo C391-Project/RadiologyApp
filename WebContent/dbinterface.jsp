@@ -26,10 +26,15 @@
 </style>
 </head>
 <body>
-	<%
+	<h1>Database Interface</h1>
+	<%  
+		// Page Globals
 		DataSource ds = new DataSource();
-	
 		boolean isPost = "POST".equals(request.getMethod());
+	%>
+	
+	<!-- BEGIN PERSON TABLE INTERFACE -->
+	<%
 		boolean isPersonSubmit = (request.getParameter("person_submit") != null);
 		if (isPost && isPersonSubmit) {
 			Person person = new Person(request);
@@ -103,5 +108,73 @@
 			<p><input type="submit" name="person_submit" value="Submit"></p>
 		</fieldset>
 	</form>
+	<!-- END PERSON TABLE INTERFACE -->
+	
+	<!-- BEGIN USER TABLE INTERFACE -->
+	<%
+		boolean isUserSubmit = (request.getParameter("user_submit") != null);
+		if (isPost && isUserSubmit) {
+			User user = new User(request);
+			if (user.isValid()) {
+				ds.submitUser(user);
+			} else {
+	%>
+		<p>Could not submit user. Missing fields required.</p>
+	<%
+			}
+		}
+	%>
+	
+	<h2>USERS</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>USER_NAME</th>
+				<th>PASSWORD</th>
+				<th>CLASS</th>
+				<th>PERSON_ID</th>
+				<th>DATE_REGISTERED</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
+			List<User> userList = ds.getUserList();
+			for (User user : userList) {
+		%>
+				<tr>
+					<td><%= user.getUserName() %></td>
+					<td><%= user.getPassword() %></td>
+					<td><%= user.getUserClass() %></td>
+					<td><%= user.getPersonId() %></td>
+					<td><%= user.getDateRegistered() %></td>
+				</tr>
+		<%
+			}
+		%>
+		</tbody>
+	</table>
+	
+    <form method="post">
+    	<fieldset>
+    		<legend>Add User</legend>
+    		<p>
+				<label for="u_user_name">USER_NAME: </label><br>
+				<input type="text" id="u_user_name" name="u_user_name" value="" placeholder=""><br>
+			<p>
+				<label for="u_password">PASSWORD: </label><br>
+				<input type="text" id="u_password" name="u_password" value="" placeholder=""><br>
+			</p>
+			<p>
+				<label for="u_class">CLASS: </label><br>
+				<input type="text" id="u_class" name="u_class" value="" placeholder=""><br>
+			</p>
+			<p>
+				<label for="u_person_id">PERSON_ID: </label><br>
+				<input type="text" id="u_person_id" name="u_person_id" value="" placeholder=""><br>
+			</p>
+			<p><input type="submit" name="user_submit" value="Submit"></p>
+		</fieldset>
+	</form>
+	<!-- END USER TABLE INTERFACE -->
 </body>
 </html>

@@ -10,6 +10,7 @@ package db;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -131,12 +132,13 @@ public class JDBC {
      **/
     
     public static void executeUpdate(String sql) {
-    	Statement stmt = null;
+    	PreparedStatement stmt = null;
     	try {
-    		stmt = connection.createStatement();
+    		stmt = connection.prepareStatement(sql);
     		stmt.executeUpdate(sql);
     	} catch (SQLException e) {
     		errorHandler("Could not execute update", e);
+    		e.printStackTrace();
     	} finally {
     		if (stmt != null) {
 				try {
