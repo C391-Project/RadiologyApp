@@ -26,12 +26,27 @@
 </style>
 </head>
 <body>
-	<h1>Database Interface</h1>
 	<%  
 		// Page Globals
 		DataSource ds = new DataSource();
 		boolean isPost = "POST".equals(request.getMethod());
+		if (ds.isNotConfigured()) {
+			//redirect to oracle login page and remember this page.
+			session.setAttribute("returnPage", "dbinterface.jsp");
+			response.sendRedirect("oracle-login.html");
+		}
 	%>
+	<!-- BEGIN BODY HTML -->
+	<header id="top">
+		<h1>Database Interface</h1>
+		<nav>
+			<ul>
+				<li><a href="#persons">PERSONS</a></li>
+				<li><a href="#users">USERS</a></li>
+				<li><a href="#family-doctor">FAMILY_DOCTOR</a></li>
+			</ul>
+		</nav>
+	</header>
 	
 	<!-- BEGIN PERSON TABLE INTERFACE -->
 	<%
@@ -48,8 +63,7 @@
 		}
 	%>
 	
-	<h1>Database Viewer</h1>
-	<h2>PERSONS</h2>
+	<h2 id="persons">PERSONS</h2>
 	<table>
 		<thead>
 			<tr>
@@ -84,26 +98,26 @@
     	<fieldset>
     	<legend>Add Person</legend>
 		<label for="p_person_id">PERSON_ID: </label><br>
-		<input type="number" id="p_person_id" name="p_person_id" value="" placeholder=""><br>
+		<input type="number" id="p_person_id" name="p_person_id" value="" placeholder="">
 			<p>
 				<label for="p_first_name">FIRST_NAME: </label><br>
-				<input type="text" id="p_first_name" name="p_first_name" value="" placeholder=""><br>
+				<input type="text" id="p_first_name" name="p_first_name" value="" placeholder="">
 			</p>
 			<p>
 				<label for="p_last_name">LAST_NAME: </label><br>
-				<input type="text" id="p_last_name" name="p_last_name" value="" placeholder=""><br>
+				<input type="text" id="p_last_name" name="p_last_name" value="" placeholder="">
 			</p>
 			<p>
 				<label for="p_address">ADDRESS: </label><br>
-				<input type="text" id="p_address" name="p_address" value="" placeholder=""><br>
+				<input type="text" id="p_address" name="p_address" value="" placeholder="">
 			</p>
 			<p>
 				<label for="p_email">EMAIL: </label><br>
-				<input type="text" id="p_email" name="p_email" value="" placeholder=""><br>
+				<input type="text" id="p_email" name="p_email" value="" placeholder="">
 			</p>
 			<p>
 				<label for="p_phone">PHONE: </label><br>
-				<input type="text" id="p_phone" name="p_phone" value="" placeholder=""><br>
+				<input type="text" id="p_phone" name="p_phone" value="" placeholder="">
 			</p>
 			<p><input type="submit" name="person_submit" value="Submit"></p>
 		</fieldset>
@@ -125,7 +139,7 @@
 		}
 	%>
 	
-	<h2>USERS</h2>
+	<h2 id="users">USERS</h2>
 	<table>
 		<thead>
 			<tr>
@@ -159,22 +173,78 @@
     		<legend>Add User</legend>
     		<p>
 				<label for="u_user_name">USER_NAME: </label><br>
-				<input type="text" id="u_user_name" name="u_user_name" value="" placeholder=""><br>
+				<input type="text" id="u_user_name" name="u_user_name" value="" placeholder="">
+			</p>
 			<p>
 				<label for="u_password">PASSWORD: </label><br>
-				<input type="text" id="u_password" name="u_password" value="" placeholder=""><br>
+				<input type="text" id="u_password" name="u_password" value="" placeholder="">
 			</p>
 			<p>
 				<label for="u_class">CLASS: </label><br>
-				<input type="text" id="u_class" name="u_class" value="" placeholder=""><br>
+				<input type="text" id="u_class" name="u_class" value="" placeholder="">
 			</p>
 			<p>
 				<label for="u_person_id">PERSON_ID: </label><br>
-				<input type="text" id="u_person_id" name="u_person_id" value="" placeholder=""><br>
+				<input type="text" id="u_person_id" name="u_person_id" value="" placeholder="">
 			</p>
 			<p><input type="submit" name="user_submit" value="Submit"></p>
 		</fieldset>
 	</form>
 	<!-- END USER TABLE INTERFACE -->
+	
+	<!-- BEGIN FAMILY_DOCTOR TABLE INTERFACE -->
+	<%
+		boolean isFamilyDoctorSubmit = (request.getParameter("family_doctor_submit") != null);
+		if (isPost && isFamilyDoctorSubmit) {
+			FamilyDoctor fd = new FamilyDoctor(request);
+			if (fd.isValid()) {
+				ds.submitFamilyDoctor(fd);
+			} else {
+	%>
+		<p>Could not submit family doctor. Missing fields required.</p>
+	<%
+			}
+		}
+	%>
+	
+	<h2 id="family-doctor">FAMILY_DOCTOR</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>DOCTOR_ID</th>
+				<th>PATIENT_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
+			List<FamilyDoctor> fdList = ds.getFamilyDoctorList();
+			for (FamilyDoctor fd : fdList) {
+		%>
+				<tr>
+					<td><%= fd.getDoctorId() %></td>
+					<td><%= fd.getPatientId() %></td>
+				</tr>
+		<%
+			}
+		%>
+		</tbody>
+	</table>
+	
+    <form method="post">
+    	<fieldset>
+    		<legend>Add Family Doctor</legend>
+    		<p>
+				<label for="f_doctor_id">DOCTOR_ID: </label><br>
+				<input type="text" id="f_doctor_id" name="f_doctor_id" value="" placeholder="">
+			</p>
+			<p>
+				<label for="f_patient_id">PATIENT_ID: </label><br>
+				<input type="text" id="f_patient_id" name="f_patient_id" value="" placeholder="">
+			</p>
+			<p><input type="submit" name="family_doctor_submit" value="Submit"></p>
+		</fieldset>
+	</form>
+	<!-- END FAMILY_DOCTOR TABLE INTERFACE -->
+	
 </body>
 </html>

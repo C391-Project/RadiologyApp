@@ -89,6 +89,17 @@ public class JDBC {
     	connectingFromLab  = isConnectingFromLab;
     }
     
+    /***
+     * Method that checks whether db info has been set.
+     * 
+     * @return	Whether the necessary db info is configured.
+     */
+    public static boolean isConfigured() {
+    	return (username != null 
+    			&& password != null
+    			&& connectingFromLab != null);
+    }
+    
     /**
      * Static method that returns the instance for the singleton
      * 
@@ -130,25 +141,6 @@ public class JDBC {
      * @param sql
      * @return void
      **/
-    
-    public static void executeUpdate(String sql) {
-    	PreparedStatement stmt = null;
-    	try {
-    		stmt = connection.prepareStatement(sql);
-    		stmt.executeUpdate(sql);
-    	} catch (SQLException e) {
-    		errorHandler("Could not execute update", e);
-    		e.printStackTrace();
-    	} finally {
-    		if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					errorHandler("Could not close statement", e);
-				}
-    		}
-    	}
-    }
 
 	public static boolean hasConnection() {
 		boolean valid = false;

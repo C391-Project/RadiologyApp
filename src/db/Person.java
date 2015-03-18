@@ -25,7 +25,8 @@ public class Person implements Table {
 			address = request.getParameter("p_address");
 			email = request.getParameter("p_email");
 			phone = request.getParameter("p_phone");
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			isValid = false;
 		}
 	}

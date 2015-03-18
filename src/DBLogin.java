@@ -61,6 +61,12 @@ public class DBLogin extends HttpServlet {
 		JDBC.configure(username, password, isConnectingFromLab);
 		JDBC.connect();
 		
+		String returnPage = (String) session.getAttribute("returnPage");
+		if ( returnPage != null) {
+			session.setAttribute("returnPage", null);
+			response.sendRedirect(returnPage);
+		}
+		
 		if (JDBC.hasConnection()) {
 			out.println("<p>Login Successful</p>");
 			out.println("<a href=\"/RadiologyApp/dbinterface.jsp\">dbinterface.jsp</a>");
