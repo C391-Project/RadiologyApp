@@ -9,10 +9,8 @@
 
 <%@ page import="java.sql.*" %>
 <% 
-
         if(request.getParameter("Submit") != null)
         {
-
 	        //get the user input from the login page
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
@@ -23,8 +21,8 @@
         	session.setAttribute("dblab", 
     				(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes"))
     		);
+        	
         	Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
-
 	        //establish the connection to the underlying database
         	Connection conn = null;
 	
@@ -58,7 +56,6 @@
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
 	
-
 	        //select the user table from the underlying db and validate the user name and password
         	Statement stmt = null;
 	        ResultSet rset = null;
@@ -72,7 +69,6 @@
 	        catch(Exception ex){
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
-
 	        String truepwd = "";
 	
         	while(rset != null && rset.next())
@@ -91,7 +87,6 @@
 	        catch(Exception ex){
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
-
 	        String truetype = "";
 	
         	while(rset1 != null && rset1.next())
@@ -103,39 +98,46 @@
 	        if(passwd.equals(truepwd))
 	        {
 		        out.println("<p><b>Login Successful!</b></p>");
-        	
+		        Cookie loginCookie = new Cookie("user",userName);
+		        Cookie loginCookie1 = new Cookie("usertype",truetype);
+	            //setting cookie to expiry in 30 mins
+	            loginCookie.setMaxAge(30*60);
+	            response.addCookie(loginCookie);
+	            loginCookie1.setMaxAge(30*60);
+	            response.addCookie(loginCookie1);
+	            //response.sendRedirect("LoginSuccess.jsp");
+		        
 	        	if(truetype.equals("a"))
         		{
-        		out.println("Redirecting to Admin Homepage in 5 seconeds...");
-        		response.setHeader("Refresh", "5; URL=Admin_Homepage.jsp");
+        		out.println("Redirecting to Admin Homepage in 3 seconeds...");
+        		response.setHeader("Refresh", "3; URL=Admin_Homepage.jsp");
         		//response.sendRedirect("Admin_Homepage.html");
         		}
         		else if (truetype.equals("p"))
         		{	
-        		out.println("Redirecting to Patient Homepage in 5 seconeds...");
-        		response.setHeader("Refresh", "5; URL=Patient_Homepage.html");
+        		out.println("Redirecting to Patient Homepage in 3 seconeds...");
+        		response.setHeader("Refresh", "3; URL=Patient_Homepage.html");
         		//response.sendRedirect("User_Homepage.html");
         		}	
         		else if (truetype.equals("r"))
         		{
-        		out.println("Redirecting to Radiologist Homepage in 5 seconeds...");
+        		out.println("Redirecting to Radiologist Homepage in 3 seconeds...");
             	response.setHeader("Refresh", "5; URL=Radiologist_Homepage.html");
         		}
         		else if(truetype.equals("d"))
         		{
-        		out.println("Redirecting to Doctor Homepage in 5 seconeds...");
-                response.setHeader("Refresh", "5; URL=Doctor_Homepage.html");	
+        		out.println("Redirecting to Doctor Homepage in 3 seconeds...");
+                response.setHeader("Refresh", "3; URL=Doctor_Homepage.html");	
         		}
 	        }
         	
         	else
         		{
         			out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
-        			out.println("Redirecting to Login page in 5 seconeds...");
-        			response.setHeader("Refresh", "5; URL=login.html");
+        			out.println("Redirecting to Login page in 3 seconeds...");
+        			response.setHeader("Refresh", "3; URL=login.html");
         		}
 	        	
-
         	
                 try{
                         conn.close();
@@ -158,4 +160,3 @@
 
 </BODY>
 </HTML>
-
