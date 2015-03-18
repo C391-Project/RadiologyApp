@@ -5,10 +5,6 @@
 <title>Administrator Home-page</title>
 </head>
 <body>
-	<%
-		java.util.Date date = new java.util.Date(); 
-		
-	%>
-	 Hello!  The time is now <%= date %> 
+	<t1>Administrator Homepage</t1>
 </body>
 </html>
