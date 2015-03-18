@@ -16,10 +16,10 @@
 	        //get the user input from the login page
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
-	        String usertype=(request.getParameter("usertype")).trim();
+	        //String usertype=(request.getParameter("usertype")).trim();
         	out.println("<p>Your input User Name is: "+userName+"</p>");
         	out.println("<p>Your input password is: "+passwd+"</p>");
-        	out.println("<p>Your input usertype is: "+usertype+"</p>");
+        	//out.println("<p>Your input usertype is: "+usertype+"</p>");
         	session.setAttribute("dblab", 
     				(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes"))
     		);
@@ -63,7 +63,7 @@
         	Statement stmt = null;
 	        ResultSet rset = null;
         	String sql = "select password from users where user_name = '"+userName+"'";
-	        out.println(sql);
+	        //out.println(sql);
         	try{
 	        	stmt = conn.createStatement();
 		        rset = stmt.executeQuery(sql);
@@ -82,7 +82,7 @@
         	Statement stmt1 = null;
 	        ResultSet rset1 = null;
         	String sql1 = "select class from users where user_name = '"+userName+"'";
-	        out.println(sql1);
+	        //out.println(sql1);
         	try{
 	        	stmt1 = conn.createStatement();
 		        rset1 = stmt.executeQuery(sql1);
@@ -96,24 +96,34 @@
 	
         	while(rset1 != null && rset1.next())
 	        	truetype = (rset1.getString(1)).trim();
-        	
+        	out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	//display the result
-	        if(passwd.equals(truepwd)&&usertype.equals(truetype))
+	        if(passwd.equals(truepwd))
 	        {
-		        out.println("<p><b>Your Login is Successful!</b></p>");
+		        out.println("<p><b>Login Successful!</b></p>");
         	
-	        	if(usertype.equals("a"))
-        			{
+	        	if(truetype.equals("a"))
+        		{
         		out.println("Redirecting to Admin Homepage in 5 seconeds...");
         		response.setHeader("Refresh", "5; URL=Admin_Homepage.html");
         		//response.sendRedirect("Admin_Homepage.html");
-        			}
-        		else
-        			{	
-        		out.println("Redirecting to User Homepage in 5 seconeds...");
-        		response.setHeader("Refresh", "5; URL=User_Homepage.html");
+        		}
+        		else if (truetype.equals("p"))
+        		{	
+        		out.println("Redirecting to Patient Homepage in 5 seconeds...");
+        		response.setHeader("Refresh", "5; URL=Patient_Homepage.html");
         		//response.sendRedirect("User_Homepage.html");
-        			}	
+        		}	
+        		else if (truetype.equals("r"))
+        		{
+        		out.println("Redirecting to Radiologist Homepage in 5 seconeds...");
+            	response.setHeader("Refresh", "5; URL=Radiologist_Homepage.html");
+        		}
+        		else if(truetype.equals("d"))
+        		{
+        		out.println("Redirecting to Doctor Homepage in 5 seconeds...");
+                response.setHeader("Refresh", "5; URL=Doctor_Homepage.html");	
+        		}
 	        }
         	
         	else
