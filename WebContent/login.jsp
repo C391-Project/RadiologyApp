@@ -96,7 +96,9 @@
 	
         	while(rset1 != null && rset1.next())
 	        	truetype = (rset1.getString(1)).trim();
+        	
         	out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
+        	session.setAttribute("usertype",truetype);
         	//display the result
 	        if(passwd.equals(truepwd))
 	        {
@@ -105,7 +107,7 @@
 	        	if(truetype.equals("a"))
         		{
         		out.println("Redirecting to Admin Homepage in 5 seconeds...");
-        		response.setHeader("Refresh", "5; URL=Admin_Homepage.html");
+        		response.setHeader("Refresh", "5; URL=Admin_Homepage.jsp");
         		//response.sendRedirect("Admin_Homepage.html");
         		}
         		else if (truetype.equals("p"))

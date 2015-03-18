@@ -32,7 +32,6 @@ public class HelloWorld extends HttpServlet {
 		pw.println("<h1>Hello World</h1>");
 		pw.println("");
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

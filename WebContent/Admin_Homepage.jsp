@@ -1,10 +1,14 @@
-<!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Administrator Home-page</title>
 </head>
 <body>
-	<t1>Admin Homepage</t1>
+	<%
+		java.util.Date date = new java.util.Date(); 
+		
+	%>
+	 Hello!  The time is now <%= date %> 
 </body>
 </html>
