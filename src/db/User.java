@@ -24,7 +24,8 @@ public class User implements Table {
 			userClass = request.getParameter("u_class");
 			personId = Integer.parseInt(request.getParameter("u_person_id"));
 			dateRegistered = new Date();
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			isValid = false;
 		}
 	}
@@ -73,9 +74,4 @@ public class User implements Table {
 	public Date getDateRegistered() {
 		return dateRegistered;
 	}
-
-	public Boolean getIsValid() {
-		return isValid;
-	}
-
 }

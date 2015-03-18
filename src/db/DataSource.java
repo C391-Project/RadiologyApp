@@ -12,6 +12,10 @@ public class DataSource {
 	
 	public DataSource() {}
 	
+	public boolean isNotConfigured() {
+		return (!JDBC.isConfigured());
+	}
+	
 	public void submitPerson(Person person) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -84,8 +88,10 @@ public class DataSource {
 	    		stmt.setString(2, user.getPassword());
 	    		stmt.setString(3, user.getUserClass());
 	    		stmt.setInt(4, user.getPersonId());
+	    		
 	    		java.sql.Date sqlDate = new java.sql.Date(user.getDateRegistered().getTime());
 	    		stmt.setDate(5, sqlDate);
+	    		
 	    		stmt.executeUpdate();
 	    	} catch (SQLException e) {
 	    		e.printStackTrace();
@@ -132,6 +138,63 @@ public class DataSource {
 		}
 		
 		return userList;
+	}
+
+	public void submitFamilyDoctor(FamilyDoctor fd) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = fd.generateInsertSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, fd.getDoctorId());
+	    		stmt.setInt(2, fd.getPatientId());
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	} 
+	
+	public List<FamilyDoctor> getFamilyDoctorList() {
+		FamilyDoctor fd = null;
+		List<FamilyDoctor> fdList = new ArrayList<FamilyDoctor>();
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM FAMILY_DOCTOR";
+		
+		if (JDBC.hasConnection()) {
+			Statement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.createStatement();
+	    		rs = stmt.executeQuery(sql);
+	    		while (rs.next()) {
+	    			fd = new FamilyDoctor(rs);
+	    			fdList.add(fd);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		
+		return fdList;
 	}
 	
 	
