@@ -14,6 +14,9 @@
 	        //get the user input from the login page
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
+	        String truepwd="";
+	        String truetype="";
+	        String fulltype="";
 	        //String usertype=(request.getParameter("usertype")).trim();
         	out.println("<p>Your input User Name is: "+userName+"</p>");
         	out.println("<p>Your input password is: "+passwd+"</p>");
@@ -69,7 +72,6 @@
 	        catch(Exception ex){
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
-	        String truepwd = "";
 	
         	while(rset != null && rset.next())
 	        	truepwd = (rset.getString(1)).trim();
@@ -87,7 +89,6 @@
 	        catch(Exception ex){
 		        out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
-	        String truetype = "";
 	
         	while(rset1 != null && rset1.next())
 	        	truetype = (rset1.getString(1)).trim();
@@ -98,8 +99,20 @@
 	        if(passwd.equals(truepwd))
 	        {
 		        out.println("<p><b>Login Successful!</b></p>");
+		        //get the full usertype
+		        if(truetype.equals("a"))
+		        	fulltype="Admin";
+		        else if(truetype.equals("p"))
+		        	fulltype="Patient";
+		        else if(truetype.equals("r"))
+		        	fulltype="Radiologist";
+		        else if(truetype.equals("d"))
+		        	fulltype="Doctor";
+		        else fulltype="Error";
+		        		
+		        //store user info in cookies
 		        Cookie loginCookie = new Cookie("user",userName);
-		        Cookie loginCookie1 = new Cookie("usertype",truetype);
+		        Cookie loginCookie1 = new Cookie("usertype",fulltype);
 	            //setting cookie to expiry in 30 mins
 	            loginCookie.setMaxAge(30*60);
 	            response.addCookie(loginCookie);
@@ -116,18 +129,18 @@
         		else if (truetype.equals("p"))
         		{	
         		out.println("Redirecting to Patient Homepage in 3 seconeds...");
-        		response.setHeader("Refresh", "3; URL=Patient_Homepage.html");
+        		response.setHeader("Refresh", "3; URL=Patient_Homepage.jsp");
         		//response.sendRedirect("User_Homepage.html");
         		}	
         		else if (truetype.equals("r"))
         		{
         		out.println("Redirecting to Radiologist Homepage in 3 seconeds...");
-            	response.setHeader("Refresh", "5; URL=Radiologist_Homepage.html");
+            	response.setHeader("Refresh", "5; URL=Radiologist_Homepage.jsp");
         		}
         		else if(truetype.equals("d"))
         		{
         		out.println("Redirecting to Doctor Homepage in 3 seconeds...");
-                response.setHeader("Refresh", "3; URL=Doctor_Homepage.html");	
+                response.setHeader("Refresh", "3; URL=Doctor_Homepage.jsp");	
         		}
 	        }
         	

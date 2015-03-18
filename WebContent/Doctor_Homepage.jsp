@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Administrator Home-page</title>
+<title>Doctor's Home-page</title>
 </head>
 <body>
-	<h1>Administrator's Homepage </h1>
+	<h1>Doctor's Homepage </h1>
 	
 	<%
 	String userName = null;
@@ -35,7 +35,7 @@
 		}
 			
 			//response.sendRedirect("login.html");
-		if(usertype.equals("Admin"))
+		if(usertype.equals("Doctor"))
 		{
 			out.println("<h3>Login successful!</h3>");
 		}

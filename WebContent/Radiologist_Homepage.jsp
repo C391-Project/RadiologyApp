@@ -2,14 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Administrator Home-page</title>
+<title>Radiologist's Home-page</title>
 </head>
 <body>
-	<h1>Administrator's Homepage </h1>
+	<h1>Radiologist's Homepage </h1>
 	
 	<%
 	String userName = null;
 	String usertype=null;
+	String realtype=null;
 	Cookie[] cookies = request.getCookies();
 	if(cookies !=null)
 	{
@@ -21,6 +22,7 @@
     			usertype = cookie.getValue();
 		}
 	}
+	
 	%>
 	
 	<h3>Hi <%=userName %>.</h3>
@@ -35,7 +37,7 @@
 		}
 			
 			//response.sendRedirect("login.html");
-		if(usertype.equals("Admin"))
+		if(usertype.equals("Radiologist"))
 		{
 			out.println("<h3>Login successful!</h3>");
 		}
