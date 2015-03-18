@@ -46,6 +46,10 @@
 		}
 			
 	%>
-	
+	<h3>
+		<form action="dbinterface.jsp">
+    		<input type="submit" value="Add User">
+		</form>
+	</h3>
 </body>
 </html>
