@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Persons - View</title>
+<title>DBInterface</title>
 <style>
 	body {
 	  font: normal medium/1.4 sans-serif;
@@ -33,17 +33,17 @@
 		if (ds.isNotConfigured()) {
 			//redirect to oracle login page and remember this page.
 			session.setAttribute("returnPage", "dbinterface.jsp");
-			response.sendRedirect("oracle-login");
+			response.sendRedirect("oracle-login.html");
 		}
 	%>
 	<!-- BEGIN BODY HTML -->
 	<header id="top">
-		<h1>User Management</h1>
+		<h1>Database Interface</h1>
 		<nav>
 			<ul>
-				<li><a href="">Persons</a></li>
-				<li><a href="">Users</a></li>
-				<li><a href="">Family Doctor</a></li>
+				<li><a href="#persons">PERSONS</a></li>
+				<li><a href="#users">USERS</a></li>
+				<li><a href="#family-doctor">FAMILY_DOCTOR</a></li>
 			</ul>
 		</nav>
 	</header>
