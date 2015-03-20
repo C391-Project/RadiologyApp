@@ -50,6 +50,11 @@
 		<form action="dbinterface.jsp">
     		<input type="submit" value="Add User">
 		</form>
+		
+		<form action="LogoutServlet" method="post">
+		<input type="submit" value="Logout" >
+		</form>
+		
 	</h3>
 </body>
 </html>

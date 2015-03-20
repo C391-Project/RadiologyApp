@@ -52,6 +52,8 @@
     		<input type="submit" value="Add User">
 		</form>
 	</h3>
-	
+	<form action="LogoutServlet" method="post">
+		<input type="submit" value="Logout" >
+	</form>
 </body>
 </html>
