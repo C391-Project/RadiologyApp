@@ -26,6 +26,38 @@
 </style>
 </head>
 <body>
+
+	<%
+	
+	String usertype=null;
+	Cookie[] cookies = request.getCookies();
+	if(cookies !=null)
+	{
+		for(Cookie cookie : cookies)
+		{
+    		if(cookie.getName().equals("usertype")) 
+    			usertype = cookie.getValue();
+		}
+	}
+	
+	//user power contronl, only admin can get access to this page
+			
+			//response.sendRedirect("login.html");
+		if(usertype.equals("Admin"))
+		{
+			out.println("<h3>Login successful!</h3>");
+		}
+		else
+		{
+			response.sendRedirect("AccessError.jsp");	
+		}
+		
+		
+	%>
+	
+	
+	
+
 	<%  
 		// Page Globals
 		DataSource ds = new DataSource();
