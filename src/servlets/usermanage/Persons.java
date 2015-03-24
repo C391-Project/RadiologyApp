@@ -64,7 +64,6 @@ public class Persons extends HttpServlet {
 			} else {
 				session.setAttribute("error", "Person Information Not Valid");
 			}
-			response.sendRedirect("/usermanage/persons");
 		}
 		
 		// Edit Person
@@ -78,6 +77,9 @@ public class Persons extends HttpServlet {
 				session.setAttribute("error", "Person Information Not Valid");
 			}
 		}
+		
+		// Submit a GET request to this servlet to view results.
+		response.sendRedirect("/RadiologyApp/usermanage/persons");
 	}
 			
 			

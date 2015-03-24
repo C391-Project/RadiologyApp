@@ -41,7 +41,7 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		return lastId;
+		return lastId + 1;
 	}
 	
 	public void submitPerson(Person person) {

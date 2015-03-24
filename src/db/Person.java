@@ -60,12 +60,12 @@ public class Person implements Table {
 	
 	public String generateUpdateSql() {
 		return "UPDATE persons"
-				+ "SET first_name = ?,"
-				+ " last_name = ?,"
-				+ " address = ?,"
-				+ " email = ?,"
-				+ " phone = ?"
-				+ "WHERE id = ?";
+				+ " SET first_name = ?,"
+					+ " last_name = ?,"
+					+ " address = ?,"
+					+ " email = ?,"
+					+ " phone = ?"
+				+ "WHERE person_id = ?";
 	}
 	
 	public int getPersonId() {

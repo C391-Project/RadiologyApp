@@ -10,7 +10,6 @@
 	<link href="/RadiologyApp/includes/style.css" rel="stylesheet">
 </head>
 <body>
-	<%@include file="includes/globals.jsp" %>
 	<%@include file="includes/header.html" %>
 	
     <form action="/RadiologyApp/usermanage/persons" method="post">

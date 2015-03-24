@@ -6,50 +6,8 @@
     version="3.0">
   <display-name>RadiologyApp</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>login.html</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>HelloWorld</display-name>
-    <servlet-name>HelloWorld</servlet-name>
-    <servlet-class>HelloWorld</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HelloWorld</servlet-name>
-    <url-pattern>/HelloWorld</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>FirstServlet</servlet-name>
-    <servlet-class>FirstServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FirstServlet</servlet-name>
-    <url-pattern>/firstservlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>Asn2Sample</servlet-name>
-    <servlet-class>Asn2Sample</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Asn2Sample</servlet-name>
-    <url-pattern>/Asn2Sample</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DBLogin</display-name>
-    <servlet-name>DBLogin</servlet-name>
-    <servlet-class>DBLogin</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBLogin</servlet-name>
-    <url-pattern>/DBLogin</url-pattern>
-  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>SessionInfo</display-name>
@@ -123,5 +81,15 @@
   <servlet-mapping>
     <servlet-name>UserManagePersonsAdd</servlet-name>
     <url-pattern>/usermanage/persons/add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManagePersonsEdit</display-name>
+    <servlet-name>UserManagePersonsEdit</servlet-name>
+    <servlet-class>servlets.usermanage.PersonsEdit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagePersonsEdit</servlet-name>
+    <url-pattern>/usermanage/persons/edit</url-pattern>
   </servlet-mapping>
 </web-app>

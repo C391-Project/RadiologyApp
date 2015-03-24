@@ -27,7 +27,8 @@ public class StateManager {
 		
 		if (ds.isNotConfigured()) {
 			session.setAttribute("returnPage", generateReturnUrl());
-			response.sendRedirect("oracle-login");
+			session.setAttribute("error", "Could not connect to database.");
+			response.sendRedirect("/RadiologyApp/oracle-login");
 			return false;
 		}
 		

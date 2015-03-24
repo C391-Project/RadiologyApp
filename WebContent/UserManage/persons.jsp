@@ -11,14 +11,11 @@
 </head>
 <body>
 
-	<%@include file="includes/globals.jsp" %>
 	<%@include file="includes/header.html" %>
 	
 	<h2 id="persons">Persons</h2>
 	<p>
-		<a href="usermanage/persons/add">
-			<button>Add Person</button>
-		</a>
+		<a href="/RadiologyApp/usermanage/persons/add">Add Person</a>
 	</p>
 	<table>
 		<thead>
@@ -44,7 +41,7 @@
 				<td><%= person.getAddress() %></td>
 				<td><%= person.getEmail() %></td>
 				<td><%= person.getPhone() %></td>
-				<td><a href="/RadiologyApp/usermanage/persons/edit?id=<%= person.getPersonId()%>>"></a>
+				<td><a href="/RadiologyApp/usermanage/persons/edit?id=<%= person.getPersonId()%>">Edit</a>
 			</tr>
 		<%
 		}
