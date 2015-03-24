@@ -1,99 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="db.*" %>
+<%@ page import="java.io.*,java.util.*,db.*"%>
 <!DOCTYPE html">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Persons - View</title>
-<style>
-	body {
-	  font: normal medium/1.4 sans-serif;
-	}
-	table {
-	  border-collapse: collapse;
-	  width: 100%;
-	}
-	th, td {
-	  padding: 0.25rem;
-	  text-align: left;
-	  border: 1px solid #ccc;
-	}
-	tbody tr:nth-child(odd) {
-	  background: #eee;
-	}
-</style>
+<title>User Management</title>
+<link href="includes/style.css" rel="stylesheet">
 </head>
 <body>
-
-	<%
-	
-	String usertype=null;
-	Cookie[] cookies = request.getCookies();
-	if(cookies !=null)
-	{
-		for(Cookie cookie : cookies)
-		{
-    		if(cookie.getName().equals("usertype")) 
-    			usertype = cookie.getValue();
-		}
-	}
-	
-	//user power contronl, only admin can get access to this page
-			
-			//response.sendRedirect("login.html");
-		if(usertype.equals("Admin"))
-		{
-			out.println("<h3>Login successful!</h3>");
-		}
-		else
-		{
-			response.sendRedirect("AccessError.jsp");	
-		}
-		
-		
-	%>
-	
-	
-	
-
-	<%  
-		// Page Globals
-		DataSource ds = new DataSource();
-		boolean isPost = "POST".equals(request.getMethod());
-		if (ds.isNotConfigured()) {
-			//redirect to oracle login page and remember this page.
-			session.setAttribute("returnPage", "dbinterface.jsp");
-			response.sendRedirect("oracle-login");
-		}
-	%>
-	<!-- BEGIN BODY HTML -->
-	<header id="top">
-		<h1>User Management</h1>
-		<nav>
-			<ul>
-				<li><a href="">Persons</a></li>
-				<li><a href="">Users</a></li>
-				<li><a href="">Family Doctor</a></li>
-			</ul>
-		</nav>
-	</header>
-	
-	<!-- BEGIN PERSON TABLE INTERFACE -->
-	<%
-		boolean isPersonSubmit = (request.getParameter("person_submit") != null);
-		if (isPost && isPersonSubmit) {
-			Person person = new Person(request);
-			if (person.isValid()) {
-				ds.submitPerson(person);
-			} else {
-	%>
-		<p>Could not submit person. Missing fields required.</p>
-	<%
-			}
-		}
-	%>
+	<%@include file="includes/globals.jsp" %>
+	<%@include file="includes/header.html" %>
 	
 	<h2 id="persons">PERSONS</h2>
 	<table>

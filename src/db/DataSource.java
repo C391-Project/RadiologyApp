@@ -16,6 +16,34 @@ public class DataSource {
 		return (!JDBC.isConfigured());
 	}
 	
+	public Integer getNextPersonId() {
+		Integer lastId = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT MAX(person_id) AS id FROM persons";
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			lastId = rs.getInt("id");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return lastId + 1;
+	}
+	
 	public void submitPerson(Person person) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -52,11 +80,11 @@ public class DataSource {
 		String sql = "SELECT * FROM PERSONS";
 		
 		if (JDBC.hasConnection()) {
-			Statement stmt = null;
+			PreparedStatement stmt = null;
 	    	ResultSet rs = null;
 	    	try {
-	    		stmt = connection.createStatement();
-	    		rs = stmt.executeQuery(sql);
+	    		stmt = connection.prepareStatement(sql);
+	    		rs = stmt.executeQuery();
 	    		while (rs.next()) {
 	    			person = new Person(rs);
 	    			personList.add(person);
@@ -73,8 +101,71 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		
+		JDBC.closeConnection();
 		return personList;
+	}
+	
+	public Person getPersonById(Integer personId) {
+		Person person = null;
+		List<Person> personList = new ArrayList<Person>();
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM persons WHERE person_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, personId);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			person = new Person(rs);
+	    			personList.add(person);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		JDBC.closeConnection();
+		return person;
+	}
+	
+	public void updatePerson(Person person) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = person.generateUpdateSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setString(1, person.getFirstName());
+	    		stmt.setString(2, person.getLastName());
+	    		stmt.setString(3, person.getAddress());
+	    		stmt.setString(4, person.getEmail());
+	    		stmt.setString(5, person.getPhone());
+	    		stmt.setInt(6, person.getPersonId());
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+		
 	}
 	
 	public void submitUser(User user) {
@@ -136,7 +227,7 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		
+		JDBC.closeConnection();
 		return userList;
 	}
 
@@ -193,7 +284,7 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		
+		JDBC.closeConnection();
 		return fdList;
 	}
 	
