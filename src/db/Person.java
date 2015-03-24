@@ -17,14 +17,14 @@ public class Person implements Table {
 	String phone = null;
 	boolean isValid = false;
 	
-	public Person (HttpServletRequest request) {
+	public Person (Integer personId, HttpServletRequest request) {
 		try {
-			personId = Integer.parseInt(request.getParameter("p_person_id"));
-			firstName = request.getParameter("p_first_name");
-			lastName = request.getParameter("p_last_name");
-			address = request.getParameter("p_address");
-			email = request.getParameter("p_email");
-			phone = request.getParameter("p_phone");
+			this.personId = personId;
+			this.firstName = request.getParameter("p_first_name");
+			this.lastName = request.getParameter("p_last_name");
+			this.address = request.getParameter("p_address");
+			this.email = request.getParameter("p_email");
+			this.phone = request.getParameter("p_phone");
 		} catch (Exception e) {
 			e.printStackTrace();
 			isValid = false;
@@ -46,8 +46,8 @@ public class Person implements Table {
 				&& firstName != null
 				&& lastName != null 
 				&& address != null
-				&& phone != null 
-				&& email != null) {
+				&& email != null 
+				&& phone != null) {
 			return true;
 		}
 		return isValid;
@@ -55,7 +55,17 @@ public class Person implements Table {
 	
 	@Override
 	public String generateInsertSql() {
-		return "INSERT INTO PERSONS VALUES (?,?,?,?,?,?)";
+		return "INSERT INTO persons VALUES (?,?,?,?,?,?)";
+	}
+	
+	public String generateUpdateSql() {
+		return "UPDATE persons"
+				+ "SET first_name = ?,"
+				+ " last_name = ?,"
+				+ " address = ?,"
+				+ " email = ?,"
+				+ " phone = ?"
+				+ "WHERE id = ?";
 	}
 	
 	public int getPersonId() {

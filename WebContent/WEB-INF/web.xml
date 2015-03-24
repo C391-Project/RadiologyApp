@@ -100,4 +100,28 @@
     <servlet-name>OracleLogin</servlet-name>
     <url-pattern>/oracle-login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManagePersons</display-name>
+    <servlet-name>UserManagePersons</servlet-name>
+    <servlet-class>servlets.usermanage.Persons</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagePersons</servlet-name>
+    <url-pattern>/usermanage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserManagePersons</servlet-name>
+    <url-pattern>/usermanage/persons</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManagePersonsAdd</display-name>
+    <servlet-name>UserManagePersonsAdd</servlet-name>
+    <servlet-class>servlets.usermanage.PersonsAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagePersonsAdd</servlet-name>
+    <url-pattern>/usermanage/persons/add</url-pattern>
+  </servlet-mapping>
 </web-app>

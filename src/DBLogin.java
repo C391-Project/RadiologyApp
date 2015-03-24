@@ -59,7 +59,6 @@ public class DBLogin extends HttpServlet {
 		Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
 		
 		JDBC.configure(username, password, isConnectingFromLab);
-		JDBC.connect();
 		
 		String returnPage = (String) session.getAttribute("returnPage");
 		if ( returnPage != null) {
@@ -67,14 +66,15 @@ public class DBLogin extends HttpServlet {
 			response.sendRedirect(returnPage);
 		}
 		
+		JDBC.connect();
 		if (JDBC.hasConnection()) {
 			out.println("<p>Login Successful</p>");
 			out.println("<a href=\"/RadiologyApp/dbinterface.jsp\">dbinterface.jsp</a>");
 		} else {
 			out.println("<p>Login Failed.</p>");
 		}
-			
 		JDBC.closeConnection();
+		
 
 	} // END doPost
 

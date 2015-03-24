@@ -54,6 +54,11 @@ public class User implements Table {
 	public String generateInsertSql() {
 		return "INSERT INTO USERS VALUES (?,?,?,?,?)";
 	}
+	
+	@Override
+	public String generateUpdateSql(){
+
+	}
 
 	public String getUserName() {
 		return userName;
