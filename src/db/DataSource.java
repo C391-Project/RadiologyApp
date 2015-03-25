@@ -166,6 +166,30 @@ public class DataSource {
 		
 	}
 	
+	public void deletePerson(Person person) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = person.generateDeleteSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, person.getPersonId());
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}
+	
 	public void submitUser(User user) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;

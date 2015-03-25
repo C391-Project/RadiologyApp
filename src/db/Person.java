@@ -68,6 +68,11 @@ public class Person implements Table {
 				+ "WHERE person_id = ?";
 	}
 	
+	public String generateDeleteSql() {
+		return "DELETE FROM persons"
+				+ "WHERE person_id = ?";
+	}
+	
 	public int getPersonId() {
 		return personId;
 	}
