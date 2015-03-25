@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="db.*" %>
+<%@ page import="database.*" %>
 <!DOCTYPE html">
 <html>
 <head>
@@ -16,7 +16,7 @@
 	
     <form action="/RadiologyApp/usermanage/persons" method="post">
     	<fieldset>
-    		<legend>Edit Person <%= person.getPersonId() %></legend>
+    		<legend>Edit Person</legend>
     		<p>
 				Person Id: <%= person.getPersonId() %><br>
 				<input type="hidden" name="p_person_id" value="<%= person.getPersonId() %>">
@@ -42,6 +42,13 @@
 				<input type="text" id="p_phone" name="p_phone" value="<%= person.getPhone() %>" placeholder="">
 			</p>
 			<p><input type="submit" name="person_edit" value="Update"></p>
+		</fieldset>
+	</form>
+	<form action="/RadiologyApp/usermanage/persons" method="post">
+		<fieldset>
+    		<legend>Delete Person</legend>
+    		<input type="hidden" name="p_person_id" value="<%= person.getPersonId() %>">
+			<p><input type="submit" name="person_delete" value="Delete Person <%= person.getPersonId() %>"></p>
 		</fieldset>
 	</form>
 </body>

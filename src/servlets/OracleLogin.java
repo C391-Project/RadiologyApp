@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import db.JDBC;
+import database.JDBC;
 
 /**
  * Servlet implementation class dblogin

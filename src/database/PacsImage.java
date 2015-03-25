@@ -1,4 +1,4 @@
-package db;
+package database;
 
 public class PacsImage implements Table {
 

@@ -1,4 +1,4 @@
-package db;
+package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -166,14 +166,14 @@ public class DataSource {
 		
 	}
 	
-	public void deletePerson(Person person) {
+	public void deletePerson(Integer personId) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
-    	String sql = person.generateDeleteSql();
+    	String sql = "DELETE FROM persons WHERE person_id = ?";
     	if (JDBC.hasConnection()) {
 	    	try {
 	    		stmt = connection.prepareStatement(sql);
-	    		stmt.setInt(1, person.getPersonId());
+	    		stmt.setInt(1, personId);
 	    		stmt.executeUpdate();
 	    	} catch (SQLException e) {
 	    		e.printStackTrace();

@@ -1,4 +1,4 @@
-package db;
+package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,11 +65,6 @@ public class Person implements Table {
 					+ " address = ?,"
 					+ " email = ?,"
 					+ " phone = ?"
-				+ "WHERE person_id = ?";
-	}
-	
-	public String generateDeleteSql() {
-		return "DELETE FROM persons"
 				+ "WHERE person_id = ?";
 	}
 	

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utilities.StateManager;
-import db.DataSource;
-import db.JDBC;
-import db.Person;
-import db.User;
+import database.DataSource;
+import database.JDBC;
+import database.Person;
+import database.User;
 
 /**
  * Servlet implementation class UsersEdit

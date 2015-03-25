@@ -1,4 +1,4 @@
-package db;
+package database;
 /**
  * Singleton for connecting to a database through JDBC
  * 

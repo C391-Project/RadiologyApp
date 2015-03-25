@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utilities.StateManager;
-import db.DataSource;
-import db.JDBC;
-import db.Person;
+import database.DataSource;
+import database.JDBC;
+import database.Person;
 
 /**
  * Servlet implementation class Persons
@@ -76,6 +76,13 @@ public class Persons extends HttpServlet {
 			} else {
 				session.setAttribute("error", "Person Information Not Valid");
 			}
+		}
+		
+		// Delete Person
+		boolean isPersonDelete = (request.getParameter("person_delete") != null);
+		if (isPersonDelete) {
+			Integer personId = Integer.parseInt(request.getParameter("p_person_id"));
+			dataSource.deletePerson(personId);
 		}
 		
 		// Submit a GET request to this servlet to view results.
