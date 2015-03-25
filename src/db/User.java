@@ -2,7 +2,10 @@ package db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +26,14 @@ public class User implements Table {
 			password = request.getParameter("u_password");
 			userClass = request.getParameter("u_class");
 			personId = Integer.parseInt(request.getParameter("u_person_id"));
-			dateRegistered = new Date();
+			
+			if (request.getParameter("u_date_registered") != null) {
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+				dateRegistered = format.parse(request.getParameter("u_date_registered"));
+			} else {
+				dateRegistered = new Date();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			isValid = false;
@@ -57,7 +67,13 @@ public class User implements Table {
 	
 	@Override
 	public String generateUpdateSql(){
-
+		return "UPDATE users"
+				+ " SET user_name = ?,"
+					+ " password = ?,"
+					+ " class = ?,"
+					+ " person_id = ?,"
+					+ " date_registered = ?"
+				+ "WHERE user_name = ?";
 	}
 
 	public String getUserName() {

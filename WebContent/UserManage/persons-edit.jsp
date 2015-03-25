@@ -16,29 +16,29 @@
 	
     <form action="/RadiologyApp/usermanage/persons" method="post">
     	<fieldset>
-    		<legend>Edit Person</legend>
+    		<legend>Edit Person <%= person.getPersonId() %></legend>
     		<p>
 				Person Id: <%= person.getPersonId() %><br>
 				<input type="hidden" name="p_person_id" value="<%= person.getPersonId() %>">
 			</p>
 			<p>
-				<label for="p_first_name">FIRST_NAME: </label><br>
+				<label for="p_first_name">First Name: </label><br>
 				<input type="text" id="p_first_name" name="p_first_name" value="<%= person.getFirstName() %>" placeholder="">
 			</p>
 			<p>
-				<label for="p_last_name">LAST_NAME: </label><br>
+				<label for="p_last_name">Last Name: </label><br>
 				<input type="text" id="p_last_name" name="p_last_name" value="<%= person.getLastName() %>" placeholder="">
 			</p>
 			<p>
-				<label for="p_address">ADDRESS: </label><br>
+				<label for="p_address">Address: </label><br>
 				<input type="text" id="p_address" name="p_address" value="<%= person.getAddress() %>" placeholder="">
 			</p>
 			<p>
-				<label for="p_email">EMAIL: </label><br>
+				<label for="p_email">Email: </label><br>
 				<input type="text" id="p_email" name="p_email" value="<%= person.getEmail() %>" placeholder="">
 			</p>
 			<p>
-				<label for="p_phone">PHONE: </label><br>
+				<label for="p_phone">Phone: </label><br>
 				<input type="text" id="p_phone" name="p_phone" value="<%= person.getPhone() %>" placeholder="">
 			</p>
 			<p><input type="submit" name="person_edit" value="Update"></p>

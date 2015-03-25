@@ -107,7 +107,6 @@ public class DataSource {
 	
 	public Person getPersonById(Integer personId) {
 		Person person = null;
-		List<Person> personList = new ArrayList<Person>();
 		Connection connection = JDBC.connect();
 		String sql = "SELECT * FROM persons WHERE person_id = ?";
 		
@@ -120,7 +119,6 @@ public class DataSource {
 	    		rs = stmt.executeQuery();
 	    		if (rs.next()) {
 	    			person = new Person(rs);
-	    			personList.add(person);
 	    		}
 	    	} catch (SQLException e) {
 	    		e.printStackTrace();
@@ -287,6 +285,67 @@ public class DataSource {
 		JDBC.closeConnection();
 		return fdList;
 	}
-	
-	
+
+	public User getUserByUserName(String username) {
+		User user = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM users WHERE user_name = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setString(1, username);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			user = new User(rs);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		JDBC.closeConnection();
+		return user;
+	}
+
+	public void updateUser(String originalUsername, User user) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = user.generateUpdateSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setString(1, user.getUserName());
+	    		stmt.setString(2, user.getPassword());
+	    		stmt.setString(3, user.getUserClass());
+	    		stmt.setInt(4, user.getPersonId());
+	    		
+	    		java.sql.Date sqlDate = new java.sql.Date(user.getDateRegistered().getTime());
+	    		stmt.setDate(5, sqlDate);
+	    		
+	    		stmt.setString(6, originalUsername);
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}	
 }

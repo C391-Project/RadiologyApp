@@ -92,4 +92,34 @@
     <servlet-name>UserManagePersonsEdit</servlet-name>
     <url-pattern>/usermanage/persons/edit</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageUsers</display-name>
+    <servlet-name>UserManageUsers</servlet-name>
+    <servlet-class>servlets.usermanage.Users</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageUsers</servlet-name>
+    <url-pattern>/usermanage/users</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageUsersAdd</display-name>
+    <servlet-name>UserManageUsersAdd</servlet-name>
+    <servlet-class>servlets.usermanage.UsersAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageUsersAdd</servlet-name>
+    <url-pattern>/usermanage/users/add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageUsersEdit</display-name>
+    <servlet-name>UserManageUsersEdit</servlet-name>
+    <servlet-class>servlets.usermanage.UsersEdit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageUsersEdit</servlet-name>
+    <url-pattern>/usermanage/users/edit</url-pattern>
+  </servlet-mapping>
 </web-app>

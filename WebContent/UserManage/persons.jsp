@@ -41,7 +41,7 @@
 				<td><%= person.getAddress() %></td>
 				<td><%= person.getEmail() %></td>
 				<td><%= person.getPhone() %></td>
-				<td><a href="/RadiologyApp/usermanage/persons/edit?id=<%= person.getPersonId()%>">Edit</a>
+				<td><a href="/RadiologyApp/usermanage/persons/edit?id=<%= person.getPersonId()%>">Edit</a></td>
 			</tr>
 		<%
 		}

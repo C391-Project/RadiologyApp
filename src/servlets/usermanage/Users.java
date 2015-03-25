@@ -15,18 +15,19 @@ import utilities.StateManager;
 import db.DataSource;
 import db.JDBC;
 import db.Person;
+import db.User;
 
 /**
- * Servlet implementation class Persons
+ * Servlet implementation class Users
  */
-public class Persons extends HttpServlet {
+public class Users extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Persons() {
+    public Users() {
         super();
         this.dataSource = new DataSource();
     }
@@ -38,9 +39,9 @@ public class Persons extends HttpServlet {
 		StateManager sm = new StateManager(request, response);
 		if (!sm.verifyPage()) return;
 		
-		List<Person> personList = dataSource.getPersonList();
-		request.setAttribute("personList", personList);
-		RequestDispatcher view = request.getRequestDispatcher("/UserManage/persons.jsp");
+		List<User> userList = dataSource.getUserList();
+		request.setAttribute("userList", userList);
+		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users.jsp");
 		view.forward(request, response);
 	}
 
@@ -48,40 +49,36 @@ public class Persons extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Check Security and DB Connection
+		// Check security and database configuration
 		StateManager sm = new StateManager(request, response);
 		if (!sm.verifyPage()) return;
 		
 		HttpSession session = request.getSession();
 		
-		// Add Person
-		boolean isPersonSubmit = (request.getParameter("person_submit") != null);
-		if (isPersonSubmit) {
-			Integer nextPersonId = dataSource.getNextPersonId();
-			Person personToSubmit = new Person(nextPersonId, request);
-			if (personToSubmit.isValid()) {
-				dataSource.submitPerson(personToSubmit);
+		// Add User
+		boolean isUserSubmit = (request.getParameter("user_submit") != null);
+		if (isUserSubmit) {
+			User userToSubmit = new User(request);
+			if (userToSubmit.isValid()) {
+				dataSource.submitUser(userToSubmit);
 			} else {
-				session.setAttribute("error", "Person Information Not Valid");
+				session.setAttribute("error", "User Information Not Valid");
 			}
 		}
 		
-		// Edit Person
-		boolean isPersonEdit = (request.getParameter("person_edit") != null);
-		if (isPersonEdit) {
-			Integer personId = Integer.parseInt(request.getParameter("p_person_id"));
-			Person personToEdit = new Person(personId, request);
-			if (personToEdit.isValid()) {
-				dataSource.updatePerson(personToEdit);
+		// Edit User
+		boolean isUserEdit = (request.getParameter("user_edit") != null);
+		if (isUserEdit) {
+			User userToEdit = new User(request);
+			if (userToEdit.isValid()) {
+				dataSource.updateUser(request.getParameter("u_original_user_name"), userToEdit);
 			} else {
-				session.setAttribute("error", "Person Information Not Valid");
+				session.setAttribute("error", "User Information Not Valid");
 			}
 		}
 		
 		// Submit a GET request to this servlet to view results.
-		response.sendRedirect("/RadiologyApp/usermanage/persons");
+		response.sendRedirect("/RadiologyApp/usermanage/users");
 	}
-			
-			
-
+	
 }
