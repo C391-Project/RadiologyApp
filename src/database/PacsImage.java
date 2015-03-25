@@ -1,7 +1,6 @@
 package database;
 
 public class PacsImage implements Table {
-
 	@Override
 	public boolean isValid() {
 		// TODO Auto-generated method stub

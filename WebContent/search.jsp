@@ -12,7 +12,6 @@
 </html>
 
 <% String pageName = "search"; %>
-<%@ include file="dbinterface.jsp" %>
 <div class="container">
 	<form name="searchForm" method="post" role="form">
 	<h1>Search</h1>
@@ -33,8 +32,27 @@
 
 <%@ page import="java.sql.*"%>
 <%
+	
+String driverName = "oracle.jdbc.driver.OracleDriver";
+String dbhomestring="jdbc:oracle:thin:@localhost:1525:CRS"; //working from home
+String dblabstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; //working form school
+String dbstring="jdbc:oracle:thin:@localhost:1525:CRS";
+dbstring=dblabstring;
+
+try{
+    //load and register the driver
+	Class drvClass = Class.forName(driverName); 
+	DriverManager.registerDriver((Driver) drvClass.newInstance());
+}
+catch(Exception ex){
+    out.println("<hr>" + ex.getMessage() + "<hr>");
+
+}
+
+	String userType = "r"; 
 	//When submit is hit get all of its fields 
 	int ID = (Integer) session.getAttribute("id");
+	ID = 8;
 	if (request.getParameter("Submit") != null) {
 		String keywords[] = (request.getParameter("KEYWORDS")).trim().split("\\s+");
 		String dateFrom = (request.getParameter("FROM")).trim();
@@ -42,6 +60,8 @@
 		String orderBy = (request.getParameter("ORDER")).trim();
 		//establish the connection to the underlying database
 		Connection conn = null;
+		conn = DriverManager.getConnection(dblabstring,"devito","enter143cool");
+		
 %>
 <% //TODO //DATABASECONNECT %>
 <%
@@ -59,13 +79,23 @@
 	" WHERE p1.person_id = r.patient_id AND p2.person_id = r.doctor_id AND p3.person_id = r.radiologist_id";
 	
 	//TODO GET THE USER INFORMATION FROM THE db AND PARSE ALL OF THAT STUFF
-	//if (UserType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
-	//else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
-	//else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
+	if (userType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
+	else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
+	else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
 	
 	if (!keywords[0].isEmpty()) {
-		//TODO This could wind up being very difficult
+		//TODO NEED TO PARSE THE KEYWORDS FIELD
+		sql += " AND (CONTAINS(p1.first_name, '" + keywords[0];
+		for (int i = 1; i < keywords.length; i++) { sql += " AND " + keywords[i]; }
+		sql += "', 1) > 0 OR CONTAINS(p1.last_name, '" + keywords[0];
+		for (int i = 1; i < keywords.length; i++) { sql += " AND " + keywords[i]; }
+		sql += "', 2) > 0 OR CONTAINS(r.diagnosis, '" + keywords[0];
+		for (int i = 1; i < keywords.length; i++) { sql += " AND " + keywords[i]; }
+		sql += "', 3) > 0 OR CONTAINS(r.description, '" + keywords[0];
+		for (int i = 1; i < keywords.length; i++)	{ sql += " AND " + keywords[i]; }
+		sql += "', 4) > 0)";
 	}
+	sql += " ORDER BY";
 	if (orderBy.equals("newest")) { sql += " test_date, record_id DESC"; }
 	else if (orderBy.equals("oldest")) { sql += " test_date, record_id ASC";}
 	//Ranking specification on 
@@ -77,7 +107,28 @@
 	//Try to execute the stament
 	try {
 		stmt = conn.createStatement();
+		out.print(sql);
 		rset = stmt.executeQuery(sql);
+		int recordID;
+		int imageID;
+		String patientName;
+		String doctorName;
+		boolean hasNext = false;
+		if (rset != null && rset.next())
+		hasNext = true;
+		while (hasNext)
+		{
+			out.println("hello");
+		recordID = rset.getInt(1);
+		imageID = rset.getInt(2);
+		patientName = rset.getString(3).trim();
+		out.println(patientName);
+		doctorName = rset.getString(4).trim();
+		out.println(doctorName);
+		}
+		while(rset.next()) {
+			out.print(rset.getString(1));
+		}
 	} catch (Exception ex) {
 	out.println("<hr>" + ex.getMessage() + "<hr>");
 	}
@@ -90,5 +141,7 @@
 	}
 }
 %>
+
+
 </body>
 </html>

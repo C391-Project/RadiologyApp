@@ -95,6 +95,7 @@
         	
         	out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	session.setAttribute("usertype",truetype);
+        	session.setAttribute("id",10 );
         	//display the result
 	        if(passwd.equals(truepwd))
 	        {
