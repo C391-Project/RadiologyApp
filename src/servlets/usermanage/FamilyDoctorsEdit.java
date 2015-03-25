@@ -13,20 +13,20 @@ import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
 import database.DataSource;
+import database.FamilyDoctor;
 import database.JDBC;
 import database.Person;
-import database.User;
 
 /**
- * Servlet implementation class UsersEdit
+ * Servlet implementation class dblogin
  */
-public class UsersEdit extends HttpServlet {
+public class FamilyDoctorsEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersEdit() {
+    public FamilyDoctorsEdit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,16 +35,18 @@ public class UsersEdit extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		// Check Security and Database Connection
 		Bouncer sm = new Bouncer(request, response);
 		if (!sm.verifyPage()) return;
 		
-		String username = request.getParameter("username");
+		Integer doctorId = Integer.parseInt(request.getParameter("d-id"));
+		Integer patientId = Integer.parseInt(request.getParameter("p-id"));
 		
 		DataSource dataSource = new DataSource();
-		User user = dataSource.getUserByUserName(username);
+		FamilyDoctor fd = dataSource.getFamilyDoctorByIds(doctorId, patientId);
 		
-		request.setAttribute("user", user);
-		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users-edit.jsp");
+		request.setAttribute("family-doctor", fd);
+		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors-edit.jsp");
 		view.forward(request, response);
 	}
 

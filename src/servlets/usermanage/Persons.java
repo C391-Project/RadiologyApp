@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utilities.StateManager;
+import security.Bouncer;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
@@ -35,7 +35,7 @@ public class Persons extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StateManager sm = new StateManager(request, response);
+		Bouncer sm = new Bouncer(request, response);
 		if (!sm.verifyPage()) return;
 		
 		List<Person> personList = dataSource.getPersonList();
@@ -49,7 +49,7 @@ public class Persons extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Check Security and DB Connection
-		StateManager sm = new StateManager(request, response);
+		Bouncer sm = new Bouncer(request, response);
 		if (!sm.verifyPage()) return;
 		
 		HttpSession session = request.getSession();

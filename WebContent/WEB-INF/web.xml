@@ -122,4 +122,34 @@
     <servlet-name>UserManageUsersEdit</servlet-name>
     <url-pattern>/usermanage/users/edit</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageFamilyDoctors</display-name>
+    <servlet-name>UserManageFamilyDoctors</servlet-name>
+    <servlet-class>servlets.usermanage.FamilyDoctors</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageFamilyDoctors</servlet-name>
+    <url-pattern>/usermanage/family-doctors</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageFamilyDoctorsAdd</display-name>
+    <servlet-name>UserManageFamilyDoctorsAdd</servlet-name>
+    <servlet-class>servlets.usermanage.FamilyDoctorsAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageFamilyDoctorsAdd</servlet-name>
+    <url-pattern>/usermanage/family-doctors/add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserManageFamilyDoctorsEdit</display-name>
+    <servlet-name>UserManageFamilyDoctorsEdit</servlet-name>
+    <servlet-class>servlets.usermanage.FamilyDoctorsEdit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManageFamilyDoctorsEdit</servlet-name>
+    <url-pattern>/usermanage/family-doctors/edit</url-pattern>
+  </servlet-mapping>
 </web-app>

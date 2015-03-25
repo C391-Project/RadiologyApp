@@ -41,6 +41,15 @@ public class FamilyDoctor implements Table {
 	public String generateInsertSql() {
 		return "INSERT INTO FAMILY_DOCTOR VALUES (?,?)";
 	}
+	
+	@Override
+	public String generateUpdateSql() {
+		return "UPDATE family_doctor"
+				+ " SET doctor_id = ?,"
+				+ " patient_id = ?"
+			+ "WHERE doctor_id = ? "
+				+ "AND patient_id = ?";
+	}
 
 	public Integer getDoctorId() {
 		return doctorId;

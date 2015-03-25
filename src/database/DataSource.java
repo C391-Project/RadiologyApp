@@ -253,63 +253,6 @@ public class DataSource {
 		return userList;
 	}
 
-	public void submitFamilyDoctor(FamilyDoctor fd) {
-		Connection connection = JDBC.connect();
-    	PreparedStatement stmt = null;
-    	String sql = fd.generateInsertSql();
-    	if (JDBC.hasConnection()) {
-	    	try {
-	    		stmt = connection.prepareStatement(sql);
-	    		stmt.setInt(1, fd.getDoctorId());
-	    		stmt.setInt(2, fd.getPatientId());
-	    		stmt.executeUpdate();
-	    	} catch (SQLException e) {
-	    		e.printStackTrace();
-	    	} finally {
-	    		if (stmt != null) {
-					try {
-						stmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-	    		}
-	    	}
-    	}
-		JDBC.closeConnection();
-	} 
-	
-	public List<FamilyDoctor> getFamilyDoctorList() {
-		FamilyDoctor fd = null;
-		List<FamilyDoctor> fdList = new ArrayList<FamilyDoctor>();
-		Connection connection = JDBC.connect();
-		String sql = "SELECT * FROM FAMILY_DOCTOR";
-		
-		if (JDBC.hasConnection()) {
-			Statement stmt = null;
-	    	ResultSet rs = null;
-	    	try {
-	    		stmt = connection.createStatement();
-	    		rs = stmt.executeQuery(sql);
-	    		while (rs.next()) {
-	    			fd = new FamilyDoctor(rs);
-	    			fdList.add(fd);
-	    		}
-	    	} catch (SQLException e) {
-	    		e.printStackTrace();
-	    	} finally {
-	    		if (stmt != null) {
-					try {
-						stmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-	    		}
-	    	}
-		}
-		JDBC.closeConnection();
-		return fdList;
-	}
-
 	public User getUserByUserName(String username) {
 		User user = null;
 		Connection connection = JDBC.connect();
@@ -396,4 +339,146 @@ public class DataSource {
     	}
 		JDBC.closeConnection();
 	}
+	
+	public void submitFamilyDoctor(FamilyDoctor fd) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = fd.generateInsertSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, fd.getDoctorId());
+	    		stmt.setInt(2, fd.getPatientId());
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	} 
+	
+	public List<FamilyDoctor> getFamilyDoctorList() {
+		FamilyDoctor fd = null;
+		List<FamilyDoctor> fdList = new ArrayList<FamilyDoctor>();
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM FAMILY_DOCTOR";
+		
+		if (JDBC.hasConnection()) {
+			Statement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.createStatement();
+	    		rs = stmt.executeQuery(sql);
+	    		while (rs.next()) {
+	    			fd = new FamilyDoctor(rs);
+	    			fdList.add(fd);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		JDBC.closeConnection();
+		return fdList;
+	}
+	
+	public FamilyDoctor getFamilyDoctorByIds(Integer doctor_id, Integer patient_id) {
+		FamilyDoctor fd = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM family_doctor WHERE doctor_id = ? AND patient_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, doctor_id);
+	    		stmt.setInt(2, patient_id);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			fd = new FamilyDoctor(rs);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		JDBC.closeConnection();
+		return fd;
+	}
+
+	public void updateFamilyDoctor(Integer originalDoctorId, Integer originalPatientId, FamilyDoctor fd) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = fd.generateUpdateSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, fd.getDoctorId());
+	    		stmt.setInt(2, fd.getPatientId());
+	    		stmt.setInt(3, originalDoctorId);
+	    		stmt.setInt(4, originalPatientId);
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}	
+	
+	public void deleteFamilyDoctor(Integer doctorId, Integer patientId) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = "DELETE FROM family_doctor WHERE doctor_id = ? AND patient_id = ?";
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, doctorId);
+	    		stmt.setInt(2, patientId);
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}
+	
 }
