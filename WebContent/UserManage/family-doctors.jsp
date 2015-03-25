@@ -33,7 +33,7 @@
 			<tr>
 				<td><%= fd.getDoctorId() %></td>
 				<td><%= fd.getPatientId() %></td>
-				<td><a href="/RadiologyApp/usermanage/persons/edit?d-id=<%= fd.getDoctorId()%>&p-id=<%= fd.getPatientId()%>">Edit</a></td>
+				<td><a href="/RadiologyApp/usermanage/family-doctors/edit?d-id=<%= fd.getDoctorId()%>&p-id=<%= fd.getPatientId()%>">Edit</a></td>
 			</tr>
 		<%
 		}

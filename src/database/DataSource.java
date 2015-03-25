@@ -439,7 +439,7 @@ public class DataSource {
 	    		stmt.setInt(1, fd.getDoctorId());
 	    		stmt.setInt(2, fd.getPatientId());
 	    		stmt.setInt(3, originalDoctorId);
-	    		stmt.setInt(4, originalDoctorId);
+	    		stmt.setInt(4, originalPatientId);
 	    		stmt.executeUpdate();
 	    	} catch (SQLException e) {
 	    		e.printStackTrace();

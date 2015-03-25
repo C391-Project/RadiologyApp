@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Edit Person</title>
+	<title>Edit Family Doctor</title>
 	<link href="/RadiologyApp/includes/style.css" rel="stylesheet">
 </head>
 <body>

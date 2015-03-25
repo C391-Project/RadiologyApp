@@ -46,7 +46,7 @@ public class FamilyDoctorsEdit extends HttpServlet {
 		FamilyDoctor fd = dataSource.getFamilyDoctorByIds(doctorId, patientId);
 		
 		request.setAttribute("family-doctor", fd);
-		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctor-edit.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors-edit.jsp");
 		view.forward(request, response);
 	}
 

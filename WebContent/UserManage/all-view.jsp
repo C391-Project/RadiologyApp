@@ -183,11 +183,11 @@
     	<fieldset>
     		<legend>Add Family Doctor</legend>
     		<p>
-				<label for="f_doctor_id">DOCTOR_ID: </label><br>
+				<label for="f_doctor_id">Doctor ID: </label><br>
 				<input type="text" id="f_doctor_id" name="f_doctor_id" value="" placeholder="">
 			</p>
 			<p>
-				<label for="f_patient_id">PATIENT_ID: </label><br>
+				<label for="f_patient_id">Patient ID: </label><br>
 				<input type="text" id="f_patient_id" name="f_patient_id" value="" placeholder="">
 			</p>
 			<p><input type="submit" name="family_doctor_submit" value="Submit"></p>

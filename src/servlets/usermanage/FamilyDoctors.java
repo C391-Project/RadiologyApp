@@ -43,7 +43,7 @@ public class FamilyDoctors extends HttpServlet {
 		
 		List<FamilyDoctor> fdList = dataSource.getFamilyDoctorList();
 		request.setAttribute("fdList", fdList);
-		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctor.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors.jsp");
 		view.forward(request, response);
 	}
 
@@ -71,8 +71,8 @@ public class FamilyDoctors extends HttpServlet {
 		// Edit Family Doctor
 		boolean isFamilyDoctorEdit = (request.getParameter("family_doctor_edit") != null);
 		if (isFamilyDoctorEdit) {
-			Integer originalDoctorId = Integer.parseInt(request.getParameter("f_doctor_id"));
-			Integer originalPatientId = Integer.parseInt(request.getParameter("f_patient_id"));
+			Integer originalDoctorId = Integer.parseInt(request.getParameter("f_original_doctor_id"));
+			Integer originalPatientId = Integer.parseInt(request.getParameter("f_original_patient_id"));
 			FamilyDoctor fdToEdit = new FamilyDoctor(request);
 			if (fdToEdit.isValid()) {
 				dataSource.updateFamilyDoctor(originalDoctorId, originalPatientId, fdToEdit);
@@ -84,8 +84,8 @@ public class FamilyDoctors extends HttpServlet {
 		// Delete Family Doctor
 		boolean isFamilyDoctorDelete = (request.getParameter("family_doctor_delete") != null);
 		if (isFamilyDoctorDelete) {
-			Integer doctorId = Integer.parseInt(request.getParameter("f_original_doctor_id"));
-			Integer patientId = Integer.parseInt(request.getParameter("f_original_patient_id"));
+			Integer doctorId = Integer.parseInt(request.getParameter("f_doctor_id"));
+			Integer patientId = Integer.parseInt(request.getParameter("f_patient_id"));
 			dataSource.deleteFamilyDoctor(doctorId, patientId);
 		}
 		
