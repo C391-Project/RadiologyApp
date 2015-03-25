@@ -74,17 +74,16 @@ catch(Exception ex){
 	String sql = "SELECT r.record_id, image_id, CONCAT(p1.first_name, CONCAT(' ', p1.last_name))," +
 	" CONCAT(p2.first_name, CONCAT(' ', p2.last_name))," +
 	" CONCAT(p3.first_name, CONCAT(' ', p3.last_name))," +
-	" test_type, TO_CHAR(prescribing_date, 'DD-MON-YYYY'), TO_CHAR(test_date, 'DD-MON-YYYY'), diagnosis, description" +
+	" test_type, TO_DATE(prescribing_date, 'DD-MON-YYYY'), TO_DATE(test_date, 'DD-MON-YYYY'), diagnosis, description" +
 	" FROM radiology_record r LEFT OUTER JOIN pacs_images i ON r.record_id = i.record_id, persons p1, persons p2, persons p3" +
 	" WHERE p1.person_id = r.patient_id AND p2.person_id = r.doctor_id AND p3.person_id = r.radiologist_id";
 	
 	//TODO GET THE USER INFORMATION FROM THE db AND PARSE ALL OF THAT STUFF
-	if (userType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
-	else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
-	else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
+	//if (userType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
+	//else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
+	//else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
 	
 	if (!keywords[0].isEmpty()) {
-		//TODO NEED TO PARSE THE KEYWORDS FIELD
 		sql += " AND (CONTAINS(p1.first_name, '" + keywords[0];
 		for (int i = 1; i < keywords.length; i++) { sql += " AND " + keywords[i]; }
 		sql += "', 1) > 0 OR CONTAINS(p1.last_name, '" + keywords[0];
@@ -107,27 +106,26 @@ catch(Exception ex){
 	//Try to execute the stament
 	try {
 		stmt = conn.createStatement();
-		out.print(sql);
+		//out.print(sql);
 		rset = stmt.executeQuery(sql);
 		int recordID;
 		int imageID;
 		String patientName;
 		String doctorName;
-		boolean hasNext = false;
-		if (rset != null && rset.next())
-		hasNext = true;
-		while (hasNext)
+		while (rset.next())
 		{
-			out.println("hello");
+			//out.println("hello");
 		recordID = rset.getInt(1);
 		imageID = rset.getInt(2);
 		patientName = rset.getString(3).trim();
+		out.println("test_Patientname:");
 		out.println(patientName);
 		doctorName = rset.getString(4).trim();
+		out.println("   test_doctorname:");
 		out.println(doctorName);
-		}
-		while(rset.next()) {
-			out.print(rset.getString(1));
+		out.println("   test_recordID:");
+		out.println(recordID);
+		out.println(imageID);
 		}
 	} catch (Exception ex) {
 	out.println("<hr>" + ex.getMessage() + "<hr>");
