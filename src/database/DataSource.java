@@ -372,4 +372,28 @@ public class DataSource {
     	}
 		JDBC.closeConnection();
 	}	
+	
+	public void deleteUser(String username) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = "DELETE FROM users WHERE user_name = ?";
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setString(1, username);
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}
 }

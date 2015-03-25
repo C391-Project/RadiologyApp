@@ -77,6 +77,12 @@ public class Users extends HttpServlet {
 			}
 		}
 		
+		boolean isUserDelete = (request.getParameter("user_delete") != null);
+		if (isUserDelete) {
+			String username = request.getParameter("u_user_name");
+			dataSource.deleteUser(username);
+		}
+		
 		// Submit a GET request to this servlet to view results.
 		response.sendRedirect("/RadiologyApp/usermanage/users");
 	}

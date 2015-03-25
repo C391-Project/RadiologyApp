@@ -41,5 +41,12 @@
 			<p><input type="submit" name="user_edit" value="Submit"></p>
 		</fieldset>
 	</form>
+	<form action="/RadiologyApp/usermanage/users" method="post">
+		<fieldset>
+    		<legend>Delete User</legend>
+    		<input type="hidden" name="u_user_name" value="<%= user.getUserName() %>">
+			<p><input type="submit" name="user_delete" value="Delete User <%= user.getUserName() %>"></p>
+		</fieldset>
+	</form>
 </body>
 </html>
