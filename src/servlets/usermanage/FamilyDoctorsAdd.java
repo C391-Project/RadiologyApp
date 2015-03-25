@@ -11,22 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import security.Bouncer;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
-import database.User;
 
 /**
- * Servlet implementation class UsersEdit
+ * Servlet implementation class FamilyDoctorsAdd
  */
-public class UsersEdit extends HttpServlet {
+public class FamilyDoctorsAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersEdit() {
+    public FamilyDoctorsAdd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,16 +33,7 @@ public class UsersEdit extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
-		
-		String username = request.getParameter("username");
-		
-		DataSource dataSource = new DataSource();
-		User user = dataSource.getUserByUserName(username);
-		
-		request.setAttribute("user", user);
-		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users-edit.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors-add.jsp");
 		view.forward(request, response);
 	}
 

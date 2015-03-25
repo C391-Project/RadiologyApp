@@ -1,4 +1,4 @@
-package utilities;
+package security;
 
 import java.io.IOException;
 
@@ -8,11 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import database.DataSource;
 
-public class StateManager {
+public class Bouncer {
 	private HttpServletRequest request = null;
 	private HttpServletResponse response = null;
 	
-	public StateManager(HttpServletRequest request, HttpServletResponse response) {
+	public Bouncer(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
 	}
