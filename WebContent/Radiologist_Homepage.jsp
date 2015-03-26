@@ -49,5 +49,9 @@
 			
 	%>
 	
+	<form action="dbinterface.jsp">
+    		<input type="submit" value="Upload record">
+	</form>
+	
 </body>
 </html>

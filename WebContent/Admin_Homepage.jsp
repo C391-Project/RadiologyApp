@@ -47,8 +47,12 @@
 			
 	%>
 	<h3>
-		<form action="dbinterface.jsp">
-    		<input type="submit" value="Add User">
+		<form action="UserManage/persons.jsp">
+    		<input type="submit" value="Manage Users">
+		</form>
+		
+		<form action="reportgenerate.jsp">
+    		<input type="submit" value="Generate report">
 		</form>
 		
 		<form action="LogoutServlet" method="post">
