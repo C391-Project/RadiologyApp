@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.Session;
+
+import database.JDBC;
+
 
 @SuppressWarnings("serial")
 public class OracleLogout extends HttpServlet {
@@ -19,9 +23,10 @@ public class OracleLogout extends HttpServlet {
 	}
 
 	 @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	        request.getSession().invalidate();
-	        response.sendRedirect("/RadiologyApp/oracle-login");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		 request.getSession().invalidate();
+		 JDBC.configure(null, null, false);
+	     response.sendRedirect("/RadiologyApp/oracle-login");
 	}
 
 }
