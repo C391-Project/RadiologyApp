@@ -1,5 +1,8 @@
 package database;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +10,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.fileupload.FileItem;
+
+import java.sql.Blob;
 
 public class DataSource {
 	
@@ -41,7 +50,7 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		return lastId + 1;
+		return (lastId == null) ? 0 : lastId + 1;
 	}
 	
 	public void submitPerson(Person person) {
@@ -479,6 +488,117 @@ public class DataSource {
 	    	}
     	}
 		JDBC.closeConnection();
+	}
+	
+	public Integer getNextPacsImageId() {
+		Integer lastId = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT MAX(image_id) AS id FROM pacs_images";
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			lastId = rs.getInt("id");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return (lastId == null) ? 0 : lastId + 1;
+	}
+
+	public void submitPacsImage(PacsImage pacsImage) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = pacsImage.generateInsertSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, pacsImage.getRecordId());
+	    		stmt.setInt(2, pacsImage.getImageId());
+	    		
+	    		// Write thumbnail into prepared statement
+	    		ByteArrayOutputStream os = new ByteArrayOutputStream();
+	    		ImageIO.write(pacsImage.getThumbnail(), "jpg", os);
+	    		byte[] imageAsBytes = os.toByteArray();
+	    		InputStream is = new ByteArrayInputStream(imageAsBytes);
+	    		stmt.setBinaryStream(3, is, (int) imageAsBytes.length);
+	    		os.close();
+	    		is.close();
+	    		
+	    		// Write regular size image into prepared statement
+	    		os = new ByteArrayOutputStream();
+	    		ImageIO.write(pacsImage.getRegularSize(), "jpg", os);
+	    		imageAsBytes = os.toByteArray();
+	    		is = new ByteArrayInputStream(imageAsBytes);
+	    		stmt.setBinaryStream(4, is, (int) imageAsBytes.length);
+	    		os.close();
+	    		is.close();
+	    		
+	    		// Write full size image into prepared statement
+	    		os = new ByteArrayOutputStream();
+	    		ImageIO.write(pacsImage.getFullSize(), "jpg", os);
+	    		imageAsBytes = os.toByteArray();
+	    		is = new ByteArrayInputStream(imageAsBytes);
+	    		stmt.setBinaryStream(5, is, (int) imageAsBytes.length);
+	    		os.close();
+	    		is.close();
+	    		
+	    		stmt.executeUpdate();
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}
+
+	public Blob getImageBlobThumbnailById(Integer imageId) {
+		Blob b = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT thumbnail FROM pacs_images WHERE image_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, imageId);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			b = rs.getBlob("thumbnail");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return b;
 	}
 	
 }

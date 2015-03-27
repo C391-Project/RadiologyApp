@@ -152,4 +152,34 @@
     <servlet-name>UserManageFamilyDoctorsEdit</servlet-name>
     <url-pattern>/usermanage/family-doctors/edit</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadImages</display-name>
+    <servlet-name>UploadImages</servlet-name>
+    <servlet-class>servlets.upload.UploadImages</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadImages</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadImagesAdd</display-name>
+    <servlet-name>UploadImagesAdd</servlet-name>
+    <servlet-class>servlets.upload.UploadImagesAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadImagesAdd</servlet-name>
+    <url-pattern>/upload/image</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImageThumbnail</display-name>
+    <servlet-name>ImageThumbnail</servlet-name>
+    <servlet-class>servlets.upload.ImageThumbnail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImageThumbnail</servlet-name>
+    <url-pattern>/images/thumbnail</url-pattern>
+  </servlet-mapping>
 </web-app>

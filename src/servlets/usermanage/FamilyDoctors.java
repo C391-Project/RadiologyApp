@@ -40,7 +40,6 @@ public class FamilyDoctors extends HttpServlet {
 		Bouncer sm = new Bouncer(request, response);
 		if (!sm.verifyPage()) return;
 		
-		
 		List<FamilyDoctor> fdList = dataSource.getFamilyDoctorList();
 		request.setAttribute("fdList", fdList);
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors.jsp");
