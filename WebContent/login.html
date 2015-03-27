@@ -5,28 +5,12 @@
 
 <BODY>
 <h1>User Login</h1>
-	<form method="post" action="login.jsp">
+	<form method="post" action="LoginServlet">
 		<p><input type="text" name="USERID" value="" placeholder="Username"></p>
 		<p><input type="password" name="PASSWD" value="" placeholder="Password"></p>
-		<!--
-		<p>user type: 
-			<select name="usertype">
-				<option value="p">Patient</option>
-				<option value="d">Doctor</option>
-				<option value="r">Radiologist</option>
-				<option value="a">Admin</option>
-			</select>
-		</p>
-		-->
 		<p><input type="checkbox" name="labconnection" value="yes">Connecting From Lab</p>
 		<p class="submit"><input type="submit" name="Submit" value="Login"></p>
 	</form>
 <hr>
-<!-- 
-<p>Test Cases:</p>
-<p>Username: admin; Password: pass; Class: Admin;</p>
-<p>Username: patient; Password: pass; Class: Patient;</p>
-Notice: execute login.sql in your database first to initialize the database(you will have to create all the required tables first).
---> 
 </BODY>
 </HTML>

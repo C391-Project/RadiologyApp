@@ -8,10 +8,14 @@
 <BODY>
 
 <%@ page import="java.sql.*" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <% 
         if(request.getParameter("Submit") != null)
         {
 	        //get the user input from the login page
+	       
+	        String DBusername = session.getAttribute("dbusername").toString();
+			String DBpassword = session.getAttribute("dbpassword").toString();
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
 	        String truepwd="";
@@ -51,7 +55,7 @@
 	
         	try{
 	        	//establish the connection 
-		        conn = DriverManager.getConnection(dbstring,"cheng10","DB1993izo8");
+		        conn = DriverManager.getConnection(dbstring,DBusername,DBpassword);
         		conn.setAutoCommit(false);
 	        }
         	catch(Exception ex){
@@ -95,6 +99,7 @@
         	
         	out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	session.setAttribute("usertype",truetype);
+        	//request.getSession().setAttribute("id",10 );
         	//display the result
 	        if(passwd.equals(truepwd))
 	        {
@@ -161,11 +166,14 @@
         }
         else
         {
-                out.println("<form method=post action=login.jsp>");
+        		response.sendRedirect("login.html");
+                /*
+        		out.println("<form method=post action=login.jsp>");
                 out.println("UserName: <input type=text name=USERID maxlength=20><br>");
                 out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
                 out.println("<input type=submit name=Submit value=Submit>");
                 out.println("</form>");
+                */
         }      
 %>
 

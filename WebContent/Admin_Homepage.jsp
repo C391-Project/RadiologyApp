@@ -8,6 +8,7 @@
 	<h1>Administrator's Homepage </h1>
 	
 	<%
+	
 	String userName = null;
 	String usertype=null;
 	Cookie[] cookies = request.getCookies();
@@ -33,22 +34,29 @@
 			out.println("Username error, redireting to login page.");
 			response.setHeader("Refresh", "3; URL=login.html");	
 		}
+	
+		else if(usertype.equals("Admin"))
+			{
+				out.println("<h3>Login successful!</h3>");
+			}
+			else
+			{
+				out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
+				response.setHeader("Refresh", "3; URL=login.html");	
+			}
+		
 			
 			//response.sendRedirect("login.html");
-		if(usertype.equals("Admin"))
-		{
-			out.println("<h3>Login successful!</h3>");
-		}
-		else
-		{
-			out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-			response.setHeader("Refresh", "3; URL=login.html");	
-		}
+		
 			
 	%>
 	<h3>
-		<form action="dbinterface.jsp">
-    		<input type="submit" value="Add User">
+		<ul>
+			<li><a href="/RadiologyApp/usermanage">User Management Module</a></li>
+		</ul>
+		
+		<form action="reportgenerate.jsp">
+    		<input type="submit" value="Generate report">
 		</form>
 		
 		<form action="LogoutServlet" method="post">

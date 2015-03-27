@@ -181,5 +181,14 @@
   <servlet-mapping>
     <servlet-name>ImageThumbnail</servlet-name>
     <url-pattern>/images/thumbnail</url-pattern>
+   <servlet>
+    <description></description>
+    <display-name>OracleLogout</display-name>
+    <servlet-name>OracleLogout</servlet-name>
+    <servlet-class>OracleLogout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OracleLogout</servlet-name>
+    <url-pattern>/OracleLogout</url-pattern>
   </servlet-mapping>
 </web-app>
