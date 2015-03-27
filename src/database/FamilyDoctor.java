@@ -59,11 +59,4 @@ public class FamilyDoctor implements Table {
 		return patientId;
 	}
 
-	//TEMP DELETE THIS
-	@Override
-	public String generateUpdateSql() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
