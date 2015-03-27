@@ -115,12 +115,12 @@ public class JDBC {
     }
     
     /**
-     * Static method that close the connection to the database
+     * Static method that closes the connection to the database
      * 
-     * @return void
+     * @return true on success.
      **/
     
-    public static void closeConnection() {
+    public static boolean closeConnection() {
         if (connection == null) {
             errorHandler("No connection found", null);
         }
@@ -128,11 +128,13 @@ public class JDBC {
             try {
                 connection.close();
                 connection = null;
+                return true;
             }
             catch (SQLException e) {
                 errorHandler("Failed to close the connection", e);
             }
         }
+        return false;
     }
     
     /**
