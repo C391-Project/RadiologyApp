@@ -30,9 +30,9 @@
 	</form>
 </div>
 
-<%@ page import="java.sql.*"%>
+<%@ page import="java.sql.*,database.JDBC"%>
 <%
-	
+
 String driverName = "oracle.jdbc.driver.OracleDriver";
 String dbhomestring="jdbc:oracle:thin:@localhost:1525:CRS"; //working from home
 String dblabstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS"; //working form school
@@ -49,7 +49,7 @@ catch(Exception ex){
 
 }
 
-	String userType = "r"; 
+	String userType = "a"; 
 	//When submit is hit get all of its fields 
 	int ID = (Integer) session.getAttribute("id");
 	ID = 8;
@@ -60,8 +60,7 @@ catch(Exception ex){
 		String orderBy = (request.getParameter("ORDER")).trim();
 		//establish the connection to the underlying database
 		Connection conn = null;
-		conn = DriverManager.getConnection(dblabstring,"devito","enter143cool");
-		
+		conn = JDBC.connect();		
 %>
 <% //TODO //DATABASECONNECT %>
 <%
@@ -79,9 +78,9 @@ catch(Exception ex){
 	" WHERE p1.person_id = r.patient_id AND p2.person_id = r.doctor_id AND p3.person_id = r.radiologist_id";
 	
 	//TODO GET THE USER INFORMATION FROM THE db AND PARSE ALL OF THAT STUFF
-	//if (userType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
-	//else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
-	//else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
+	if (userType.equals("r")) { sql += " AND r.radiologist_id = '" + ID + "'";}
+	else if (userType.equals("d")) {sql += " AND r.doctor_id = '" + ID + "'"; }
+	else if (userType.equals("p")) {sql += " AND r.patient_id = '" + ID + "'";}
 	
 	if (!keywords[0].isEmpty()) {
 		sql += " AND (CONTAINS(p1.first_name, '" + keywords[0];
@@ -132,11 +131,8 @@ catch(Exception ex){
 	}
 	
 	//Close the connection
-	try {
-		conn.close();
-	} catch (Exception ex) {
-		out.println("<hr>" + ex.getMessage() + "<hr>");
-	}
+	JDBC.closeConnection();
+
 }
 %>
 
