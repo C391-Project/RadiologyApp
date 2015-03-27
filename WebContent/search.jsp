@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Search</title>
+<link href="/RadiologyApp/includes/style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -51,8 +52,11 @@ catch(Exception ex){
 
 	String userType = "a"; 
 	//When submit is hit get all of its fields 
-	int ID = (Integer) session.getAttribute("id");
-	ID = 8;
+	
+	// TODO get ID from session
+	//int ID = (Integer) session.getAttribute("id");
+	
+	int ID = 8;
 	if (request.getParameter("Submit") != null) {
 		String keywords[] = (request.getParameter("KEYWORDS")).trim().split("\\s+");
 		String dateFrom = (request.getParameter("FROM")).trim();
@@ -70,10 +74,10 @@ catch(Exception ex){
 	ResultSet rset = null;
 	//I think this will work I have no idea. I wrote it and tested it with SQLplus in mind
 	//but I have not tested it on here yet
-	String sql = "SELECT r.record_id, image_id, CONCAT(p1.first_name, CONCAT(' ', p1.last_name))," +
-	" CONCAT(p2.first_name, CONCAT(' ', p2.last_name))," +
-	" CONCAT(p3.first_name, CONCAT(' ', p3.last_name))," +
-	" test_type, TO_DATE(prescribing_date, 'DD-MON-YYYY'), TO_DATE(test_date, 'DD-MON-YYYY'), diagnosis, description" +
+	String sql = "SELECT r.record_id, r.patient_id, r.doctor_id, r.radiologist_id, image_id, CONCAT(p1.first_name, CONCAT(' ', p1.last_name)) AS patient_name," +
+	" CONCAT(p2.first_name, CONCAT(' ', p2.last_name)) AS doctor_name," +
+	" CONCAT(p3.first_name, CONCAT(' ', p3.last_name)) AS radiologist_name," +
+	" test_type, TO_DATE(prescribing_date, 'DD-MM-YY') AS prescribing_date, TO_DATE(test_date, 'DD-MM-YY') AS test_date, diagnosis, description" +
 	" FROM radiology_record r LEFT OUTER JOIN pacs_images i ON r.record_id = i.record_id, persons p1, persons p2, persons p3" +
 	" WHERE p1.person_id = r.patient_id AND p2.person_id = r.doctor_id AND p3.person_id = r.radiologist_id";
 	
@@ -111,23 +115,80 @@ catch(Exception ex){
 		int imageID;
 		String patientName;
 		String doctorName;
+		
+		// Generate Table Header
+		out.println("<table>");
+		out.println("<thead>");
+		out.println("<tr>");
+		out.println("<th>");
+		out.println("Record ID");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Patient Name (ID)");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Doctor Name (ID)");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Radiologist Name (ID)");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Test Type");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Prescribing Date");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Test Date");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Diagnosis");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Description");
+		out.println("</th>");
+		out.println("<th>");
+		out.println("Image");
+		out.println("</th>");
+		out.println("</tr>");
+		out.println("</thead>");
+		
 		while (rset.next())
 		{
 			//out.println("hello");
-		recordID = rset.getInt(1);
-		imageID = rset.getInt(2);
-		patientName = rset.getString(3).trim();
-		out.println("test_Patientname:");
-		out.println(patientName);
-		doctorName = rset.getString(4).trim();
-		out.println("   test_doctorname:");
-		out.println(doctorName);
-		out.println("   test_recordID:");
-		out.println(recordID);
-		out.println(imageID);
+			/* recordID = rset.getInt("record_id");
+			imageID = rset.getInt("image_id");
+			patientName = rset.getString(3).trim();
+			out.println("test_Patientname:");
+			out.println(patientName);
+			doctorName = rset.getString(4).trim();
+			out.println("   test_doctorname:");
+			out.println(doctorName);
+			out.println("   test_recordID:");
+			out.println(recordID);
+			out.println(imageID); */
+			
+			%> 
+				<tr>
+					<td><%= rset.getInt("record_id") %></td>
+					<td><%= rset.getString("patient_name") %> (<%= rset.getInt("patient_id") %>)</td>
+					<td><%= rset.getString("doctor_name") %> (<%= rset.getInt("doctor_id") %>)</td>
+					<td><%= rset.getString("radiologist_name") %> (<%= rset.getInt("radiologist_id") %>)</td>
+					<td><%= rset.getString("test_type") %></td>
+					<td><%= rset.getDate("prescribing_date") %></td>
+					<td><%= rset.getDate("test_date") %></td>
+					<td><%= rset.getString("diagnosis") %></td>
+					<td><%= rset.getString("description") %></td>
+					<td>
+						<a href="/RadiologyApp/images/fullsize?id=<%= rset.getInt("image_id") %>">
+							<img src="/RadiologyApp/images/thumbnail?id=<%= rset.getInt("image_id") %>">
+						</a>
+					</td>
+				</tr>
+			<%
 		}
 	} catch (Exception ex) {
-	out.println("<hr>" + ex.getMessage() + "<hr>");
+		out.println("<hr>" + ex.getMessage() + "<hr>");
 	}
 	
 	//Close the connection
