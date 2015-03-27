@@ -600,5 +600,65 @@ public class DataSource {
 		}
 		return b;
 	}
+
+	public Blob getImageBlobRegularById(Integer imageId) {
+		Blob b = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT regular_size FROM pacs_images WHERE image_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, imageId);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			b = rs.getBlob("regular_size");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return b;
+	}
+
+	public Blob getImageBlobFullById(Integer imageId) {
+		Blob b = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT full_size FROM pacs_images WHERE image_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, imageId);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			b = rs.getBlob("full_size");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return b;
+	}
 	
 }

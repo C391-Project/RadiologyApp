@@ -12,7 +12,7 @@
 	<%@include file="includes/header.html" %>
 	<p> 
 		Full Size:<br>
-		<img src="/RadiologyApp/images/full?id=<%= request.getAttribute("id") %>" alt="">
+		<img src="/RadiologyApp/images/fullsize?id=<%= request.getAttribute("id") %>" alt="">
 	</p>
 	<p>
 		Regular Size:<br>

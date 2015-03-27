@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class ImageResizer {
 	
 	private static int THUMBNAIL_SIZE = 125;
-	private static int REGULAR_SIZE = 500;
+	private static int REGULAR_SIZE = 400;
 
 	public ImageResizer() {}
 	

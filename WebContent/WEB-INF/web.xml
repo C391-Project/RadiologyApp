@@ -181,7 +181,28 @@
   <servlet-mapping>
     <servlet-name>ImageThumbnail</servlet-name>
     <url-pattern>/images/thumbnail</url-pattern>
-   <servlet>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImageRegular</display-name>
+    <servlet-name>ImageRegular</servlet-name>
+    <servlet-class>servlets.upload.ImageRegular</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImageRegular</servlet-name>
+    <url-pattern>/images/regular</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImageFullSize</display-name>
+    <servlet-name>ImageFullSize</servlet-name>
+    <servlet-class>servlets.upload.ImageFullSize</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImageFullSize</servlet-name>
+    <url-pattern>/images/fullsize</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <description></description>
     <display-name>OracleLogout</display-name>
     <servlet-name>OracleLogout</servlet-name>
