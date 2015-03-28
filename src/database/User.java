@@ -10,8 +10,6 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 public class User implements Table {
-	
-	// TODO Test
 
 	String userName = null;
 	String password = null;

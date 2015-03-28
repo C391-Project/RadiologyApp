@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Person implements Table {
 	
-	// Done
-	
 	Integer personId = null;
 	String firstName = null;
 	String lastName = null;
