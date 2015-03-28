@@ -37,7 +37,7 @@ public class Bouncer {
 	
 	public boolean verifyUserAccess() throws IOException {
 		//Should use security module.
-		/*
+		
 		HttpSession session = request.getSession();
 		String usertype = session.getAttribute("usertype").toString().trim();
 		
@@ -46,11 +46,11 @@ public class Bouncer {
 		{
 			session.setAttribute("returnPage", generateReturnUrl());
 			session.setAttribute("error", "Access denied. Not enought privilege.");
-			response.sendRedirect("/RadioloyApp/login.html");
+			response.sendRedirect("login.html");
 			return false;
 		}
 		
-		*/	
+		
 		return true;
 	}
 	
