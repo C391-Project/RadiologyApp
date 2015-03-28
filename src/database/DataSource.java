@@ -515,6 +515,14 @@ public class DataSource {
 		return fdList;
 	}
 	
+	/**
+	 * Retrieves a single family doctor row from the database matching the provided
+	 * doctor ID and patient ID and converts it into a family doctor object.
+	 * 
+	 * @param doctor_id		Doctor ID of the matching family doctor row.
+	 * @param patient_id	Patient ID of the matching family doctor row.
+	 * @return				The family doctor object generated from the retrieved sql column.
+	 */
 	public FamilyDoctor getFamilyDoctorByIds(Integer doctor_id, Integer patient_id) {
 		FamilyDoctor fd = null;
 		Connection connection = JDBC.connect();
@@ -547,6 +555,16 @@ public class DataSource {
 		return fd;
 	}
 
+	/**
+	 * Method for updating a single row in the family doctor table of the database. Generates
+	 * an SQL update statement using the information of the provided family doctor object. If
+	 * a family doctor row matches both the doctor ID and the patient ID, all columns will 
+	 * be updated with the information of the provided family doctor object.
+	 * 
+	 * @param originalDoctorId		The doctor ID of the matching family doctor row to update.
+	 * @param originalPatientId		The patient ID of the matching family doctor row to update.
+	 * @param fd					The family doctor object from which to generate the update information.
+	 */
 	public void updateFamilyDoctor(Integer originalDoctorId, Integer originalPatientId, FamilyDoctor fd) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -574,6 +592,14 @@ public class DataSource {
 		JDBC.closeConnection();
 	}	
 	
+	/**
+	 * Method to delete a single family doctor row from the family doctor table of the database.
+	 * Generates an sql delete statement from the provided doctor ID and patient ID and executes
+	 * the update, deleting the row with the matching IDs. 
+	 * 
+	 * @param doctorId		Doctor ID of the matching row to delete.
+	 * @param patientId		Patient ID of the matching row to delete.
+	 */
 	public void deleteFamilyDoctor(Integer doctorId, Integer patientId) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -599,6 +625,12 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 	
+	/**
+	 * Method to retrieve the next available image id from the PACS Image table. 
+	 * Selects the highest image ID in the table and returns one number higher. 
+	 * 
+	 * @return	The next availabe image ID.
+	 */
 	public Integer getNextPacsImageId() {
 		Integer lastId = null;
 		Connection connection = JDBC.connect();
@@ -627,6 +659,15 @@ public class DataSource {
 		return (lastId == null) ? 0 : lastId + 1;
 	}
 
+	/**
+	 * Method to submit a single PACS Image row to the PACS image table. Generates
+	 * an sql insert statement from the provided PACS image object and populates the statement
+	 * with information from the object's attributes. Output streams are then generated from the
+	 * BufferedImage objects for regular size, full size, and thumbnail size and written directly 
+	 * into the statement connection.
+	 * 
+	 * @param pacsImage		The PACS image object from which to generate the insert information.
+	 */
 	public void submitPacsImage(PacsImage pacsImage) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -636,6 +677,9 @@ public class DataSource {
 	    		stmt = connection.prepareStatement(sql);
 	    		stmt.setInt(1, pacsImage.getRecordId());
 	    		stmt.setInt(2, pacsImage.getImageId());
+	    		
+	    		// Reference http://stackoverflow.com/questions/7645068/how-can-i-convert-a-bufferedimage-object-into-an-inputstream-or-a-blob 
+	    		// on March 28, 2015 User aioobe, Jason Plank
 	    		
 	    		// Write thumbnail into prepared statement
 	    		ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -664,6 +708,8 @@ public class DataSource {
 	    		os.close();
 	    		is.close();
 	    		
+	    		//END Reference
+	    		
 	    		stmt.executeUpdate();
 	    	} catch (Exception e) {
 	    		e.printStackTrace();
@@ -680,6 +726,14 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 
+	/**
+	 * Method to retrieve a single thumbnail image from the pacs image row with the matching image ID.
+	 * Reads the thumbnail image as a blob and writes the blob into a buffered image object with 
+	 * the use of a binary stream. 
+	 * 
+	 * @param imageId
+	 * @return
+	 */
 	public BufferedImage getImageThumbnailById(Integer imageId) {
 		BufferedImage img = null;
 		Connection connection = JDBC.connect();
@@ -712,6 +766,13 @@ public class DataSource {
 		return img;
 	}
 
+	/**
+	 * Method to retrieve a Reguar Size image BLOB object from the pacs image row 
+	 * with the given image ID.
+	 * 
+	 * @param imageId	The Pacs Image table image ID from which to get regular size image.
+	 * @return			The BLOB Object represenation of the regular size image. 
+	 */
 	public Blob getImageBlobRegularById(Integer imageId) {
 		Blob b = null;
 		Connection connection = JDBC.connect();
@@ -742,6 +803,13 @@ public class DataSource {
 		return b;
 	}
 
+	/**
+	 * Method to retrieve a Full Size image BLOB object from the pacs image row 
+	 * with the given image ID.
+	 * 
+	 * @param imageId	The Pacs Image table image ID from which to get full size image.
+	 * @return			The BLOB Object represenation of the full size image. 
+	 */
 	public Blob getImageBlobFullById(Integer imageId) {
 		Blob b = null;
 		Connection connection = JDBC.connect();
@@ -772,6 +840,12 @@ public class DataSource {
 		return b;
 	}
 
+	/**
+	 * Retrieves the next available radiology record ID to be used for inserting a new record.
+	 * References the highest ID number in the table and adds one number higher. 
+	 * 
+	 * @return		The next available radiology record ID.
+	 */
 	public Integer getNextRecordId() {
 		Integer lastId = null;
 		Connection connection = JDBC.connect();
@@ -800,6 +874,13 @@ public class DataSource {
 		return (lastId == null) ? 1 : lastId + 1;
 	}
 
+	/**
+	 * Method for inserting a single radiology record row into the radiology record databse.
+	 * Converts the given radiology record into an sql insert statement using the object's
+	 * attributes and exectutes the update. 
+	 * 
+	 * @param record	The radiology record object from which to generate the insert information.
+	 */
 	public void submitRecord(RadiologyRecord record) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -835,6 +916,15 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 
+	/**
+	 * Method for retrieving a single radiology record row of the matching ID.
+	 * Generates an sql select statement using the provided recordID, retrieves the 
+	 * matching row from the radiology record table in the database and converts the
+	 * row into a radiology record object using the sql columns as attributes. 
+	 * 
+	 * @param recordId		The record ID of the radiology record to be retrieved. 
+	 * @return				A radiology record object representation of the retrieved row.		
+	 */
 	public RadiologyRecord getRecordById(Integer recordId) {
 		RadiologyRecord record = null;
 		Connection connection = JDBC.connect();
