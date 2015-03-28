@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -22,8 +23,20 @@ public class LoginServlet extends HttpServlet {
         {
 	        //get the user input from the login page
         	HttpSession session=request.getSession();
-	        String DBusername = session.getAttribute("dbusername").toString();
-			String DBpassword = session.getAttribute("dbpassword").toString();
+	        String DBusername =null;
+	        String DBpassword = null;
+	        // if a user haven't login into the database before login into the system
+	        //redirect him to the database login page
+	        if(session.getAttribute("dbusername")==null)
+	        {
+	        	response.sendRedirect("oracle-login");
+	        }
+	        else
+	        {
+	        	DBusername=session.getAttribute("dbusername").toString();
+				DBpassword=session.getAttribute("dbpassword").toString();
+	        }
+	        
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
 	        String truepwd="";
