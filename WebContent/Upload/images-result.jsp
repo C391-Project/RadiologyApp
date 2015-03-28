@@ -12,7 +12,7 @@
 	<%@include file="includes/header.html" %>
 	<h2>Image Upload Result</h2>
 		<p>
-			<a href="/RadiologyApp/upload/images/add?record_id=<%= request.getAttribute("id")%>">Attach another Image to Record <%= request.getAttribute("record_id") %></a>
+			<a href="/RadiologyApp/upload/images/add?record_id=<%= request.getAttribute("record_id")%>">Attach another Image to Record <%= request.getAttribute("record_id") %></a>
 		</p>
 	<p> 
 		Full Size:<br>

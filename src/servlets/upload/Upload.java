@@ -32,7 +32,7 @@ public class Upload extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		RequestDispatcher view = request.getRequestDispatcher("/upload/index.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/Upload/index.jsp");
 		view.forward(request, response);
 	}
 

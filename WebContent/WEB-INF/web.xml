@@ -161,6 +161,7 @@
   <servlet-mapping>
     <servlet-name>Upload</servlet-name>
     <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>UploadImages</display-name>
