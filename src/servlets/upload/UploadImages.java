@@ -93,6 +93,7 @@ public class UploadImages extends HttpServlet {
 			
 			// Display the result to the user.
 			request.setAttribute("id", imageId);
+			request.setAttribute("record_id", recordId);
 			RequestDispatcher view = request.getRequestDispatcher("/Upload/images-result.jsp");
 			view.forward(request, response);
 		
