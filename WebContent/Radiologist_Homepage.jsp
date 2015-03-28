@@ -33,7 +33,7 @@
 		if(userName == null)
 		{
 			out.println("Username error, redireting to login page.");
-			response.setHeader("Refresh", "3; URL=login.html");	
+			response.setHeader("Refresh", "3; URL=login.jsp");	
 		}
 			
 			//response.sendRedirect("login.html");
@@ -44,14 +44,21 @@
 		else
 		{
 			out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-			response.setHeader("Refresh", "3; URL=login.html");	
+			response.setHeader("Refresh", "3; URL=login.jsp");	
 		}
 			
 	%>
 	
-	<form action="dbinterface.jsp">
-    		<input type="submit" value="Upload record">
+	<form action="upload">
+    		<input type="submit" value="Upload">
 	</form>
 	
+	<form action="/RadiologyApp/search.jsp">
+    		<input type="submit" value="Search">
+	</form>
+	
+	<form action="LogoutServlet" method="post">
+		<input type="submit" value="Logout" >
+	</form>
 </body>
 </html>
