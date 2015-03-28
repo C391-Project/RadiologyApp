@@ -212,4 +212,24 @@
     <servlet-name>OracleLogout</servlet-name>
     <url-pattern>/OracleLogout</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>EditMyProfile</display-name>
+    <servlet-name>EditMyProfile</servlet-name>
+    <servlet-class>EditMyProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditMyProfile</servlet-name>
+    <url-pattern>/EditMyProfile</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>EditMyPassword</display-name>
+    <servlet-name>EditMyPassword</servlet-name>
+    <servlet-class>EditMyPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditMyPassword</servlet-name>
+    <url-pattern>/EditMyPassword</url-pattern>
+  </servlet-mapping>
 </web-app>
