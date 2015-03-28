@@ -180,9 +180,16 @@ catch(Exception ex){
 					<td><%= rset.getString("diagnosis") %></td>
 					<td><%= rset.getString("description") %></td>
 					<td>
+					<%
+						int imageId = rset.getInt("image_id");
+						if (imageId != 0) {
+					%>
 						<a href="/RadiologyApp/images/fullsize?id=<%= rset.getInt("image_id") %>">
 							<img src="/RadiologyApp/images/thumbnail?id=<%= rset.getInt("image_id") %>">
 						</a>
+					<%
+						}
+					%>
 					</td>
 				</tr>
 			<%

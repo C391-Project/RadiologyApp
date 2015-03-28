@@ -10,6 +10,7 @@
 		<h1>RadiologyApp</h1>
 		<ul>
 			<li><a href="/RadiologyApp/usermanage">User Management Module</a></li>
+			<li><a href="/RadiologyApp/search">Search Module</a></li>
 		</ul>
 </body>
 </html>

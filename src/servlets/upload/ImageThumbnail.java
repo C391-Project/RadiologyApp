@@ -1,5 +1,7 @@
 package servlets.upload;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,19 +50,24 @@ public class ImageThumbnail extends HttpServlet {
 		
 		try {
 			// Reference http://www.srikanthtechnologies.com/blog/java/fileupload.aspx on March 26, 2015
-			Blob b = dataSource.getImageBlobThumbnailById(imageId);
+			BufferedImage img = dataSource.getImageThumbnailById(imageId);
+			
+			// Get size of Image
+			// Reference http://stackoverflow.com/questions/632229/how-to-calculate-java-bufferedimage-filesize user petr on March 27,2015
+			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+		    ImageIO.write(img, "png", tmp);
+		    tmp.close();
+		    Integer contentLength = tmp.size();
+		    // end reference
+			
 	        response.setContentType("image/jpeg");
-	        response.setContentLength( (int) b.length());
-	        InputStream is = b.getBinaryStream();
+	        response.setContentLength( (int) contentLength);
+	        
 	        OutputStream os = response.getOutputStream();
-	        byte buf[] = new byte[(int) b.length()];
-	        is.read(buf);
-	        os.write(buf);
+	        ImageIO.write(img, "jpg", os);
 	        os.close();
 	        // End Reference
 	        
-	        // Connection must stay open to write image onto page, once done: close.
-	        JDBC.closeConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

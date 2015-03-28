@@ -1,5 +1,6 @@
 package database;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -571,8 +572,8 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 
-	public Blob getImageBlobThumbnailById(Integer imageId) {
-		Blob b = null;
+	public BufferedImage getImageThumbnailById(Integer imageId) {
+		BufferedImage img = null;
 		Connection connection = JDBC.connect();
 		String sql = "SELECT thumbnail FROM pacs_images WHERE image_id = ?";
 		
@@ -584,9 +585,10 @@ public class DataSource {
 	    		stmt.setInt(1, imageId);
 	    		rs = stmt.executeQuery();
 	    		if (rs.next()) {
-	    			b = rs.getBlob("thumbnail");
+	    			Blob b = rs.getBlob("thumbnail");
+	    			img = ImageIO.read(b.getBinaryStream());
 	    		}
-	    	} catch (SQLException e) {
+	    	} catch (Exception e) {
 	    		e.printStackTrace();
 	    	} finally {
 	    		if (stmt != null) {
@@ -596,9 +598,10 @@ public class DataSource {
 						e.printStackTrace();
 					}
 	    		}
+	    		JDBC.closeConnection();
 	    	}
 		}
-		return b;
+		return img;
 	}
 
 	public Blob getImageBlobRegularById(Integer imageId) {
