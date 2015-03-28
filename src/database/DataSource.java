@@ -298,8 +298,10 @@ public class DataSource {
 	} 
 	
 	/**
+	 * Method for retrieving a list of user objects from the user database. Converts each
+	 * sql user row into a user object and populates returned list of user objects.
 	 * 
-	 * @return
+	 * @return		The list of user objects generated from the sql user table. 
 	 */
 	public List<User> getUserList() {
 		User user = null;
@@ -332,7 +334,14 @@ public class DataSource {
 		JDBC.closeConnection();
 		return userList;
 	}
-
+	
+	/**
+	 * Method for retrieving a single sql user row as a user object. The columns of the
+	 * user row are converted into attributes of the user object. 
+	 * 
+	 * @param username		The username of the user row to retrieve.
+	 * @return				The user object representation of the user row. 
+	 */
 	public User getUserByUserName(String username) {
 		User user = null;
 		Connection connection = JDBC.connect();
@@ -364,6 +373,15 @@ public class DataSource {
 		return user;
 	}
 
+	/**
+	 * Method for updating a single sql user row matching the provied
+	 * username based on the attributes of the provided user object. If a row 
+	 * exists with the matching username, all columns will be updated to match 
+	 * the attributes of the provided user. 
+	 * 
+	 * @param originalUsername		Username of sql row to update.
+	 * @param user					User object from which to generate sql update information.
+	 */
 	public void updateUser(String originalUsername, User user) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -396,6 +414,12 @@ public class DataSource {
 		JDBC.closeConnection();
 	}	
 	
+	/**
+	 * Method for deleting a single user row from the user table of the database.
+	 * Deletes the row with the matching provided username.
+	 * 
+	 * @param username		Username of row to delete.
+	 */
 	public void deleteUser(String username) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -420,6 +444,13 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 	
+	/**
+	 * Method for inserting a single family doctor row in the family doctor table of the 
+	 * database. Converts the provided family doctor object into an sql insert statement
+	 * from the attributes of the family doctor object and executes the insert.
+	 * 
+	 * @param fd	Family doctor object from which to generate the insert information.
+	 */
 	public void submitFamilyDoctor(FamilyDoctor fd) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -445,6 +476,13 @@ public class DataSource {
 		JDBC.closeConnection();
 	} 
 	
+	/**
+	 * Method for retrieving all sql family doctor rows from the database and converting
+	 * them to family doctor objects stored in a list. Family doctor object attibutes are
+	 * generated from the columns of the result set and inserted into the returned list. 
+	 * 
+	 * @return	List of all family doctor objects retrieved from the retrieved sql columns.
+	 */
 	public List<FamilyDoctor> getFamilyDoctorList() {
 		FamilyDoctor fd = null;
 		List<FamilyDoctor> fdList = new ArrayList<FamilyDoctor>();
