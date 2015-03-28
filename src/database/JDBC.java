@@ -1,11 +1,4 @@
 package database;
-/**
- * Singleton for connecting to a database through JDBC
- * 
- * @author Maks (original)
- * @author Brett Commandeur (modified by)
- * @source https://github.com/MaksJS/jdbc-singleton/blob/master/JDBC.java
- **/
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -15,6 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Singleton for connecting to a database through JDBC.
+ * 
+ * @author Maks (original)
+ * @author Brett Commandeur (modified by)
+ * @reference https://github.com/MaksJS/jdbc-singleton/blob/master/JDBC.java on March 1, 2015
+ **/
 public class JDBC {
     
     private static Connection connection = null;
