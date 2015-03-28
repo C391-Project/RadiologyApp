@@ -46,7 +46,7 @@ public class Bouncer {
 		{
 			session.setAttribute("returnPage", generateReturnUrl());
 			session.setAttribute("error", "Access denied. Not enought privilege.");
-			response.sendRedirect("login.html");
+			response.sendRedirect("login.jsp");
 			return false;
 		}
 		
