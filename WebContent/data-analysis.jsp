@@ -13,13 +13,13 @@ Statement stmt = null;
 ResultSet rset = null;
 ResultSet rsetPIDS = null;
 ResultSet rsetTEST_TYPES = null;
-//These are for our menu
+//These lists are for our menu
 ArrayList patientIDs = new ArrayList();
 ArrayList patientNames = new ArrayList();
 ArrayList testTypes = new ArrayList();
 
 conn = JDBC.connect();
-//I recieved help from these sources 
+//I recieved help on the SQL portion from these sources 
 //LAB TA
 //http://www.w3schools.com/sql/sql_view.asp - Basic info on views 
 //http://luscar.cs.ualberta.ca:8080/yuan/servlet/SimpleQuery - A uselful tool to quickly test sql
@@ -42,7 +42,8 @@ String sqlCreateImageView = "create or replace view patient_number_image as sele
 //Create a table for images
 String sqlDropImageTable = "DROP TABLE PATIENT_NUM_IMAGE_TABLE ";
 String sqlCreateImageTable = "CREATE TABLE PATIENT_NUM_IMAGE_TABLE(PATIENT_ID varchar(24),TEST_TYPE varchar(24),TIME_ID int, NUM int default 0) ";
-String sqlInsertImageData = "INSERT INTO PATIENT_NUM_IMAGE_TABLE (PATIENT_ID,TEST_TYPE,TIME_ID) SELECT p.PATIENT_ID,t.TEST_TYPE,ti.TIME_ID FROM PATIENT p,TEST_TYPE t,TIME_ID ti ";
+String sqlInsertImageData = "INSERT INTO PATIENT_NUM_IMAGE_TABLE (PATIENT_ID,TEST_TYPE,TIME_ID) "
+							+ "SELECT p.PATIENT_ID,t.TEST_TYPE,ti.TIME_ID FROM PATIENT p,TEST_TYPE t,TIME_ID ti ";
 //Merge the view into our table 
 String sqlMergeTables = "Merge into PATIENT_NUM_IMAGE_TABLE p2 USING PATIENT_NUMBER_IMAGE p1 ON "
 					+ "(p2.TEST_TYPE = p1.TEST_TYPE AND p2.PATIENT_ID = p1.PATIENT_ID AND p2.TIME_ID = p1.TIME_ID) "
@@ -53,6 +54,7 @@ String sqlpersonIDs = "SELECT p.person_id, CONCAT(p.first_name, CONCAT(' ', p.la
 				+ " FROM persons p, PATIENT p2" 
 				+ " WHERE p.person_id = p2.PATIENT_ID";
 String sqltesttypes = "SELECT t.TEST_TYPE FROM TEST_TYPE t";
+		
 //Try to do all the statements 
 try {
 	stmt = conn.createStatement();
@@ -62,7 +64,8 @@ try {
 	rset = stmt.executeQuery(sqlCreateImageView);
 	try {
 		rset = stmt.executeQuery(sqlDropImageTable);
-	} catch (Exception ex) { //do nothing
+	} catch (Exception ex) { 
+		//do nothing this only means the table didn't exist
 	}
 	rset = stmt.executeQuery(sqlCreateImageTable);
 	rset = stmt.executeQuery(sqlMergeTables);
@@ -76,6 +79,7 @@ try {
 	
 	stmt.executeQuery("commit");
 	rsetTEST_TYPES = stmt.executeQuery(sqltesttypes);
+	//Parse the results of the test types for our menu
 	while (rsetTEST_TYPES != null && rsetTEST_TYPES.next()) {
 		testTypes.add(rsetTEST_TYPES.getString("TEST_TYPE"));
 	}
@@ -125,10 +129,10 @@ JDBC.closeConnection();
 	Year:
 	<select id="YEAR" name="YEAR" />
 		<option value = "ALL">ALL</option>
-	<%String j = "";
+	<%String year = "";
 	for(int i=1900;i<2200;i++) {
-		j = Integer.toString(i);
-		out.println("<option value = \""+j+"\">"+i+"</option>");
+		year = Integer.toString(i);
+		out.println("<option value = \""+ year +"\">"+i+"</option>");
 	}
 	%>
 	</select>
