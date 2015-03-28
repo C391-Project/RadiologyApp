@@ -18,14 +18,44 @@ import org.apache.commons.fileupload.FileItem;
 
 import java.sql.Blob;
 
+/**
+ * Handles sending and retrieval of data objects to and from the database. 
+ * 
+ * Design rationale: The api for accessing the data is app-specific, however
+ * the database and database communicator should be separable from the application.
+ * Changing database systems (e.g. oracle to mysql) should be as simple as changing
+ * out this class for a similar data source with the same methods but different
+ * implementation of the methods. 
+ * 
+ * Limitations: This class can be refactored and cleaned through the use of java generics.
+ * There is quite a bit of code reuse for similar modules with only a couple variables 
+ * changed. The priority here was proper handling of closing connections through
+ * try/catch/finally blocks, the implementation of which through generics is trickier than
+ * time permits. 
+ * 
+ * @author Brett Commandeur
+ *
+ */
 public class DataSource {
 	
 	public DataSource() {}
 	
+	/**
+	 * Method to tell if the database connection has been properly configured.
+	 * To be checked before a connection is opened. 
+	 * 
+	 * @return True on proper configuration allowing for a connection.
+	 */
 	public boolean isNotConfigured() {
 		return (!JDBC.isConfigured());
 	}
 	
+	/**
+	 * Method for generating the next available Person ID in the person table
+	 * of the database. Assumes the highest ID is the last entered ID.
+	 * 
+	 * @return The next available person ID
+	 */
 	public Integer getNextPersonId() {
 		Integer lastId = null;
 		Connection connection = JDBC.connect();
@@ -54,6 +84,11 @@ public class DataSource {
 		return (lastId == null) ? 1 : lastId + 1;
 	}
 	
+	/**
+	 * Method for inserting a person object into the database.
+	 * 
+	 * @param person	The Java person object from which to get the SQL insert information. 
+	 */
 	public void submitPerson(Person person) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -83,6 +118,12 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 	
+	/**
+	 * Method to retrieve all rows from the persons table and turn them into
+	 * a list of Java person objects.
+	 * 
+	 * @return	The list of java person objects generated from the persons table.
+	 */
 	public List<Person> getPersonList() {
 		Person person = null;
 		List<Person> personList = new ArrayList<Person>();
@@ -115,6 +156,13 @@ public class DataSource {
 		return personList;
 	}
 	
+	/**
+	 * Method to retrieve a single row from the person database with the matching
+	 * person ID and turn it into a single java person object. 
+	 * 
+	 * @param personId	The person ID of the row to be retrieved.
+	 * @return			The java person object represenation of the person table row. 
+	 */
 	public Person getPersonById(Integer personId) {
 		Person person = null;
 		Connection connection = JDBC.connect();
@@ -146,6 +194,13 @@ public class DataSource {
 		return person;
 	}
 	
+	/**
+	 * Method for updating a single person row in the database based on the information of
+	 * the provided java person object. If a person row exists with a matching ID, all
+	 * columns are updated to match the information of the given person object.
+	 * 
+	 * @param person	The java person object from which to get the sql update information.
+	 */
 	public void updatePerson(Person person) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -176,6 +231,11 @@ public class DataSource {
 		
 	}
 	
+	/**
+	 * Method for deleting a single row from the person database.
+	 * 
+	 * @param personId		The ID of the person row to be deleted.
+	 */
 	public void deletePerson(Integer personId) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -200,6 +260,12 @@ public class DataSource {
 		JDBC.closeConnection();
 	}
 	
+	/**
+	 * Method for submitting a single java user object to the user database. An sql row is generated
+	 * based on the information in the given java user object.
+	 * 
+	 * @param user		The java user object from which to generate the sql insert information.
+	 */
 	public void submitUser(User user) {
 		Connection connection = JDBC.connect();
     	PreparedStatement stmt = null;
@@ -231,6 +297,10 @@ public class DataSource {
 		JDBC.closeConnection();
 	} 
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<User> getUserList() {
 		User user = null;
 		List<User> userList = new ArrayList<User>();
