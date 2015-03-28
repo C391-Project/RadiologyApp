@@ -51,7 +51,7 @@ public class DataSource {
 	    		}
 	    	}
 		}
-		return (lastId == null) ? 0 : lastId + 1;
+		return (lastId == null) ? 1 : lastId + 1;
 	}
 	
 	public void submitPerson(Person person) {
@@ -662,6 +662,100 @@ public class DataSource {
 	    	}
 		}
 		return b;
+	}
+
+	public Integer getNextRecordId() {
+		Integer lastId = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT MAX(record_id) AS id FROM radiology_record";
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			lastId = rs.getInt("id");
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		return (lastId == null) ? 1 : lastId + 1;
+	}
+
+	public void submitRecord(RadiologyRecord record) {
+		Connection connection = JDBC.connect();
+    	PreparedStatement stmt = null;
+    	String sql = record.generateInsertSql();
+    	if (JDBC.hasConnection()) {
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, record.getRecordId());
+	    		stmt.setInt(2, record.getPatientId());
+	    		stmt.setInt(3, record.getDoctorId());
+	    		stmt.setInt(4, record.getRadiologistId());
+	    		stmt.setString(5, record.getTestType());
+	    		// Convert Java Dates to SQL dates
+	    		java.sql.Date sqlDate = new java.sql.Date(record.getPrescribingDate().getTime());
+	    		stmt.setDate(6, sqlDate);
+	    		sqlDate = new java.sql.Date(record.getTestDate().getTime());
+	    		stmt.setDate(7, sqlDate);
+	    		stmt.setString(8, record.getDiagnosis());
+	    		stmt.setString(9, record.getDescription());
+	    		stmt.executeUpdate();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+    	}
+		JDBC.closeConnection();
+	}
+
+	public RadiologyRecord getRecordById(Integer recordId) {
+		RadiologyRecord record = null;
+		Connection connection = JDBC.connect();
+		String sql = "SELECT * FROM radiology_record WHERE record_id = ?";
+		
+		if (JDBC.hasConnection()) {
+			PreparedStatement stmt = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		stmt = connection.prepareStatement(sql);
+	    		stmt.setInt(1, recordId);
+	    		rs = stmt.executeQuery();
+	    		if (rs.next()) {
+	    			record = new RadiologyRecord(rs);
+	    		}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+	    		if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+		}
+		JDBC.closeConnection();
+		return record;
 	}
 	
 }

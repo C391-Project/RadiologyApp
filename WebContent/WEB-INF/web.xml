@@ -154,13 +154,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>Upload</display-name>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>servlets.upload.Upload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  <servlet>
+    <description></description>
     <display-name>UploadImages</display-name>
     <servlet-name>UploadImages</servlet-name>
     <servlet-class>servlets.upload.UploadImages</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UploadImages</servlet-name>
-    <url-pattern>/upload</url-pattern>
+    <url-pattern>/upload/images</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -170,7 +179,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UploadImagesAdd</servlet-name>
-    <url-pattern>/upload/image</url-pattern>
+    <url-pattern>/upload/images/add</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -201,6 +210,30 @@
   <servlet-mapping>
     <servlet-name>ImageFullSize</servlet-name>
     <url-pattern>/images/fullsize</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadRecords</display-name>
+    <servlet-name>UploadRecords</servlet-name>
+    <servlet-class>servlets.upload.UploadRecords</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadRecords</servlet-name>
+    <url-pattern>/upload/records</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UploadRecords</servlet-name>
+    <url-pattern>/upload/records</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadRecordsAdd</display-name>
+    <servlet-name>UploadRecordsAdd</servlet-name>
+    <servlet-class>servlets.upload.UploadRecordsAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadRecordsAdd</servlet-name>
+    <url-pattern>/upload/records/add</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

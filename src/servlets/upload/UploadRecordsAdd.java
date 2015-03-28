@@ -26,14 +26,14 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  * Servlet implementation class UploadImages
  */
-public class UploadImagesAdd extends HttpServlet {
+public class UploadRecordsAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UploadImagesAdd() {
+    public UploadRecordsAdd() {
         super();
         this.dataSource = new DataSource();
     }
@@ -46,11 +46,7 @@ public class UploadImagesAdd extends HttpServlet {
 		Bouncer sm = new Bouncer(request, response);
 		if (!sm.verifyPage()) return;
 		
-		if (request.getParameter("record_id") != null ) {
-			request.setAttribute("id", request.getParameter("record_id"));
-		}
-		
-		RequestDispatcher view = request.getRequestDispatcher("/Upload/images-add.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/Upload/records-add.jsp");
 		view.forward(request, response);
 	}
 
