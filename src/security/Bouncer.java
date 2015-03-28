@@ -39,7 +39,7 @@ public class Bouncer {
 		//Should use security module.
 		/*
 		HttpSession session = request.getSession();
-		String usertype = session.getAttribute("truetype").toString().trim();
+		String usertype = session.getAttribute("usertype").toString().trim();
 		
 		
 		if(!usertype.equals("a"))
@@ -49,8 +49,8 @@ public class Bouncer {
 			response.sendRedirect("/RadioloyApp/login.html");
 			return false;
 		}
-		*/
-			
+		
+		*/	
 		return true;
 	}
 	

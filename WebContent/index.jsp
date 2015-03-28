@@ -10,8 +10,8 @@
 		<h1>RadiologyApp</h1>
 		<ul>
 			<li><a href="login.html">Login Module</a></li>
-			<li><a href="/RadiologyApp/usermanage">User Management Module</a></li>
-			<li><a href="/RadiologyApp/search">Search Module</a></li>
+			<li><a href="/RadiologyApp/usermanage.jsp">User Management Module</a></li>
+			<li><a href="/RadiologyApp/search.jsp">Search Module</a></li>
 			<li><a href="report.jsp">Report Generating Module</a></li>
 		</ul>
 </body>

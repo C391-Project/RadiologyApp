@@ -113,7 +113,7 @@ public class LoginServlet extends HttpServlet {
 	        //System.out.println(sql1);
         	try{
 	        	stmt1 = conn.createStatement();
-		        rset1 = stmt.executeQuery(sql1);
+		        rset1 = stmt1.executeQuery(sql1);
         	}
 	
 	        catch(Exception ex){
@@ -198,13 +198,7 @@ public class LoginServlet extends HttpServlet {
         else
         {
         		response.sendRedirect("login.html");
-                /*
-        		System.out.println("<form method=post action=login.jsp>");
-                System.out.println("UserName: <input type=text name=USERID maxlength=20><br>");
-                System.out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
-                System.out.println("<input type=submit name=Submit value=Submit>");
-                System.out.println("</form>");
-                */
+
         }      
     }
  
