@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -22,8 +23,20 @@ public class LoginServlet extends HttpServlet {
         {
 	        //get the user input from the login page
         	HttpSession session=request.getSession();
-	        String DBusername = session.getAttribute("dbusername").toString();
-			String DBpassword = session.getAttribute("dbpassword").toString();
+	        String DBusername =null;
+	        String DBpassword = null;
+	        // if a user haven't login into the database before login into the system
+	        //redirect him to the database login page
+	        if(session.getAttribute("dbusername")==null)
+	        {
+	        	response.sendRedirect("oracle-login");
+	        }
+	        else
+	        {
+	        	DBusername=session.getAttribute("dbusername").toString();
+				DBpassword=session.getAttribute("dbpassword").toString();
+	        }
+	        
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
 	        String truepwd="";
@@ -100,7 +113,7 @@ public class LoginServlet extends HttpServlet {
 	        //System.out.println(sql1);
         	try{
 	        	stmt1 = conn.createStatement();
-		        rset1 = stmt.executeQuery(sql1);
+		        rset1 = stmt1.executeQuery(sql1);
         	}
 	
 	        catch(Exception ex){
@@ -185,13 +198,7 @@ public class LoginServlet extends HttpServlet {
         else
         {
         		response.sendRedirect("login.html");
-                /*
-        		System.out.println("<form method=post action=login.jsp>");
-                System.out.println("UserName: <input type=text name=USERID maxlength=20><br>");
-                System.out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
-                System.out.println("<input type=submit name=Submit value=Submit>");
-                System.out.println("</form>");
-                */
+
         }      
     }
  

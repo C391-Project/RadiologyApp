@@ -51,11 +51,8 @@
 			
 	%>
 	<h3>
-		<ul>
-			<li><a href="/RadiologyApp/usermanage">User Management Module</a></li>
-		</ul>
 		
-		<form action="reportgenerate.jsp">
+		<form action="report.jsp">
     		<input type="submit" value="Generate report">
 		</form>
 		

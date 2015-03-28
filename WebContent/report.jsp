@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>report generating</title>
 <!--Adapted from http://jqueryui.com/datepicker/#date-range-->
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
@@ -62,23 +62,17 @@
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.*"%>
 
-	<H1>
-		<font color=Teal>Please Enter the Information to Generate
-			Report: </font>
-	</H1>
-	<BR></BR>
-	<BR></BR>
-	<b>You will get the list of all patients with a specified diagnosis
-		for a given time period.</b>
+	<H1>report generating module</H1>
+
 	<FORM NAME="report_generate_form" ACTION="report.jsp" METHOD="post">
 		<TABLE>
 			<TR>
-				<TD><B><I><font color=Maroon>Diagnosis: </font></I></B></TD>
+				<TD><B><I><font >Diagnosis: </font></I></B></TD>
 				<TD><INPUT TYPE="text" NAME="diagnosis" VALUE=""
 					style="width: 200px;"></TD>
 			</TR>
 			<TR>
-				<TD><B><I><font color=Maroon>Time
+				<TD><B><I><font >Time
 								period(MM-DD-YYYY): </font></I></B></TD>
 				<TD><label for="from">From</label> <INPUT TYPE="text"
 					class="from" NAME="from" /></TD>
@@ -101,8 +95,8 @@
               request.getParameter("from").equals("") ||
               request.getParameter("to").equals("")))
             {
-				String oracleId=(String)session.getAttribute("ORACLE_ID");
-				String oraclePassword=(String)session.getAttribute("ORACLE_PASSWORD");
+				String oracleId=(String)session.getAttribute("dbusername");
+				String oraclePassword=(String)session.getAttribute("dbpassword");
 				String from = (String)request.getParameter("from");
 				String to = (String)request.getParameter("to");
 				String diagnosis = (String)request.getParameter("diagnosis");
@@ -169,9 +163,8 @@
         }
       %>
 	</FORM>
-	<FORM NAME='ReturnForm' ACTION='AdminPage.jsp' METHOD='get'>
-	<INPUT TYPE='submit' NAME='return' VALUE='RETURN'>
+	<FORM NAME='ReturnForm' ACTION='Admin_Homepage.jsp' METHOD='get'>
+	<INPUT TYPE='submit' NAME='return' VALUE='return'>
 	</FORM>
-	<CENTER>User Documentation:<a href='Documentation.html' target ='_blank'><b>Documentation</b></a></CENTER>
 </BODY>
 </HTML>
