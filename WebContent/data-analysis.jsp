@@ -87,7 +87,7 @@ try {
 JDBC.closeConnection();
 %>
 <div class="container">
-	<form name="personForm" action="TODO" method="post" role="form">
+	<form name="personForm" action="viewDataCube.jsp" method="post" role="form">
 	<h1>Data Analysis</h1>
 	PATIENT :
 	<br>
