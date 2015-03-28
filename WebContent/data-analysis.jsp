@@ -1,6 +1,9 @@
 <% String pageName = "dataanalysis"; %>
 <%@ page import="java.sql.*,java.util.ArrayList, database.JDBC"%>
 <%
+// TODO : ONLY THE ADMIN CAN SEE THIS PAGE
+// TODO : VIEW THE CRAP THAT I SPAT OUT THAT PROBABLY DOESNT WORK AND WILL
+//		  NEED 20 YEARS OF DEBUGGING
 //This part is only to create the data cube
 //The user may select none or all for the images on testtype and patient
 //as well as the user can select a time style 
@@ -20,7 +23,7 @@ conn = JDBC.connect();
 //LAB TA
 //http://www.w3schools.com/sql/sql_view.asp - Basic info on views 
 //http://luscar.cs.ualberta.ca:8080/yuan/servlet/SimpleQuery - A uselful tool to quickly test sql
-//
+//Reminder to dig out the rest of my sources
 
 //A view of the patient
 String sqlCreatePatientView = "CREATE OR REPLACE FORCE VIEW PATIENT (PATIENT_ID) AS SELECT distinct patient_id FROM radiology_record";
@@ -84,7 +87,7 @@ try {
 JDBC.closeConnection();
 %>
 <div class="container">
-	<form name="personForm" action="TODO" method="post" role="form">
+	<form name="personForm" action="viewDataCube.jsp" method="post" role="form">
 	<h1>Data Analysis</h1>
 	PATIENT :
 	<br>
@@ -92,6 +95,7 @@ JDBC.closeConnection();
 		<option value = "NONE"> NONE </option>
 		<option value = "ALL"> ALL </option>
 	<%
+		//Read the list of patients 
 		for (int i = 0; i < patientIDs.size()-1; i++) {
 			out.println("<option value = " + patientIDs.get(i) + ">" + patientNames.get(i) + "</option>");
 		}
@@ -104,9 +108,10 @@ JDBC.closeConnection();
 		<option value = "NONE"> NONE </option>
 		<option value = "ALL"> ALL </option>
 	<%
-	for (int i = 0; i < testTypes.size(); i++) {
-		out.println("<option value = " + testTypes.get(i) + ">" + testTypes.get(i) + "</option>");
-	}
+		//Read the list of test types
+		for (int i = 0; i < testTypes.size(); i++) {
+			out.println("<option value = " + testTypes.get(i) + ">" + testTypes.get(i) + "</option>");
+		}
 	%>
 	</select>
 	<br>

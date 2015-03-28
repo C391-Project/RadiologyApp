@@ -51,6 +51,13 @@
 			
 	%>
 	<h3>
+		<form action="EditMyProfile">
+    		<input type="submit" value="Edit My Profile">
+		</form>
+		
+		<form action="EditMyPassword">
+    		<input type="submit" value="Edit My Password">
+		</form>
 		
 		<form action="report.jsp">
     		<input type="submit" value="Generate report">
