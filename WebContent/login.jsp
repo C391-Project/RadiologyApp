@@ -114,6 +114,9 @@
 		        else if(truetype.equals("d"))
 		        	fulltype="Doctor";
 		        else fulltype="Error";
+		        
+		        //Put the user type to the session
+		        session.setAttribute("type", truetype);
 		        		
 		        //store user info in cookies
 		        Cookie loginCookie = new Cookie("user",userName);
