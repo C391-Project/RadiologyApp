@@ -51,13 +51,10 @@
 			
 	%>
 	<h3>
-		<form action="EditMyProfile">
-    		<input type="submit" value="Edit My Profile">
+		<form action="editprofilepass.jsp">
+    		<input type="submit" value="Edit My Profile and Password">
 		</form>
 		
-		<form action="EditMyPassword">
-    		<input type="submit" value="Edit My Password">
-		</form>
 		
 		<form action="usermanage">
     		<input type="submit" value="Manage Users">
