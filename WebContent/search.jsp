@@ -204,6 +204,10 @@ catch(Exception ex){
 }
 %>
 
+	</FORM>
+	<FORM NAME='ReturnForm' ACTION='index.jsp' METHOD='get'>
+	<INPUT TYPE='submit' NAME='return' VALUE='return'>
+	</FORM>
 
 </body>
 </html>

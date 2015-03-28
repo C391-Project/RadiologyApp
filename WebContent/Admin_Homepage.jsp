@@ -32,7 +32,7 @@
 		if(userName == null)
 		{
 			out.println("Username error, redireting to login page.");
-			response.setHeader("Refresh", "3; URL=login.html");	
+			response.setHeader("Refresh", "3; URL=login.jsp");	
 		}
 	
 		else if(usertype.equals("Admin"))
@@ -42,7 +42,7 @@
 			else
 			{
 				out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-				response.setHeader("Refresh", "3; URL=login.html");	
+				response.setHeader("Refresh", "3; URL=login.jsp");	
 			}
 		
 			
@@ -57,6 +57,15 @@
 		
 		<form action="EditMyPassword">
     		<input type="submit" value="Edit My Password">
+		</form>
+		
+		<form action="usermanage">
+    		<input type="submit" value="Manage Users">
+		</form>
+		
+		
+		<form action="/RadiologyApp/search.jsp">
+    		<input type="submit" value="Search">
 		</form>
 		
 		<form action="report.jsp">

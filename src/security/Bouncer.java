@@ -41,7 +41,7 @@ public class Bouncer {
 		HttpSession session = request.getSession();
 		String usertype = session.getAttribute("usertype").toString().trim();
 		
-		
+		//only allow admin to access
 		if(!usertype.equals("a"))
 		{
 			session.setAttribute("returnPage", generateReturnUrl());

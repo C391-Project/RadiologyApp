@@ -158,33 +158,33 @@ public class LoginServlet extends HttpServlet {
 		        
 	        	if(truetype.equals("a"))
         		{
-        		System.out.println("Redirecting to Admin Homepage in 3 seconeds...");
-        		response.setHeader("Refresh", "3; URL=Admin_Homepage.jsp");
+        		System.out.println("Redirecting to Admin Homepage...");
+        		response.setHeader("Refresh", "0; URL=Admin_Homepage.jsp");
         		//response.sendRedirect("Admin_Homepage.html");
         		}
         		else if (truetype.equals("p"))
         		{	
-        		System.out.println("Redirecting to Patient Homepage in 3 seconeds...");
-        		response.setHeader("Refresh", "3; URL=Patient_Homepage.jsp");
+        		System.out.println("Redirecting to Patient Homepage...");
+        		response.setHeader("Refresh", "0; URL=Patient_Homepage.jsp");
         		//response.sendRedirect("User_Homepage.html");
         		}	
         		else if (truetype.equals("r"))
         		{
-        		System.out.println("Redirecting to Radiologist Homepage in 3 seconeds...");
-            	response.setHeader("Refresh", "5; URL=Radiologist_Homepage.jsp");
+        		System.out.println("Redirecting to Radiologist Homepage...");
+            	response.setHeader("Refresh", "0; URL=Radiologist_Homepage.jsp");
         		}
         		else if(truetype.equals("d"))
         		{
-        		System.out.println("Redirecting to Doctor Homepage in 3 seconeds...");
-                response.setHeader("Refresh", "3; URL=Doctor_Homepage.jsp");	
+        		System.out.println("Redirecting to Doctor Homepage ...");
+                response.setHeader("Refresh", "0; URL=Doctor_Homepage.jsp");	
         		}
 	        }
         	
         	else
         		{
         			System.out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
-        			System.out.println("Redirecting to Login page in 3 seconeds...");
-        			response.setHeader("Refresh", "3; URL=login.html");
+        			System.out.println("Redirecting to Login page ...");
+        			response.setHeader("Refresh", "0; URL=login.html");
         		}
 	        	
         	
