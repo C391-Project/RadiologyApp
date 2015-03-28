@@ -11,12 +11,17 @@
 <body>
 	<%@include file="includes/header.html" %>
 	
-    <form id="image-upload-form" enctype="multipart/form-data" action="/RadiologyApp/upload" method="post">
+    <form id="image-upload-form" enctype="multipart/form-data" action="/RadiologyApp/upload/images" method="post">
 		<fieldset>
     		<legend>Upload Image</legend>
     		<p>
 				<label for="i_record_id">Record ID: </label><br>
-				<input type="number" id="i_record_id" name="i_record_id" value="" placeholder="">
+				<% if (request.getAttribute("id") != null) { %>
+					<span><%= request.getAttribute("id") %></span>
+					<input type="hidden" id="i_record_id" name="i_record_id" value="<%= request.getAttribute("id") %>">
+				<% } else { %>
+					<input type="number" id="i_record_id" name="i_record_id" value="">
+				<% } %>
 			</p>
 			<p>
 				<label for="i_file">Image: </label><br>
