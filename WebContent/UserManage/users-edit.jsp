@@ -36,7 +36,7 @@
 			</p>
 			<p>
 				<label for="u_date_registered">Date Registered: </label><br>
-				<input type="text" id="u_date_registered" name="u_date_registered" value="<%= user.getDateRegistered() %>" placeholder="yyyy-mm-dd">
+				<input type="date" id="u_date_registered" name="u_date_registered" value="<%= user.getDateRegistered() %>" placeholder="yyyy-mm-dd">
 			</p>
 			<p><input type="submit" name="user_edit" value="Update"></p>
 		</fieldset>

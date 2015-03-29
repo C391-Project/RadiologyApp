@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UserManageServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
@@ -19,7 +20,7 @@ import database.Person;
 /**
  * Servlet implementation class dblogin
  */
-public class UsersAdd extends HttpServlet {
+public class UsersAdd extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -27,17 +28,16 @@ public class UsersAdd extends HttpServlet {
      */
     public UsersAdd() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		//Check Security and Database Connection
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 				
+		// Render add users page
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users-add.jsp");
 		view.forward(request, response);
 	}
@@ -46,7 +46,8 @@ public class UsersAdd extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 	}
 			
 			

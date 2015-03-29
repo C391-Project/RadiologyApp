@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UserManageServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
@@ -20,7 +21,7 @@ import database.User;
 /**
  * Servlet implementation class UsersEdit
  */
-public class UsersEdit extends HttpServlet {
+public class UsersEdit extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,8 +36,8 @@ public class UsersEdit extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		String username = request.getParameter("username");
 		
@@ -52,7 +53,8 @@ public class UsersEdit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 	}
 			
 			

@@ -12,15 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UserManageServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
 import database.User;
 
 /**
- * Servlet implementation class Users
+ * Servlet implementation class Users Servlet
  */
-public class Users extends HttpServlet {
+public class Users extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
@@ -36,8 +37,8 @@ public class Users extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		List<User> userList = dataSource.getUserList();
 		request.setAttribute("userList", userList);
@@ -49,9 +50,8 @@ public class Users extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Check security and database configuration
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		HttpSession session = request.getSession();
 		

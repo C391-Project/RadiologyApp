@@ -40,13 +40,21 @@ public class Bouncer {
 	public boolean verifyUserAccess() throws IOException {
 		
 		HttpSession session = request.getSession();
-		String usertype = session.getAttribute("usertype").toString().trim();
 		
+		if (session.getAttribute("usertype") == null) {
+			// Redirect to login page while remembering this page.
+			session.setAttribute("returnPage", generateReturnUrl());
+			session.setAttribute("error", "Access denied. Please log in.");
+			response.sendRedirect("/RadiologyApp/login");
+			return false;
+		}
+		
+		String usertype = session.getAttribute("usertype").toString().trim();
 		if (!moduleAccess.allows(usertype)) {
 			// Redirect to login page while remembering this page.
 			session.setAttribute("returnPage", generateReturnUrl());
-			session.setAttribute("error", "Access denied. Not enought privilege.");
-			response.sendRedirect("login.jsp");
+			session.setAttribute("error", "Access denied. Not enough privilege.");
+			response.sendRedirect("/RadiologyApp/login");
 			return false;
 		}	
 		

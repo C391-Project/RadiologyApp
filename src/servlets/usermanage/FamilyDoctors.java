@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UserManageServlet;
 import database.DataSource;
 import database.FamilyDoctor;
 import database.JDBC;
@@ -20,7 +21,7 @@ import database.Person;
 /**
  * Servlet implementation class FamilyDoctor
  */
-public class FamilyDoctors extends HttpServlet {
+public class FamilyDoctors extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
@@ -36,9 +37,8 @@ public class FamilyDoctors extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Check Security and Verify Database
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		List<FamilyDoctor> fdList = dataSource.getFamilyDoctorList();
 		request.setAttribute("fdList", fdList);
@@ -50,9 +50,8 @@ public class FamilyDoctors extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Check Security and Database Connection
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		HttpSession session = request.getSession();
 		
