@@ -2,7 +2,7 @@
  * TODO Attach license of Scalr library.
  */
 
-package servlets.upload;
+package database;
 import static org.imgscalr.Scalr.*;
 
 import java.awt.image.BufferedImage;

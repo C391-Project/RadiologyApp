@@ -15,15 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UploadServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
 import database.User;
 
 /**
- * Servlet implementation class ImageThumbnail Servlet
+ * Servlet implementation class ImageFullSize
  */
-public class ImageFullSize extends HttpServlet {
+public class ImageFullSize extends UploadServlet {
 	private static final long serialVersionUID = 1L;
 	DataSource dataSource = null;
        
@@ -39,9 +40,8 @@ public class ImageFullSize extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		// Check security and database connection.
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		Integer imageId = Integer.parseInt(request.getParameter("id"));
 		
@@ -70,7 +70,8 @@ public class ImageFullSize extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 	}
 			
 			

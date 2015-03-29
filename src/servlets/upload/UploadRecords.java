@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UploadServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
@@ -20,7 +21,7 @@ import database.RadiologyRecord;
 /**
  * Servlet implementation class UploadRecords
  */
-public class UploadRecords extends HttpServlet {
+public class UploadRecords extends UploadServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
@@ -43,8 +44,7 @@ public class UploadRecords extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Check Security and DB Connection
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		if (!verifyAccess(request, response)) return;
 		
 		HttpSession session = request.getSession();
 		

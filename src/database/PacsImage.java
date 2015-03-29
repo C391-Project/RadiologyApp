@@ -11,8 +11,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import servlets.upload.ImageResizer;
-
 /**
  * @reference http://www.srikanthtechnologies.com/blog/java/fileupload.aspx on March 26, 2015
  * @author Brett Commandeur

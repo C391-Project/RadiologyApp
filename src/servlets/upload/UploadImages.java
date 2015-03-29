@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import servlets.UploadServlet;
 import database.DataSource;
 import database.JDBC;
 import database.PacsImage;
@@ -26,7 +27,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  * Servlet implementation class UploadImages
  */
-public class UploadImages extends HttpServlet {
+public class UploadImages extends UploadServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
@@ -42,6 +43,8 @@ public class UploadImages extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 	}
 
 	/**
@@ -49,9 +52,8 @@ public class UploadImages extends HttpServlet {
 	 * @reference http://www.srikanthtechnologies.com/blog/java/fileupload.aspx
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Check Security and Database Connection
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		// For sending messages to other pages.
 		HttpSession session = request.getSession();
