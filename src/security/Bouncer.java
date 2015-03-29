@@ -39,6 +39,13 @@ public class Bouncer {
 		//Should use security module.
 		
 		HttpSession session = request.getSession();
+		if(session.getAttribute("usertype")==null)
+		{
+			session.setAttribute("returnPage", generateReturnUrl());
+			session.setAttribute("error", "Please login first.");
+			response.sendRedirect("login.jsp");
+			return false;
+		}
 		String usertype = session.getAttribute("usertype").toString().trim();
 		
 		//only allow admin to access
