@@ -61,11 +61,11 @@
 		sql += " month,";
 	}
 	sql += "year ORDER BY ";
-	if(timeFlag == 1){
+	if(timeFlag == 1) {
 		sql += "year,week ";
-	}else if(timeFlag == 2){
+	} else if(timeFlag == 2) {
 		sql += "year,month ";
-	}else{
+	} else {
 		sql += "year ";
 	}
 //out.println("<hr>"+sql+"<hr>");
