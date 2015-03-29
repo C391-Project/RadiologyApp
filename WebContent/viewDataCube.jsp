@@ -1,5 +1,16 @@
 <% String pageName = "dataanalysis"; %>
 <%@ page import="java.sql.*, java.util.ArrayList, database.JDBC"%>
+<%!
+//METHOD TO PRINT STUFF
+//INSPIRED BY :http://www.coderanch.com/t/282077/JSP/java/print-JSP-function
+private void printstuff(java.io.PrintWriter out, String result) {	
+	out.println("<tr>");
+	out.println("<td>");
+	out.println(result);
+	out.println("</td>");
+	out.println("<td>");
+}
+%><form name="Back" action="data-analysis.jsp" method="post" role="form">
 <%
 	//The purpose of this file is to view the 
 	//datacube we created in data-analysis.jsp
@@ -50,9 +61,7 @@
 	if(!testType.equals("NONE")) {
 		if (IDANDRECORDFLAG == FLAGPATIENTID) {
 			IDANDRECORDFLAG = FLAGPATIENTANDRECORD;
-		} else {
-			IDANDRECORDFLAG = FLAGRECORD;
-		}
+		} else { IDANDRECORDFLAG = FLAGRECORD; }
 		if(testType.equals("ALL")){
 			sql += "TEST_TYPE.TEST_TYPE,";
 		}else{
@@ -69,63 +78,49 @@
 	}
 	sql += "TIME_ID.YEAR AS year," + "SUM(PATIENT_NUM_IMAGE_TABLE.NUM) ";
 	sql += "FROM PATIENT_NUM_IMAGE_TABLE,TIME_ID";
+	
 	if(!patient.equals("NONE")) {
 		sql += ",PERSONS p,PATIENT p2 ";
 	}
 	if(!testType.equals("NONE")) {
-		if(testType.equals("ALL")){
-			sql += ",TEST_TYPE";
-		}
+		if(testType.equals("ALL")){	sql += ",TEST_TYPE";}
 	}
+	
 	sql += " WHERE ";
+	
 	if(!patient.equals("NONE")){
 		sql += "p.person_id = p2.PATIENT_ID AND p2.PATIENT_ID = PATIENT_NUM_IMAGE_TABLE.PATIENT_ID AND ";
-		if(!patient.equals("ALL")){
-			sql += "p2.PATIENT_ID = " + patient + " AND ";
-		}
+		if(!patient.equals("ALL")){	sql += "p2.PATIENT_ID = " + patient + " AND "; }
 	}
 	if(!testType.equals("NONE")){
-		if(testType.equals("ALL")){
-			sql += "TEST_TYPE.TEST_TYPE = PATIENT_NUM_IMAGE_TABLE.TEST_TYPE AND ";
-		}else{
-			sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE = '" + testType + "' AND ";
-		}
+		if(testType.equals("ALL")){	sql += "TEST_TYPE.TEST_TYPE = PATIENT_NUM_IMAGE_TABLE.TEST_TYPE AND ";
+		}else{	sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE = '" + testType + "' AND "; }
 	}
-	if(!year.equals("ALL")){
-		sql += "TIME_ID.YEAR =" + year + " AND ";
-	}
+	if(!year.equals("ALL")){ sql += "TIME_ID.YEAR =" + year + " AND ";	}
+	
 	sql += "TIME_ID.TIME_ID =PATIENT_NUM_IMAGE_TABLE.TIME_ID ";
 	sql += "GROUP BY ";
-	if(!patient.equals("NONE")) {
-		sql += "CONCAT(p.first_name, CONCAT(' ', p.last_name)),";
-	}
+	
+	if(!patient.equals("NONE")) { sql += "CONCAT(p.first_name, CONCAT(' ', p.last_name)),";	}
 	if(!testType.equals("NONE")) {
-		if(testType.equals("ALL")){
-			sql += "TEST_TYPE.TEST_TYPE,";
-		}else{
-			sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE,";
-		}
+		if(testType.equals("ALL")){	sql += "TEST_TYPE.TEST_TYPE,";
+		}else{	sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE,"; }
 	}
-	if(timeStyle.equals("WEEK")){
-		sql = sql + "week,";
-	}
-	else if(timeStyle.equals("MONTH")){
-		sql = sql + " month,";
-	}
+	if(timeStyle.equals("WEEK")){ sql = sql + "week,"; }
+	else if(timeStyle.equals("MONTH")){ sql = sql + " month,";	}
+	
 	sql = sql + "year ORDER BY ";
-	if(TIMEFLAG == FLAGWEEK){
-		sql = sql + "year,week ";
-	}else if(TIMEFLAG == FLAGMONTH){
-		sql = sql + "year,month ";
-	}else{
-		sql = sql + "year ";
-	}
+	
+	if(TIMEFLAG == FLAGWEEK){ sql = sql + "year,week ";
+	} else if (TIMEFLAG == FLAGMONTH){ sql = sql + "year,month "; 
+	} else{ sql = sql + "year "; }
 	
 	
 out.println("<div class=\"container\">");
 out.println("<h1>Results</h1>");
 out.println("<table class=\"table table-bordered\">");
 out.println("<tr class=\"active\">");
+
 try {
 	stmt = conn.createStatement();
 	out.println(sql);
@@ -135,10 +130,10 @@ try {
 		out.println("<th>Week</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next()){
 			out.println("<tr>");
 			out.println("<td>");
-			out.println(rset.getString(1));
+			out.println((rset.getString(1)).trim());
 			out.println("</td>");
 			out.println("<td>");
 			out.println((rset.getString(2)).trim());
@@ -156,7 +151,7 @@ try {
 		out.println("<th>Week</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -178,7 +173,7 @@ try {
 		out.println("<th>Week</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -202,7 +197,7 @@ try {
 		out.println("<th>Month</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ) {
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -223,7 +218,7 @@ try {
 		out.println("<th>Month</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -245,7 +240,7 @@ try {
 		out.println("<th>Month</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -268,7 +263,7 @@ try {
 		out.println("<th>Patient</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -285,7 +280,7 @@ try {
 		out.println("<th>Test Type</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -303,7 +298,7 @@ try {
 		out.println("<th>Test Type</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null&&rset.next()){
+		while(rset!=null && rset.next()) {
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -322,10 +317,14 @@ try {
 	}
 	out.println("</table>");
 	out.println("</div>");
+	
 } catch (Exception ex) {
-	out.println("<hr>" + ex.getMessage() + "<hr>");
+	//out.println("<hr>" + ex.getMessage() + "<hr>");
 }
 JDBC.closeConnection();
 %>
+<br>
+<br>
+<button type="Go Back" name="Back">GO BACK</button>
 </body>
 </html>
