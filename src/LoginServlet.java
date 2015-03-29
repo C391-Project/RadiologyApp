@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 	        //redirect him to the database login page
 	        if(session.getAttribute("dbusername")==null)
 	        {
-	        	response.sendRedirect("oracle-login");
+	        	response.sendRedirect("/RadiologyApp/oracle-login");
 	        }
 	        else
 	        {
@@ -51,7 +51,10 @@ public class LoginServlet extends HttpServlet {
         	//session.setAttribute("dblab", 
     		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
         	
-        	Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
+        	Boolean isConnectingFromLab =false;
+        	
+        	isConnectingFromLab=(Boolean)session.getAttribute("dblab");
+        
 	        //establish the connection to the underlying database
         	Connection conn = null;
 	
@@ -183,8 +186,9 @@ public class LoginServlet extends HttpServlet {
         	
         	else
         		{
-        			System.out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
+        			System.out.println("<p><b>Invalid combination of username, password!</b></p>");
         			System.out.println("Redirecting to Login page ...");
+        			session.setAttribute("error", "Invalid combination of username, password!");
         			response.setHeader("Refresh", "0; URL=login.jsp");
         		}
 	        	
