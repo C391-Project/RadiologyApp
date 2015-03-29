@@ -69,8 +69,8 @@ try {
 		//do nothing this only means the table didn't exist
 	}
 	rset = stmt.executeQuery(sqlCreateImageTable);
-	//rset = stmt.executeQuery(sqlInsertImageData);
-	//rset = stmt.executeQuery(sqlMergeTables);
+	rset = stmt.executeQuery(sqlInsertImageData);
+	rset = stmt.executeQuery(sqlMergeTables);
 	rsetPIDS = stmt.executeQuery(sqlpersonIDs);
 	//Parse the results into lists for our menu
 	while(rsetPIDS != null && rsetPIDS.next()) {
