@@ -49,6 +49,10 @@
 			
 	%>
 	
+	<form action="editprofilepass.jsp">
+    		<input type="submit" value="Edit My Profile and Password">
+		</form>
+	
 	<form action="upload">
     		<input type="submit" value="Upload">
 	</form>

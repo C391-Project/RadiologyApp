@@ -22,7 +22,9 @@
 	<form method="post" action="LoginServlet">
 		<p><input type="text" name="USERID" value="" placeholder="Username"></p>
 		<p><input type="password" name="PASSWD" value="" placeholder="Password"></p>
-		<p><input type="checkbox" name="labconnection" value="yes">Connecting From Lab</p>
+		<!-- 
+			<p><input type="checkbox" name="labconnection" value="yes">Connecting From Lab</p>
+		 -->
 		<p class="submit"><input type="submit" name="Submit" value="Login"></p>
 	</form>
 <hr>

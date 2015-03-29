@@ -39,6 +39,8 @@ public class LoginServlet extends HttpServlet {
 	        
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
+	        session.setAttribute("username", userName);
+	        session.setAttribute("password", passwd);
 	        String truepwd="";
 	        String truetype="";
 	        String fulltype="";
@@ -46,9 +48,8 @@ public class LoginServlet extends HttpServlet {
         	System.out.println("<p>Your input User Name is: "+userName+"</p>");
         	System.out.println("<p>Your input password is: "+passwd+"</p>");
         	//System.out.println("<p>Your input usertype is: "+usertype+"</p>");
-        	session.setAttribute("dblab", 
-    				(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes"))
-    		);
+        	//session.setAttribute("dblab", 
+    		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
         	
         	Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
 	        //establish the connection to the underlying database
@@ -184,7 +185,7 @@ public class LoginServlet extends HttpServlet {
         		{
         			System.out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
         			System.out.println("Redirecting to Login page ...");
-        			response.setHeader("Refresh", "0; URL=login.html");
+        			response.setHeader("Refresh", "0; URL=login.jsp");
         		}
 	        	
         	
