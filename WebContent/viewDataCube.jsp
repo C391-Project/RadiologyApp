@@ -28,9 +28,6 @@
 	out.println(timeStyle);
 	out.println(year);
 	//END TEST
-	String PER = "PERSONS";
-	String PAT = "PATIENT_ID";
-	String TES = "TEST_TYPE";
 
 	// Initialize these lists to store all of our results for displaying 
 	ArrayList patientNames = new ArrayList();
@@ -43,6 +40,7 @@
 	//Connect to the database
 	conn = JDBC.connect();
 	//begin creating our sql statement
+	//oh god please kill me
 	String sql = "SELECT ";
 
 	if(!patient.equals("NONE")) {
@@ -56,7 +54,7 @@
 			IDANDRECORDFLAG = FLAGRECORD;
 		}
 		if(testType.equals("ALL")){
-			sql += TES+ ".TEST_TYPE,";
+			sql += "TEST_TYPE.TEST_TYPE,";
 		}else{
 		sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE,";
 		}
@@ -72,11 +70,11 @@
 	sql += "TIME_ID.YEAR AS year," + "SUM(PATIENT_NUM_IMAGE_TABLE.NUM) ";
 	sql += "FROM PATIENT_NUM_IMAGE_TABLE,TIME_ID";
 	if(!patient.equals("NONE")) {
-		sql += "," + PER + " p,PATIENT p2 ";
+		sql += ",PERSONS p,PATIENT p2 ";
 	}
 	if(!testType.equals("NONE")) {
 		if(testType.equals("ALL")){
-			sql += "," + TES;
+			sql += ",TEST_TYPE";
 		}
 	}
 	sql += " WHERE ";
@@ -88,7 +86,7 @@
 	}
 	if(!testType.equals("NONE")){
 		if(testType.equals("ALL")){
-			sql += TES + ".TEST_TYPE = PATIENT_NUM_IMAGE_TABLE.TEST_TYPE AND ";
+			sql += "TEST_TYPE.TEST_TYPE = PATIENT_NUM_IMAGE_TABLE.TEST_TYPE AND ";
 		}else{
 			sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE = '" + testType + "' AND ";
 		}
@@ -103,7 +101,7 @@
 	}
 	if(!testType.equals("NONE")) {
 		if(testType.equals("ALL")){
-			sql += TES+ ".TEST_TYPE,";
+			sql += "TEST_TYPE.TEST_TYPE,";
 		}else{
 			sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE,";
 		}
