@@ -923,7 +923,7 @@ public class DataSource {
 	 * row into a radiology record object using the sql columns as attributes. 
 	 * 
 	 * @param recordId		The record ID of the radiology record to be retrieved. 
-	 * @return				A radiology record object representation of the retrieved row.		
+	 * @return				A radiology record object representation of the retrieved row.g		
 	 */
 	public RadiologyRecord getRecordById(Integer recordId) {
 		RadiologyRecord record = null;
