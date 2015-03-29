@@ -115,7 +115,9 @@ private void printstuff(java.io.PrintWriter out, String result) {
 	} else if (TIMEFLAG == FLAGMONTH){ sql = sql + "year,month "; 
 	} else{ sql = sql + "year "; }
 	
-	
+%>
+<h2 id="results">RESULTS</h2>
+<%
 out.println("<div class=\"container\">");
 out.println("<h1>Results</h1>");
 out.println("<table class=\"table table-bordered\">");
@@ -126,32 +128,44 @@ try {
 	out.println(sql);
 	rset = stmt.executeQuery(sql);
 	if(IDANDRECORDFLAG == FLAGPATIENTID && TIMEFLAG == FLAGWEEK){
-		out.println("<th>Patient</th>");
-		out.println("<th>Week</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patientssss</th>
+				<th>Week</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next()){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			%>
+				<tr>
+			<%
+			String name = rset.getString(1);
+			String Week = rset.getString(2);
+			String Year = rset.getString(3);
+			String Num = rset.getString(4);
+			if (name.equals(null) || Week.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %></td>
+				<td><%= Week %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	} else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGWEEK){
 		out.println("<th>Test Type</th>");
 		out.println("<th>Week</th>");
 		out.println("<th>Year</th>");
 		out.println("<th>Number of Image</th>");
-		while(rset!=null && rset.next() ){
+		while(rset!= null && rset.next() ){
 			out.println("<tr>");
 			out.println("<td>");
 			out.println((rset.getString(1)).trim());
@@ -323,6 +337,8 @@ try {
 }
 JDBC.closeConnection();
 %>
+</tbody>
+</table>
 <br>
 <br>
 <button type="Go Back" name="Back">GO BACK</button>
