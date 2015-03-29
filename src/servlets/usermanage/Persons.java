@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import security.Bouncer;
+import security.ModuleAccess;
+import security.UserManageModuleAccess;
+import servlets.UserManageServlet;
 import database.DataSource;
 import database.JDBC;
 import database.Person;
@@ -19,7 +22,7 @@ import database.Person;
 /**
  * Servlet implementation class Persons
  */
-public class Persons extends HttpServlet {
+public class Persons extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource dataSource = null;
        
@@ -35,8 +38,8 @@ public class Persons extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		//Check Security and DB Connection
+		if (!verifyAccess(request, response)) return;
 		
 		List<Person> personList = dataSource.getPersonList();
 		request.setAttribute("personList", personList);
@@ -49,8 +52,7 @@ public class Persons extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Check Security and DB Connection
-		Bouncer sm = new Bouncer(request, response);
-		if (!sm.verifyPage()) return;
+		if (!verifyAccess(request, response)) return;
 		
 		HttpSession session = request.getSession();
 		
@@ -87,8 +89,6 @@ public class Persons extends HttpServlet {
 		
 		// Submit a GET request to this servlet to view results.
 		response.sendRedirect("/RadiologyApp/usermanage/persons");
-	}
-			
-			
+	}		
 
 }

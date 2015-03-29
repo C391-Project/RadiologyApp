@@ -11,10 +11,12 @@ import database.DataSource;
 public class Bouncer {
 	private HttpServletRequest request = null;
 	private HttpServletResponse response = null;
+	private ModuleAccess moduleAccess = null;
 	
-	public Bouncer(HttpServletRequest request, HttpServletResponse response) {
+	public Bouncer(HttpServletRequest request, HttpServletResponse response, ModuleAccess moduleAccess) {
 		this.request = request;
 		this.response = response;
+		this.moduleAccess = moduleAccess;
 	}
 	
 	public boolean verifyPage() throws IOException {
@@ -36,20 +38,17 @@ public class Bouncer {
 	}
 	
 	public boolean verifyUserAccess() throws IOException {
-		//Should use security module.
 		
 		HttpSession session = request.getSession();
 		String usertype = session.getAttribute("usertype").toString().trim();
 		
-		//only allow admin to access
-		if(!usertype.equals("a"))
-		{
+		if (!moduleAccess.allows(usertype)) {
+			// Redirect to login page while remembering this page.
 			session.setAttribute("returnPage", generateReturnUrl());
 			session.setAttribute("error", "Access denied. Not enought privilege.");
 			response.sendRedirect("login.jsp");
 			return false;
-		}
-		
+		}	
 		
 		return true;
 	}
