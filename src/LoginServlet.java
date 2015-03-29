@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import database.DataSource;
+import security.Bouncer;
+
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -25,22 +28,32 @@ public class LoginServlet extends HttpServlet {
         
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        
+    	
+		
         if(request.getParameter("Submit") != null)
         {
+        
+    		HttpSession session = request.getSession();
+    
 	        //get the user input from the login page
-        	HttpSession session=request.getSession();
+        	
 	        String DBusername =null;
 	        String DBpassword = null;
+	        Boolean isConnectingFromLab =false;
 	        // if a user haven't login into the database before login into the system
 	        //redirect him to the database login page
+	        
 	        if(session.getAttribute("dbusername")==null)
 	        {
+	        	session.setAttribute("error", "Please login to the databse first.");
 	        	response.sendRedirect("oracle-login");
 	        }
 	        else
 	        {
 	        	DBusername=session.getAttribute("dbusername").toString();
 				DBpassword=session.getAttribute("dbpassword").toString();
+				isConnectingFromLab=(Boolean)session.getAttribute("dblab");
 	        }
 	        
         	String userName = (request.getParameter("USERID")).trim();
@@ -57,7 +70,10 @@ public class LoginServlet extends HttpServlet {
         	//session.setAttribute("dblab", 
     		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
         	
-        	Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
+        	
+        	
+        	
+        
 	        //establish the connection to the underlying database
         	Connection conn = null;
 	
@@ -139,7 +155,7 @@ public class LoginServlet extends HttpServlet {
         	session.setAttribute("usertype",truetype);
         	//request.getSession().setAttribute("id",10 );
         	//display the result
-	        if(passwd.equals(truepwd))
+	        if(!userName.equals(null)&&!passwd.equals(null)&&passwd.equals(truepwd))
 	        {
 		        System.out.println("<p><b>Login Successful!</b></p>");
 		        //get the full usertype
@@ -189,8 +205,9 @@ public class LoginServlet extends HttpServlet {
         	
         	else
         		{
-        			System.out.println("<p><b>Invalid combination of username, password and usertype!</b></p>");
+        			System.out.println("<p><b>Invalid combination of username, password!</b></p>");
         			System.out.println("Redirecting to Login page ...");
+        			session.setAttribute("error", "Invalid combination of username, password!");
         			response.setHeader("Refresh", "0; URL=login.jsp");
         		}
 	        	
@@ -204,7 +221,7 @@ public class LoginServlet extends HttpServlet {
         }
         else
         {
-        		response.sendRedirect("login.html");
+        		response.sendRedirect("login.jsp");
 
         }      
     }

@@ -42,7 +42,7 @@
 			else
 			{
 				out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-				response.setHeader("Refresh", "3; URL=login.jsp");	
+				response.setHeader("Refresh", "1; URL=login.jsp");	
 			}
 		
 			

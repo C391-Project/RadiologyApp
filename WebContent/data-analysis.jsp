@@ -65,9 +65,11 @@ try {
 	try {
 		rset = stmt.executeQuery(sqlDropImageTable);
 	} catch (Exception ex) { 
+		out.println("<hr>" + ex.getMessage() + "<hr>");
 		//do nothing this only means the table didn't exist
 	}
 	rset = stmt.executeQuery(sqlCreateImageTable);
+	rset = stmt.executeQuery(sqlInsertImageData);
 	rset = stmt.executeQuery(sqlMergeTables);
 	rsetPIDS = stmt.executeQuery(sqlpersonIDs);
 	//Parse the results into lists for our menu
