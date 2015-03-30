@@ -22,13 +22,13 @@ public class OracleLogin extends HttpServlet {
      */
     public OracleLogin() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Render the oracle login page.
 		RequestDispatcher view = request.getRequestDispatcher("/oracle-login.jsp");
 		view.forward(request, response);
 	}
@@ -52,11 +52,12 @@ public class OracleLogin extends HttpServlet {
 		String password = session.getAttribute("dbpassword").toString();
 		Boolean isConnectingFromLab = (Boolean)session.getAttribute("dblab");
 		
-		// Test Connection
+		// Test Connection and redirect
 		JDBC.configure(username, password, isConnectingFromLab);
 		JDBC.connect();
 		if (JDBC.hasConnection()) {
 			String returnPage = (String) session.getAttribute("returnPage");
+			// Redirect to the accessed page or homepage on success.
 			if ( returnPage != null) {
 				session.setAttribute("returnPage", null);
 				response.sendRedirect(returnPage);
@@ -64,12 +65,12 @@ public class OracleLogin extends HttpServlet {
 				response.sendRedirect("/RadiologyApp");
 			}
 		} else {
+			// Redirect back to oracle login page on failure.
 			session.setAttribute("error", "Could not connect to database.");
 			response.sendRedirect("/RadiologyApp/oracle-login");
 		}
 		JDBC.closeConnection();
 		
-
-	} // END doPost
+	}
 
 }

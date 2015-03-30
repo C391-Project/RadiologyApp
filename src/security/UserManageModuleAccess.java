@@ -14,6 +14,7 @@ public class UserManageModuleAccess extends ModuleAccess {
 	 */
 	public UserManageModuleAccess() {
 		super();
+		// User manage module allows admins only.
 		this.allowedUserTypes = Arrays.asList(ADMIN_USER_TYPE);
 	}
 

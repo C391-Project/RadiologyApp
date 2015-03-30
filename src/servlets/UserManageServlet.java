@@ -13,12 +13,27 @@ import security.UserManageModuleAccess;
 public abstract class UserManageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	// Container for user access privilege information.
 	protected ModuleAccess moduleAccess;
 	
+	/**
+	 * Constructor method.
+	 */
 	public UserManageServlet () {
+		// Set the servet's access priveleges. 
 		this.moduleAccess = new UserManageModuleAccess();
 	}
 	
+	/**
+	 * Method to be used at the beginning of each get/post method. Relies
+	 * on the Bouncer class of the security module to verify the page's 
+	 * database connection and user access priveleges. 
+	 * 
+	 * @param request		The http request of the accessed page.
+	 * @param response		The http response of the accessed page.
+	 * @return				True if page is ready for access.
+	 * @throws IOException
+	 */
 	protected boolean verifyAccess(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Bouncer bouncer = new Bouncer(request, response, this.moduleAccess);
 		return bouncer.verifyPage();

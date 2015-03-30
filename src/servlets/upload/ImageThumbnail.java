@@ -36,8 +36,10 @@ public class ImageThumbnail extends UploadServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Get the id of thumbnail size image to retrieve.
 		Integer imageId = Integer.parseInt(request.getParameter("id"));
 		
+		// Retrieve image from the database and write it to the page.
 		try {
 			// Reference http://www.srikanthtechnologies.com/blog/java/fileupload.aspx on March 26, 2015
 			BufferedImage img = dataSource.getImageThumbnailById(imageId);
@@ -50,9 +52,11 @@ public class ImageThumbnail extends UploadServlet {
 		    Integer contentLength = tmp.size();
 		    // end reference
 			
+		    // Prepare page for image.
 	        response.setContentType("image/jpeg");
 	        response.setContentLength( (int) contentLength);
 	        
+	        // Write image onto the page.
 	        OutputStream os = response.getOutputStream();
 	        ImageIO.write(img, "jpg", os);
 	        os.close();
