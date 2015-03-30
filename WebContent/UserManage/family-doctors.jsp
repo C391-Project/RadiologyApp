@@ -17,7 +17,7 @@
 	<p>
 		<a href="/RadiologyApp/usermanage/family-doctors/add">Add Family Doctor</a>
 	</p>
-	<table>
+	<table> <!-- Display Family Doctor Table -->
 		<thead>
 			<tr>
 				<th>Doctor ID</th>
@@ -27,6 +27,7 @@
 		</thead>
 		<tbody>
 		<%
+		// Retrieve the famiily doctor table from the database
 		List<FamilyDoctor> fdList = (List<FamilyDoctor>) request.getAttribute("fdList");
 		for (FamilyDoctor fd : fdList) {
 		%>
@@ -39,6 +40,6 @@
 		}
 		%>
 		</tbody>
-	</table>
+	</table> <!-- End Family Doctor Table -->
 </body>
 </html>
