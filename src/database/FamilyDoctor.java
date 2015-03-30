@@ -2,11 +2,17 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class FamilyDoctor implements Table {
+/**
+ * Class for storing and working with information from a single row of the 
+ * family_doctor table of the database.
+ * 
+ * @author Brett Commandeur
+ *
+ */
+public class FamilyDoctor implements TableRow {
 
 	Integer doctorId = null;
 	Integer patientId = null;
@@ -32,7 +38,7 @@ public class FamilyDoctor implements Table {
 	 * Constructor for generating a displayable family doctor object
 	 * using the result set of a select query on the family doctor table.
 	 * 
-	 * @param rs			The result set of the select query on the doctor table.
+	 * @param rs			The result set of the select query on the family doctor table.
 	 * @throws SQLException
 	 */
 	public FamilyDoctor (ResultSet rs) throws SQLException {

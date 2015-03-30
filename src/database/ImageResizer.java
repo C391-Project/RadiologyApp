@@ -1,12 +1,14 @@
-/**
- * TODO Attach license of Scalr library.
- */
-
 package database;
 import static org.imgscalr.Scalr.*;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Class used to resize images.
+ * 
+ * @author Brett Commandeur
+ *
+ */
 public class ImageResizer {
 	
 	private static int THUMBNAIL_SIZE = 125;

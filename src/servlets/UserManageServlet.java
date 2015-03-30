@@ -11,6 +11,7 @@ import security.ModuleAccess;
 import security.UserManageModuleAccess;
 
 public abstract class UserManageServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	
 	protected ModuleAccess moduleAccess;
 	

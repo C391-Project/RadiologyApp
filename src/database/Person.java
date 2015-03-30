@@ -5,16 +5,32 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Person implements Table {
+/**
+ * Class for storing and working with information from a single row of the 
+ * persons table of the database.
+ * 
+ * @author Brett Commandeur
+ *
+ */
+public class Person implements TableRow {
 	
+	// Database columns
 	Integer personId = null;
 	String firstName = null;
 	String lastName = null;
 	String address = null;
 	String email = null;
 	String phone = null;
+	
 	boolean isValid = false;
 	
+	/**
+	 * Constructor for generating a submittable person object from the request 
+	 * of the add person form. 
+	 * 
+	 * @param personId	The personId of the person row to create.
+	 * @param request	The request from the add person form.
+	 */
 	public Person (Integer personId, HttpServletRequest request) {
 		try {
 			this.personId = personId;
@@ -29,6 +45,13 @@ public class Person implements Table {
 		}
 	}
 	
+	/**
+	 * Constructor for generating a displayable person object from the 
+	 * result set of the database query on the person table.
+	 * 
+	 * @param rs				The result set from which to retrieve the person information.
+	 * @throws SQLException
+	 */
 	public Person (ResultSet rs) throws SQLException {
 		personId = rs.getInt("PERSON_ID");
 		firstName = rs.getString("FIRST_NAME");
@@ -38,6 +61,11 @@ public class Person implements Table {
 		phone = rs.getString("PHONE");
 	}
 
+	/**
+	 * Checker of whether the object is ready for submission.
+	 * 
+	 * @return True if all required fields have information.
+	 */
 	@Override
 	public boolean isValid() {
 		if (personId != null 
@@ -51,11 +79,21 @@ public class Person implements Table {
 		return isValid;
 	}
 	
+	/** 
+	 * Method for generating an SQL insert statement for the persons table. 
+	 * 
+	 * @return	String containing the insert statement.
+	 */
 	@Override
 	public String generateInsertSql() {
 		return "INSERT INTO persons VALUES (?,?,?,?,?,?)";
 	}
 	
+	/**
+	 * Method for generating an SQL update statement for the persons table.
+	 * 
+	 * @return  String containing the update statement.
+	 */
 	public String generateUpdateSql() {
 		return "UPDATE persons"
 				+ " SET first_name = ?,"
@@ -65,6 +103,8 @@ public class Person implements Table {
 					+ " phone = ?"
 				+ "WHERE person_id = ?";
 	}
+	
+	// Getter methods
 	
 	public int getPersonId() {
 		return personId;

@@ -3,7 +3,6 @@ package servlets.upload;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -14,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import security.Bouncer;
 import servlets.UploadServlet;
 import database.DataSource;
-import database.JDBC;
 import database.PacsImage;
 
 import org.apache.commons.fileupload.FileItem;

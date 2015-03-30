@@ -9,21 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import servlets.UploadServlet;
-import database.DataSource;
 
 /**
  * Servlet implementation class UploadImages
  */
 public class UploadRecordsAdd extends UploadServlet {
 	private static final long serialVersionUID = 1L;
-	private DataSource dataSource = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UploadRecordsAdd() {
         super();
-        this.dataSource = new DataSource();
     }
 
 	/**

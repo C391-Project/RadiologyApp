@@ -14,8 +14,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.fileupload.FileItem;
-
 import java.sql.Blob;
 
 /**

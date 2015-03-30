@@ -3,13 +3,10 @@ package database;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
- * Singleton for connecting to a database through JDBC.
+ * Singleton class for connecting to the database through JDBC.
  * 
  * @author Maks (original)
  * @author Brett Commandeur (modified by)

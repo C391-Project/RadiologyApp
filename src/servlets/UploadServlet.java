@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import security.Bouncer;
 import security.ModuleAccess;
 import security.UploadModuleAccess;
-import security.UserManageModuleAccess;
 
 public abstract class UploadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	
 	protected ModuleAccess moduleAccess;
 	
