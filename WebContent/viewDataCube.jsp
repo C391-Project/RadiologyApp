@@ -1,21 +1,13 @@
 <% String pageName = "dataanalysis"; %>
 <%@ page import="java.sql.*, java.util.ArrayList, database.JDBC"%>
 <%!
-//METHOD TO PRINT STUFF
-//INSPIRED BY :http://www.coderanch.com/t/282077/JSP/java/print-JSP-function
-private void printstuff(java.io.PrintWriter out, String result) {	
-	out.println("<tr>");
-	out.println("<td>");
-	out.println(result);
-	out.println("</td>");
-	out.println("<td>");
-}
 %><form name="Back" action="data-analysis.jsp" method="post" role="form">
 <link href="/RadiologyApp/includes/style.css" rel="stylesheet">
 <%
 	//The purpose of this file is to view the 
 	//datacube we created in data-analysis.jsp
 
+	//Variable declaration and static flag values
 	Connection conn = null;
 	final int FLAGWEEK = 1;
 	final int FLAGMONTH = 2;
@@ -28,6 +20,7 @@ private void printstuff(java.io.PrintWriter out, String result) {
 		
 	Statement stmt = null;
 	ResultSet rset = null;
+	//Get these from the previous page
 	String patient = request.getParameter("PATIENTID").trim();
 	String testType = request.getParameter("TESTTYPE").trim();
 	String timeStyle = request.getParameter("TIME").trim();
@@ -52,6 +45,7 @@ private void printstuff(java.io.PrintWriter out, String result) {
 		sql = sql + "CONCAT(p.first_name, CONCAT(' ', p.last_name)) as name,";
 	}
 	if(!testType.equals("NONE")) {
+		//Need to update our flags depending on what the user chose
 		if (IDANDRECORDFLAG == FLAGPATIENTID) {
 			IDANDRECORDFLAG = FLAGPATIENTANDRECORD;
 		} else { IDANDRECORDFLAG = FLAGRECORD; }
@@ -81,19 +75,23 @@ private void printstuff(java.io.PrintWriter out, String result) {
 	
 	sql += " WHERE ";
 	
+	//If the user selected a patient add it to our sql querry 
 	if(!patient.equals("NONE")){
 		sql += "p.person_id = p2.PATIENT_ID AND p2.PATIENT_ID = PATIENT_NUM_IMAGE_TABLE.PATIENT_ID AND ";
 		if(!patient.equals("ALL")){	sql += "p2.PATIENT_ID = " + patient + " AND "; }
 	}
+	//similarly for test type
 	if(!testType.equals("NONE")){
 		if(testType.equals("ALL")){	sql += "TEST_TYPE.TEST_TYPE = PATIENT_NUM_IMAGE_TABLE.TEST_TYPE AND ";
 		}else{	sql += "PATIENT_NUM_IMAGE_TABLE.TEST_TYPE = '" + testType + "' AND "; }
 	}
+	//add the year to te query 
 	if(!year.equals("ALL")){ sql += "TIME_ID.YEAR =" + year + " AND ";	}
 	
 	sql += "TIME_ID.TIME_ID =PATIENT_NUM_IMAGE_TABLE.TIME_ID ";
 	sql += "GROUP BY ";
 	
+	//More SQL based on the parameters the user chose
 	if(!patient.equals("NONE")) { sql += "CONCAT(p.first_name, CONCAT(' ', p.last_name)),";	}
 	if(!testType.equals("NONE")) {
 		if(testType.equals("ALL")){	sql += "TEST_TYPE.TEST_TYPE,";
@@ -112,7 +110,7 @@ private void printstuff(java.io.PrintWriter out, String result) {
 <h2 id="results">RESULTS</h2>
 <%
 
-
+//Do the SQL statement and then print out the results
 try {
 	stmt = conn.createStatement();
 	rset = stmt.executeQuery(sql);
