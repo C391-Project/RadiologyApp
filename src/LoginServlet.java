@@ -66,9 +66,9 @@ public class LoginServlet extends HttpServlet {
 	        String truetype="";
 	        String fulltype="";
 	        //String usertype=(request.getParameter("usertype")).trim();
-        	System.out.println("<p>Your input User Name is: "+userName+"</p>");
-        	System.out.println("<p>Your input password is: "+passwd+"</p>");
-        	//System.out.println("<p>Your input usertype is: "+usertype+"</p>");
+        	//System.out.println("<p>Your input User Name is: "+userName+"</p>");
+        	//System.out.println("<p>Your input password is: "+passwd+"</p>");
+        	////System.out.println("<p>Your input usertype is: "+usertype+"</p>");
         	//session.setAttribute("dblab", 
     		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
         	
@@ -93,7 +93,7 @@ public class LoginServlet extends HttpServlet {
 	        	DriverManager.registerDriver((Driver) drvClass.newInstance());
         	}
 	        catch(Exception ex){
-		        System.out.println("<hr>" + ex.getMessage() + "<hr>");
+		        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
 	
 	        }
 	
@@ -104,21 +104,21 @@ public class LoginServlet extends HttpServlet {
 	        }
         	catch(Exception ex){
 	        
-		        System.out.println("<hr>" + ex.getMessage() + "<hr>");
+		        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
 	
 	        //select the user table from the underlying db and validate the user name and password
         	Statement stmt = null;
 	        ResultSet rset = null;
         	String sql = "select password from users where user_name = '"+userName+"'";
-	        //System.out.println(sql);
+	        ////System.out.println(sql);
         	try{
 	        	stmt = conn.createStatement();
 		        rset = stmt.executeQuery(sql);
         	}
 	
 	        catch(Exception ex){
-		        System.out.println("<hr>" + ex.getMessage() + "<hr>");
+		        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
 	
         	try {
@@ -133,14 +133,14 @@ public class LoginServlet extends HttpServlet {
         	Statement stmt1 = null;
 	        ResultSet rset1 = null;
         	String sql1 = "select class from users where user_name = '"+userName+"'";
-	        //System.out.println(sql1);
+	        ////System.out.println(sql1);
         	try{
 	        	stmt1 = conn.createStatement();
 		        rset1 = stmt1.executeQuery(sql1);
         	}
 	
 	        catch(Exception ex){
-		        System.out.println("<hr>" + ex.getMessage() + "<hr>");
+		        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
         	}
 	
         	try {
@@ -151,7 +151,7 @@ public class LoginServlet extends HttpServlet {
 				e.printStackTrace();
 			}
         	
-        	System.out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
+        	//System.out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	session.setAttribute("usertype",truetype);
         	//request.getSession().setAttribute("id",10 );
         	//display the result
@@ -159,7 +159,7 @@ public class LoginServlet extends HttpServlet {
         	//if the username and the password matched, login succeed, redirect it to he user's homepage
 	        if(!DBusername.equals(null)&&!userName.equals(null)&&!passwd.equals(null)&&passwd.equals(truepwd))
 	        {
-		        System.out.println("<p><b>Login Successful!</b></p>");
+		        //System.out.println("<p><b>Login Successful!</b></p>");
 		        //get the full usertype
 		        if(truetype.equals("a"))
 		        	fulltype="Admin";
@@ -184,24 +184,24 @@ public class LoginServlet extends HttpServlet {
 		        
 	        	if(truetype.equals("a"))
         		{
-        		System.out.println("Redirecting to Admin Homepage...");
+        		//System.out.println("Redirecting to Admin Homepage...");
         		response.setHeader("Refresh", "0; URL=Admin_Homepage.jsp");
         		//response.sendRedirect("Admin_Homepage.html");
         		}
         		else if (truetype.equals("p"))
         		{	
-        		System.out.println("Redirecting to Patient Homepage...");
+        		//System.out.println("Redirecting to Patient Homepage...");
         		response.setHeader("Refresh", "0; URL=Patient_Homepage.jsp");
         		//response.sendRedirect("User_Homepage.html");
         		}	
         		else if (truetype.equals("r"))
         		{
-        		System.out.println("Redirecting to Radiologist Homepage...");
+        		//System.out.println("Redirecting to Radiologist Homepage...");
             	response.setHeader("Refresh", "0; URL=Radiologist_Homepage.jsp");
         		}
         		else if(truetype.equals("d"))
         		{
-        		System.out.println("Redirecting to Doctor Homepage ...");
+        		//System.out.println("Redirecting to Doctor Homepage ...");
                 response.setHeader("Refresh", "0; URL=Doctor_Homepage.jsp");	
         		}
 	        }
@@ -209,8 +209,8 @@ public class LoginServlet extends HttpServlet {
         	else
         		{
         		   //if the username and the password do not match, redirect it to login and push the warning
-        			System.out.println("<p><b>Invalid combination of username, password!</b></p>");
-        			System.out.println("Redirecting to Login page ...");
+        			//System.out.println("<p><b>Invalid combination of username, password!</b></p>");
+        			//System.out.println("Redirecting to Login page ...");
         			session.setAttribute("error", "Invalid combination of username, password!");
         			response.setHeader("Refresh", "0; URL=login.jsp");
         		}
@@ -220,7 +220,7 @@ public class LoginServlet extends HttpServlet {
                         conn.close();
                 }
                 catch(Exception ex){
-                        System.out.println("<hr>" + ex.getMessage() + "<hr>");
+                        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
                 }
         }
         else

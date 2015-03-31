@@ -11,6 +11,11 @@ public class LogoutServlet extends HttpServlet {
         
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        
+        //expire the session to log out
+        request.getSession().invalidate();
+        
+        
         Cookie loginCookie = null;
         Cookie loginCookie1=null;
         Cookie[] cookies = request.getCookies();
@@ -26,6 +31,8 @@ public class LogoutServlet extends HttpServlet {
             loginCookie.setMaxAge(0);
             response.addCookie(loginCookie);
         }
+        //logout the cookies
+        //it actually sets the cookies time to 0, to finish the cookies
         
         if(cookies != null){
             for(Cookie cookie : cookies){
@@ -39,6 +46,9 @@ public class LogoutServlet extends HttpServlet {
                 loginCookie1.setMaxAge(0);
                 response.addCookie(loginCookie1);
             }
+          //logout the cookies
+          //it actually sets the cookies time to 0, to finish the cookies  
+          
             
         response.sendRedirect("login.jsp");
     }
