@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -14,9 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import database.DataSource;
-import security.Bouncer;
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
