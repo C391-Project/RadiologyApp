@@ -62,7 +62,7 @@ public class OracleLogin extends HttpServlet {
 				session.setAttribute("returnPage", null);
 				response.sendRedirect(returnPage);
 			} else {
-				response.sendRedirect("/RadiologyApp");
+				response.sendRedirect("login.jsp");
 			}
 		} else {
 			// Redirect back to oracle login page on failure.

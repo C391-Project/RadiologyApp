@@ -1,3 +1,5 @@
+//adapted form Pro Yan Li-Yuan's login module's example
+//Author: Cheng
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -26,24 +28,25 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html");
         
     	
-		
+		//If user is redirected form the login.jsp, then run this servlet.
+        //Or redirected him to login.jsp
         if(request.getParameter("Submit") != null)
         {
         
     		HttpSession session = request.getSession();
-    
-	        //get the user input from the login page
-        	
+    		//get session from HttpSession
+    		
+	        //get database login info from the oracle-login servlet
 	        String DBusername =null;
 	        String DBpassword = null;
 	        Boolean isConnectingFromLab =false;
+	        
 	        // if a user haven't login into the database before login into the system
 	        //redirect him to the database login page
-	        
 	        if(session.getAttribute("dbusername")==null)
 	        {
-	        	session.setAttribute("error", "Please login to the databse first.");
-	        	response.sendRedirect("oracle-login");
+	        	session.setAttribute("error", "Please login to the database first.");
+    			response.setHeader("Refresh", "0; URL=oracle-login");
 	        }
 	        else
 	        {
@@ -52,8 +55,11 @@ public class LoginServlet extends HttpServlet {
 				isConnectingFromLab=(Boolean)session.getAttribute("dblab");
 	        }
 	        
+	        //get the user info form the login.jsp
         	String userName = (request.getParameter("USERID")).trim();
 	        String passwd = (request.getParameter("PASSWD")).trim();
+	        
+	        //store the basic user info into the session
 	        session.setAttribute("username", userName);
 	        session.setAttribute("password", passwd);
 	        String truepwd="";
@@ -66,9 +72,7 @@ public class LoginServlet extends HttpServlet {
         	//session.setAttribute("dblab", 
     		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
         	
-        	
-        	
-        	
+        
         
 	        //establish the connection to the underlying database
         	Connection conn = null;
@@ -151,7 +155,9 @@ public class LoginServlet extends HttpServlet {
         	session.setAttribute("usertype",truetype);
         	//request.getSession().setAttribute("id",10 );
         	//display the result
-	        if(!userName.equals(null)&&!passwd.equals(null)&&passwd.equals(truepwd))
+        	
+        	//if the username and the password matched, login succeed, redirect it to he user's homepage
+	        if(!DBusername.equals(null)&&!userName.equals(null)&&!passwd.equals(null)&&passwd.equals(truepwd))
 	        {
 		        System.out.println("<p><b>Login Successful!</b></p>");
 		        //get the full usertype
@@ -164,7 +170,8 @@ public class LoginServlet extends HttpServlet {
 		        else if(truetype.equals("d"))
 		        	fulltype="Doctor";
 		        else fulltype="Error";
-		        		
+		        
+		        //this part is not necessary, since we already have the session to store the user info
 		        //store user info in cookies
 		        Cookie loginCookie = new Cookie("user",userName);
 		        Cookie loginCookie1 = new Cookie("usertype",fulltype);
@@ -201,6 +208,7 @@ public class LoginServlet extends HttpServlet {
         	
         	else
         		{
+        		   //if the username and the password do not match, redirect it to login and push the warning
         			System.out.println("<p><b>Invalid combination of username, password!</b></p>");
         			System.out.println("Redirecting to Login page ...");
         			session.setAttribute("error", "Invalid combination of username, password!");
@@ -217,6 +225,8 @@ public class LoginServlet extends HttpServlet {
         }
         else
         {
+        	//if the user in not from the login.jsp,
+        	//redirect it to login first
         		response.sendRedirect("login.jsp");
 
         }      
