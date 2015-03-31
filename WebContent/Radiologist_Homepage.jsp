@@ -7,6 +7,8 @@
 <body>
 	<h1>Radiologist's Homepage </h1>
 	
+	<%@include file="header.html" %>
+	
 	<%
 	String userName = null;
 	String usertype=null;
@@ -53,20 +55,9 @@
 			
 	%>
 	
-	<form action="editprofilepass.jsp">
-    		<input type="submit" value="Edit My Profile and Password">
-		</form>
-	
-	<form action="upload">
-    		<input type="submit" value="Upload">
-	</form>
-	
-	<form action="/RadiologyApp/search.jsp">
-    		<input type="submit" value="Search">
-	</form>
-	
-	<form action="LogoutServlet" method="post">
-		<input type="submit" value="Logout" >
-	</form>
+	<p>
+		<a href="uploadt"><button>Upload</button></a>
+	</p>
+		
 </body>
 </html>
