@@ -11,6 +11,7 @@ private void printstuff(java.io.PrintWriter out, String result) {
 	out.println("<td>");
 }
 %><form name="Back" action="data-analysis.jsp" method="post" role="form">
+<link href="/RadiologyApp/includes/style.css" rel="stylesheet">
 <%
 	//The purpose of this file is to view the 
 	//datacube we created in data-analysis.jsp
