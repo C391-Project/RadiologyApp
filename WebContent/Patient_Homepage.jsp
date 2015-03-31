@@ -30,8 +30,10 @@
 	//user power contronl, only admin can get access to this page
 		if(userName == null)
 		{
-			out.println("Username error, redireting to login page.");
-			response.setHeader("Refresh", "3; URL=login.jsp");	
+			session.setAttribute("error", "Username Error, redireted to login page.");
+			response.sendRedirect("login.jsp");
+			/* out.println("Username error, redireting to login page.");
+			response.setHeader("Refresh", "3; URL=login.jsp");	 */
 		}
 			
 			//response.sendRedirect("login.html");
@@ -41,8 +43,10 @@
 		}
 		else
 		{
-			out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-			response.setHeader("Refresh", "3; URL=login.jsp");	
+			session.setAttribute("error", "Access denied, redireted to login page.");
+			response.sendRedirect("login.jsp");
+			/* out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
+			response.setHeader("Refresh", "3; URL=login.jsp");	 */
 		}
 			
 	%>

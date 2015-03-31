@@ -10,7 +10,7 @@
 		<h1>RadiologyApp</h1>
 		<ul>
 			<li><a href="oracle-login">Login to the database first</a></li>
-			<!-- <li><a href="login.jsp">Login</a></li> -->
+			<li><a href="login.jsp">Login</a></li>
 			<!-- <li><a href="usermanage">User Management Module</a></li>
 			<li><a href="upload">Upload Moduel</a>
 			<li><a href="/RadiologyApp/search.jsp">Search Module</a></li>
