@@ -118,10 +118,7 @@ private void printstuff(java.io.PrintWriter out, String result) {
 %>
 <h2 id="results">RESULTS</h2>
 <%
-out.println("<div class=\"container\">");
-out.println("<h1>Results</h1>");
-out.println("<table class=\"table table-bordered\">");
-out.println("<tr class=\"active\">");
+
 
 try {
 	stmt = conn.createStatement();
@@ -132,7 +129,7 @@ try {
 		<table>
 		<thead>
 			<tr>
-				<th>Patients</th>
+				<th>Patient</th>
 				<th>Week</th>
 				<th>Year</th>
 				<th>Number of Images</th>
@@ -260,110 +257,160 @@ try {
 			<%
 		}
 	} else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGMONTH){
-		out.println("<th>Test Type</th>");
-		out.println("<th>Month</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Test Type</th>
+				<th>Month</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			while(rset!=null && rset.next() ) {
+				String testtype = rset.getString(1);
+				String Month = rset.getString(3);
+				String Year = rset.getString(4);
+				String Num = rset.getString(5);
+				
+				if (testtype.equals(null) ||  Month.equals(null) || Year.equals(null) || Num.equals(null)) {
+					break; 
+				}
+				%>
+					<td><%= testtype %></td>
+					<td><%= Month %></td>
+					<td><%= Year %></td>
+					<td><%= Num %></td>
+					</tr>
+					
+				<%
+			}
 		}
 	} else if(IDANDRECORDFLAG == FLAGPATIENTANDRECORD && TIMEFLAG == FLAGMONTH){
-		out.println("<th>Patient</th>");
-		out.println("<th>Test Type</th>");
-		out.println("<th>Month</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Test Type</th>
+				<th>Month</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(5)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String name = rset.getString(1);
+			String testtype = rset.getString(2);
+			String Month = rset.getString(3);
+			String Year = rset.getString(4);
+			String Num = rset.getString(5);
+			
+			if (name.equals(null) || testtype.equals(null) ||  Month.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %></td>
+				<td><%= testtype %></td>
+				<td><%= Month %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	}else if(IDANDRECORDFLAG == FLAGPATIENTID && TIMEFLAG == FLAGYEAR){
-		out.println("<th>Patient</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String name = rset.getString(1);
+			String Year = rset.getString(2);
+			String Num = rset.getString(3);
+			
+			if (name.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	}else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGYEAR){
-		out.println("<th>Test Type</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Test Type</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String testtype = rset.getString(1);
+			String Year = rset.getString(2);
+			String Num = rset.getString(3);
+			
+			if (testtype.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= testtype %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	}else if(IDANDRECORDFLAG == FLAGPATIENTANDRECORD && TIMEFLAG == FLAGYEAR){
-		out.println("<th>Patient</th>");
-		out.println("<th>Test Type</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Test Type</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next()) {
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String name = rset.getString(1);
+			String testtype = rset.getString(2);
+			String Year = rset.getString(3);
+			String Num = rset.getString(4);
+			
+			if (name.equals(null) || testtype.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %> </td>
+				<td><%= testtype %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
-	}
-	out.println("</table>");
-	out.println("</div>");
-	
+	}	
 } catch (Exception ex) {
 	//out.println("<hr>" + ex.getMessage() + "<hr>");
 }
