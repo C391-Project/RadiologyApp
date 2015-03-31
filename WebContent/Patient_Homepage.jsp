@@ -39,7 +39,7 @@
 			//response.sendRedirect("login.html");
 		if(usertype.equals("Patient"))
 		{
-			out.println("<h3>Login successful!</h3>");
+			//out.println("<h3>Login successful!</h3>");
 		}
 		else
 		{
