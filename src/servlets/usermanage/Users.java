@@ -36,6 +36,7 @@ public class Users extends UserManageServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Render users display page with information from the database
 		List<User> userList = dataSource.getUserList();
 		request.setAttribute("userList", userList);
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users.jsp");
@@ -73,6 +74,7 @@ public class Users extends UserManageServlet {
 			}
 		}
 		
+		// Delete User
 		boolean isUserDelete = (request.getParameter("user_delete") != null);
 		if (isUserDelete) {
 			String username = request.getParameter("u_user_name");

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import servlets.UserManageServlet;
 
 /**
- * Servlet implementation class dblogin
+ * Servlet implementation class UserAdd
  */
 public class UsersAdd extends UserManageServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class UsersAdd extends UserManageServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 				
-		// Render add users page
+		// Render add user page
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users-add.jsp");
 		view.forward(request, response);
 	}

@@ -32,12 +32,15 @@ public class FamilyDoctorsEdit extends UserManageServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Get doctor id and patient id from the request
 		Integer doctorId = Integer.parseInt(request.getParameter("d-id"));
 		Integer patientId = Integer.parseInt(request.getParameter("p-id"));
 		
+		// Get the family doctor record from the database
 		DataSource dataSource = new DataSource();
 		FamilyDoctor fd = dataSource.getFamilyDoctorByIds(doctorId, patientId);
 		
+		// Render page with information from family doctor record
 		request.setAttribute("family-doctor", fd);
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/family-doctors-edit.jsp");
 		view.forward(request, response);

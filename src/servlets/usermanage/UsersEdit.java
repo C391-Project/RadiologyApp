@@ -33,11 +33,14 @@ public class UsersEdit extends UserManageServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Get the username of the user to edit from the request
 		String username = request.getParameter("username");
 		
+		// Get the user from the database
 		DataSource dataSource = new DataSource();
 		User user = dataSource.getUserByUserName(username);
 		
+		// Render edit user page with information from the database
 		request.setAttribute("user", user);
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/users-edit.jsp");
 		view.forward(request, response);
