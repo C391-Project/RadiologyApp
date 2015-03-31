@@ -20,15 +20,7 @@ init:
 	mkdir -p tmp
 
 war: init
-	mkdir -p tmp/META-INF tmp/WEB-INF
-	mkdir -p tmp/WEB-INF/classes tmp/WEB-INF/lib tmp/WEB-INF/resources
- 
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/*.java
-		src/*/*.java
-		src/*/*/*.java
-	pushd tmp && jar -cfm ../RadiologyApp.war ../WebContent/META-INF/MANIFEST.MF * && popd
+	jar cf RadiologyApp.war WebContent 
 
 clean:
 	rm -fR tmp *.war
