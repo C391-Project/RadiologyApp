@@ -9,9 +9,6 @@
 </head>
 <body>
 
-</body>
-</html>
-
 <% String pageName = "search"; %>
 <div class="container">
 	<form name="searchForm" method="post" role="form">
@@ -199,14 +196,28 @@ catch(Exception ex){
 	
 	//Close the connection
 	JDBC.closeConnection();
+	
 
 }
+	String userClass=(String)session.getAttribute("usertype");
+	if(userClass.equals("a")){
+		out.println("<FORM NAME='backForm' ACTION='Admin_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("p")){
+		out.println("<FORM NAME='backForm' ACTION='Patient_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("r")){
+		out.println("<FORM NAME='backForm' ACTION='Radiologist_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("d")){
+		out.println("<FORM NAME='backForm' ACTION='Doctor_Homepage.jsp' METHOD='post' >");
+	}
+	out.println("<INPUT TYPE='submit' NAME='Back' VALUE='Return'></CENTER>");
+	out.println("</FORM>");
 %>
 
 	</FORM>
-	<FORM NAME='ReturnForm' ACTION='index.jsp' METHOD='get'>
-	<INPUT TYPE='submit' NAME='return' VALUE='Return'>
-	</FORM>
+
 
 </body>
 </html>
