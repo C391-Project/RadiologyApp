@@ -32,14 +32,6 @@ private void printstuff(java.io.PrintWriter out, String result) {
 	String timeStyle = request.getParameter("TIME").trim();
 	String year = request.getParameter("YEAR").trim();
 
-	//TEST WE GET WHAT WE NEED
-	//TODO DELETE THIS WHEN THE FILE WORKS 
-	out.println(patient);
-	out.println(testType);
-	out.println(timeStyle);
-	out.println(year);
-	//END TEST
-
 	// Initialize these lists to store all of our results for displaying 
 	ArrayList patientNames = new ArrayList();
 	ArrayList testTypes = new ArrayList();
@@ -122,7 +114,6 @@ private void printstuff(java.io.PrintWriter out, String result) {
 
 try {
 	stmt = conn.createStatement();
-	out.println(sql);
 	rset = stmt.executeQuery(sql);
 	if(IDANDRECORDFLAG == FLAGPATIENTID && TIMEFLAG == FLAGWEEK){
 		%>
