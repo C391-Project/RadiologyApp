@@ -24,7 +24,7 @@ war: init
 	mkdir -p tmp/WEB-INF/classes tmp/WEB-INF/lib tmp/WEB-INF/resources
  
 	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes \
-		-classpath $(SERVLET_API):$(SCLAR):$(OJDBC):$(FILE_UPLOAD) \
+		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
 		src/*.java
 		src/*/*.java
 		src/*/*/*.java
