@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Administrator Home-page</title>
+<title>Administrator Homepage</title>
 </head>
 <body>
 	<h1>Administrator's Homepage </h1>
@@ -50,29 +50,20 @@
 		
 			
 	%>
-	<h3>
-		<form action="editprofilepass.jsp">
-    		<input type="submit" value="Edit My Profile and Password">
-		</form>
-		
-		
-		<form action="usermanage">
-    		<input type="submit" value="Manage Users">
-		</form>
-		
-		
-		<form action="/RadiologyApp/search.jsp">
-    		<input type="submit" value="Search">
-		</form>
-		
-		<form action="report.jsp">
-    		<input type="submit" value="Generate report">
-		</form>
-		
-		<form action="LogoutServlet" method="post">
-		<input type="submit" value="Logout" >
-		</form>
-		
-	</h3>
+	<p>
+		<a href="editprofilepass.jsp"><button>Edit My Profile and Password</button></a>
+	</p>
+	<p>
+		<a href="/RadiologyApp/usermanage"><button>Manage Users</button></a>
+	</p>	
+	<p>
+		<a href="/RadiologyApp/search.jsp"><button>Search</button></a>
+	</p>
+	<p>
+		<a href="/RadiologyApp/report.jsp"><button>Generate Report</button></a>
+	</p>
+	<p>
+		<a href="/RadiologyApp/LogoutServlet"><button>Logout</button></a>
+	</p>
 </body>
 </html>
