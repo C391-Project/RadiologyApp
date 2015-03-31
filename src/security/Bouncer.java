@@ -81,7 +81,7 @@ public class Bouncer {
 	 */
 	private boolean verifyUserAccess() throws IOException {
 		HttpSession session = request.getSession();
-		String usertype = session.getAttribute("usertype").toString().trim();
+		Object usertype = session.getAttribute("usertype");
 		
 		if (usertype.equals(null)) {
 			// Redirect to login page while remembering this page.
@@ -91,8 +91,8 @@ public class Bouncer {
 			return false;
 		}
 		
-		
-		if (!moduleAccess.allows(usertype)) {
+		String usertypestr = usertype.toString().trim();
+		if (!moduleAccess.allows(usertypestr)) {
 			// Redirect to login page while remembering this page.
 			session.setAttribute("returnPage", generateReturnUrl());
 			session.setAttribute("error", "Access denied. Not enough privilege.");
