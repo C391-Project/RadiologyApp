@@ -150,9 +150,34 @@ public class LoginServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	
         	//System.out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	session.setAttribute("usertype",truetype);
+        	
+        	//select userID from the table
+//        	Statement stmt1 = null;
+//	        ResultSet rset1 = null;
+        	int person_id=0;
+        	String sql2 = "select person_id from users where user_name = '"+userName+"'";
+	        ////System.out.println(sql1);
+        	try{
+	        	stmt1 = conn.createStatement();
+		        rset1 = stmt1.executeQuery(sql2);
+        	}
+	
+	        catch(Exception ex){
+		        //System.out.println("<hr>" + ex.getMessage() + "<hr>");
+        	}
+	
+        	try {
+				while(rset1 != null && rset1.next())
+					person_id = Integer.parseInt((rset1.getString(1)).trim());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	session.setAttribute("person_id",person_id);
+        	
+        
         	//request.getSession().setAttribute("id",10 );
         	//display the result
         	

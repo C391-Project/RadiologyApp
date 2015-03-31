@@ -10,8 +10,13 @@
 	<%@include file="header.html" %>
 	
 	<%
-	//get the cookies to check the user privilege 
 	
+	
+	Integer person_id=0;
+	person_id=(Integer)session.getAttribute("person_id");
+	out.println("Your person ID:"+person_id);
+	
+	//get the cookies to check the user privilege 
 	String userName = null;
 	String usertype=null;
 	Cookie[] cookies = request.getCookies();
