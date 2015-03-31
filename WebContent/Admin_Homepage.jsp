@@ -11,15 +11,22 @@
 	
 	<%
 	
-	
+	String userName = null;
+	String usertype=null;
+	String fulltype=null;
 	Integer person_id=0;
+	
 	person_id=(Integer)session.getAttribute("person_id");
+	userName=session.getAttribute("username").toString().trim();
+	usertype=session.getAttribute("usertype").toString().trim();
+	fulltype=session.getAttribute("fulltype").toString().trim();
+	
 	out.println("Your person ID:"+person_id);
 	
 	//get the cookies to check the user privilege 
-	String userName = null;
-	String usertype=null;
-	Cookie[] cookies = request.getCookies();
+/* 	out.println("Your username:"+userName+"/n");
+	out.println("Your usertype:"+usertype+"/n"); */
+ /* 	Cookie[] cookies = request.getCookies();
 	if(cookies !=null)
 	{
 		for(Cookie cookie : cookies)
@@ -29,14 +36,14 @@
     		if(cookie.getName().equals("usertype")) 
     			usertype = cookie.getValue();
 		}
-	}
+	}  */
 	%>
 	
-	<h3>Hi <%=userName %>.</h3>
-	<h3>Your usertype is <%=usertype %>.</h3>
+	<h3>Hi <%=userName%></h3>
+	<h3>Your usertype is <%=fulltype%></h3>
 	
-	<%
-	//user power contronl, only admin can get access to this page
+<%
+ 	//user power contronl, only admin can get access to this page
 	
 		if(userName == null)
 		{
@@ -46,7 +53,7 @@
 			//response.setHeader("Refresh", "3; URL=login.jsp");	
 		}
 	
-		else if(usertype.equals("Admin"))
+		else if(usertype.equals("a"))
 			{
 				/* out.println("<h3>Login successful!</h3>"); */
 			}

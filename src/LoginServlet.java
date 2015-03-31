@@ -196,6 +196,9 @@ public class LoginServlet extends HttpServlet {
 		        	fulltype="Doctor";
 		        else fulltype="Error";
 		        
+		        
+		        session.setAttribute("fulltype",fulltype);
+		        
 		        //this part is not necessary, since we already have the session to store the user info
 		        //store user info in cookies
 		        Cookie loginCookie = new Cookie("user",userName);
