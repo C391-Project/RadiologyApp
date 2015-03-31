@@ -156,7 +156,7 @@ public class LoginServlet extends HttpServlet {
         	//select userID from the table
 //        	Statement stmt1 = null;
 //	        ResultSet rset1 = null;
-        	int person_id=0;
+        	Integer person_id = null;
         	String sql2 = "select person_id from users where user_name = '"+userName+"'";
 	        ////System.out.println(sql1);
         	try{
