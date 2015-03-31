@@ -21,7 +21,6 @@ public abstract class ModuleAccess {
 	 * @param type		The accessing user type
 	 * @return			True if the accessing user type is allowed by the module type.
 	 */
-	
 	public boolean allows(String type) {
 		return allowedUserTypes.contains(type);
 	}

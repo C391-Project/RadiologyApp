@@ -22,8 +22,10 @@ public class OracleLogout extends HttpServlet {
 
 	 @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		 //invalidate the session to logout
 		 request.getSession().invalidate();
 		 JDBC.configure(null, null, false);
+		 //reset to JDBC.configure in order to logout
 	     response.sendRedirect("/RadiologyApp/oracle-login");
 	}
 
