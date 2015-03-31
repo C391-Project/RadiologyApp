@@ -50,13 +50,16 @@ catch(Exception ex){
 
 }
 
-	String userType = "a"; 
+	String userType = (String) session.getAttribute("userType"); 
+	
 	//When submit is hit get all of its fields 
 	
 	// TODO get ID from session
 	//int ID = (Integer) session.getAttribute("id");
 	
-	int ID = 8;
+	int ID = (Integer) session.getAttribute("person_id");
+	out.println(userType);
+	out.println(ID);
 	if (request.getParameter("Submit") != null) {
 		String keywords[] = (request.getParameter("KEYWORDS")).trim().split("\\s+");
 		String dateFrom = (request.getParameter("FROM")).trim();
