@@ -7,6 +7,8 @@
 <body>
 	<h1>Administrator's Homepage </h1>
 	
+	<%@include file="header.html" %>
+	
 	<%
 	//get the cookies to check the user privilege 
 	
@@ -57,19 +59,12 @@
 			
 	%>
 	<p>
-		<a href="editprofilepass.jsp"><button>Edit My Profile and Password</button></a>
-	</p>
-	<p>
 		<a href="/RadiologyApp/usermanage"><button>Manage Users</button></a>
 	</p>	
-	<p>
-		<a href="/RadiologyApp/search.jsp"><button>Search</button></a>
-	</p>
+	
 	<p>
 		<a href="/RadiologyApp/report.jsp"><button>Generate Report</button></a>
 	</p>
-	<p>
-		<a href="/RadiologyApp/LogoutServlet"><button>Logout</button></a>
-	</p>
+
 </body>
 </html>
