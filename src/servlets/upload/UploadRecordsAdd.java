@@ -30,6 +30,7 @@ public class UploadRecordsAdd extends UploadServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Render the add record page
 		RequestDispatcher view = request.getRequestDispatcher("/Upload/records-add.jsp");
 		view.forward(request, response);
 	}

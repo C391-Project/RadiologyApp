@@ -26,6 +26,8 @@ public class PersonsAdd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
+		// Render the add person page
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/persons-add.jsp");
 		view.forward(request, response);
 	}
