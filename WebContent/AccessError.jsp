@@ -9,7 +9,7 @@
 	<%
 
 	out.println("<h3>Access denied, redirecting to login page...</h3>");
-	response.setHeader("Refresh", "3; URL=login.html");	
+	response.setHeader("Refresh", "3; URL=login.jsp");	
 	
 			
 	%>
