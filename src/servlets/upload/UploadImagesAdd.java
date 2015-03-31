@@ -30,10 +30,12 @@ public class UploadImagesAdd extends UploadServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// images add page expects the record_id simply as id
 		if (request.getParameter("record_id") != null ) {
 			request.setAttribute("id", request.getParameter("record_id"));
 		}
 		
+		// Render the add image page
 		RequestDispatcher view = request.getRequestDispatcher("/Upload/images-add.jsp");
 		view.forward(request, response);
 	}
