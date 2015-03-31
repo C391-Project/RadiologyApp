@@ -9,9 +9,6 @@
 </head>
 <body>
 
-</body>
-</html>
-
 <% String pageName = "search"; %>
 <div class="container">
 	<form name="searchForm" method="post" role="form">
@@ -50,13 +47,12 @@ catch(Exception ex){
 
 }
 
-	String userType = "a"; 
+	String userType = (String) session.getAttribute("usertype"); 
+	
 	//When submit is hit get all of its fields 
+
 	
-	// TODO get ID from session
-	//int ID = (Integer) session.getAttribute("id");
-	
-	int ID = 8;
+	int ID = (Integer) session.getAttribute("person_id");
 	if (request.getParameter("Submit") != null) {
 		String keywords[] = (request.getParameter("KEYWORDS")).trim().split("\\s+");
 		String dateFrom = (request.getParameter("FROM")).trim();
@@ -200,14 +196,28 @@ catch(Exception ex){
 	
 	//Close the connection
 	JDBC.closeConnection();
+	
 
 }
+	String userClass=(String)session.getAttribute("usertype");
+	if(userClass.equals("a")){
+		out.println("<FORM NAME='backForm' ACTION='Admin_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("p")){
+		out.println("<FORM NAME='backForm' ACTION='Patient_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("r")){
+		out.println("<FORM NAME='backForm' ACTION='Radiologist_Homepage.jsp' METHOD='post' >");
+	}
+	else if(userClass.equals("d")){
+		out.println("<FORM NAME='backForm' ACTION='Doctor_Homepage.jsp' METHOD='post' >");
+	}
+	out.println("<INPUT TYPE='submit' NAME='Back' VALUE='Return'></CENTER>");
+	out.println("</FORM>");
 %>
 
 	</FORM>
-	<FORM NAME='ReturnForm' ACTION='index.jsp' METHOD='get'>
-	<INPUT TYPE='submit' NAME='return' VALUE='Return'>
-	</FORM>
+
 
 </body>
 </html>
