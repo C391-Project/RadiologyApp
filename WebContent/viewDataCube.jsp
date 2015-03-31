@@ -132,7 +132,7 @@ try {
 		<table>
 		<thead>
 			<tr>
-				<th>Patientssss</th>
+				<th>Patients</th>
 				<th>Week</th>
 				<th>Year</th>
 				<th>Number of Images</th>
@@ -140,7 +140,7 @@ try {
 		</thead>
 		<tbody>
 		<%
-		while(rset!=null && rset.next()){
+		while(rset!=null && rset.next()) {
 			%>
 				<tr>
 			<%
@@ -160,72 +160,104 @@ try {
 				
 			<%
 		}
-	} else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGWEEK){
-		out.println("<th>Test Type</th>");
-		out.println("<th>Week</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
-		while(rset!= null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+	} else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGWEEK) {
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Test Type</th>
+				<th>Week</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
+		while(rset!= null && rset.next() ) {
+			%>
+				<tr>
+			<%
+			String testtype = rset.getString(1);
+			String Week = rset.getString(2);
+			String Year = rset.getString(3);
+			String Num = rset.getString(4);
+			if (testtype.equals(null) || Week.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= testtype %></td>
+				<td><%= Week %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
+
 		}
 	}else if(IDANDRECORDFLAG == FLAGPATIENTANDRECORD && TIMEFLAG == FLAGWEEK){
-		out.println("<th>Patient</th>");
-		out.println("<th>Test Type</th>");
-		out.println("<th>Week</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Test Type</th>
+				<th>Week</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(5)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String name = rset.getString(1);
+			String testtype = rset.getString(2);
+			String Week = rset.getString(3);
+			String Year = rset.getString(4);
+			String Num = rset.getString(5);
+			
+			if (name.equals(null) || testtype.equals(null) || Week.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %></td>
+				<td><%= testtype %></td>
+				<td><%= Week %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	}else if(IDANDRECORDFLAG == FLAGPATIENTID && TIMEFLAG == FLAGMONTH){
-		out.println("<th>Patient</th>");
-		out.println("<th>Month</th>");
-		out.println("<th>Year</th>");
-		out.println("<th>Number of Image</th>");
+		%>
+		<table>
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Month</th>
+				<th>Year</th>
+				<th>Number of Images</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
 		while(rset!=null && rset.next() ) {
-			out.println("<tr>");
-			out.println("<td>");
-			out.println((rset.getString(1)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(2)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(3)).trim());
-			out.println("</td>");
-			out.println("<td>");
-			out.println((rset.getString(4)).trim());
-			out.println("</td>");
-			out.println("</tr>");
+			String name = rset.getString(1);
+			String Month = rset.getString(3);
+			String Year = rset.getString(4);
+			String Num = rset.getString(5);
+			
+			if (name.equals(null) ||  Month.equals(null) || Year.equals(null) || Num.equals(null)) {
+				break; 
+			}
+			%>
+				<td><%= name %></td>
+				<td><%= Month %></td>
+				<td><%= Year %></td>
+				<td><%= Num %></td>
+				</tr>
+				
+			<%
 		}
 	} else if(IDANDRECORDFLAG == FLAGRECORD && TIMEFLAG == FLAGMONTH){
 		out.println("<th>Test Type</th>");
