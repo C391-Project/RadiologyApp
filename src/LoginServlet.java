@@ -92,15 +92,7 @@ public class LoginServlet extends HttpServlet {
 	        session.setAttribute("password", passwd);
 	        String truepwd="";
 	        String truetype="";
-	        String fulltype="";
-	        //String usertype=(request.getParameter("usertype")).trim();
-        	//System.out.println("<p>Your input User Name is: "+userName+"</p>");
-        	//System.out.println("<p>Your input password is: "+passwd+"</p>");
-        	////System.out.println("<p>Your input usertype is: "+usertype+"</p>");
-        	//session.setAttribute("dblab", 
-    		//		(request.getParameter("labconnection") != null && request.getParameter("labconnection").equals("yes")));
-        	
-        
+	        String fulltype="";        
         
 	        //establish the connection to the underlying database
         	Connection conn = null;
@@ -111,9 +103,7 @@ public class LoginServlet extends HttpServlet {
 			String dbstring="jdbc:oracle:thin:@localhost:1525:CRS";
 	        if(isConnectingFromLab)
 	        	dbstring=dblabstring;
-	        //if(((request.getParameter("labconnection")).trim()).equals("yes"))
-			//	dbstring=dblabstring;
-	        //	dbstring=dbhomestring;
+
 	        
 	        try{
 		        //load and register the driver
@@ -175,18 +165,13 @@ public class LoginServlet extends HttpServlet {
 				while(rset1 != null && rset1.next())
 					truetype = (rset1.getString(1)).trim();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	//System.out.println("<p><b>Your usertype is: "+truetype+"</b></p>");
         	session.setAttribute("usertype",truetype);
         	
         	//select userID from the table
-//        	Statement stmt1 = null;
-//	        ResultSet rset1 = null;
         	Integer person_id = null;
         	String sql2 = "select person_id from users where user_name = '"+userName+"'";
-	        ////System.out.println(sql1);
         	try{
 	        	stmt1 = conn.createStatement();
 		        rset1 = stmt1.executeQuery(sql2);
@@ -209,13 +194,7 @@ public class LoginServlet extends HttpServlet {
         	//request.getSession().setAttribute("id",10 );
         	//display the result
         	
-        	//deal with the null username or password situation
-//        	if(userName.equals(null)||passwd.equals(null))
-//        	{
-//        		session.setAttribute("error", "Username or password can not be null!");
-//    			response.setHeader("Refresh", "0; URL=login.jsp");
-//        	}
-        	
+        	//deal with the null username or password situation	
         	//if the username and the password matched, login succeed, redirect it to he user's homepage
         	if(passwd.equals(truepwd))
 	        {
@@ -271,8 +250,6 @@ public class LoginServlet extends HttpServlet {
         	else 
         	{
         		   //if the username and the password do not match, redirect it to login and push the warning
-        			//System.out.println("<p><b>Invalid combination of username, password!</b></p>");
-        			//System.out.println("Redirecting to Login page ...");
         			session.setAttribute("error", "Invalid combination of username, password!");
         			response.setHeader("Refresh", "0; URL=login.jsp");
         	}
