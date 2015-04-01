@@ -5,7 +5,7 @@
 <title>Administrator Homepage</title>
 </head>
 <body>
-	<h1>Administrator's Homepage </h1>
+	<h1>Administrator Homepage</h1>
 	
 	<%@include file="header.html" %>
 	
