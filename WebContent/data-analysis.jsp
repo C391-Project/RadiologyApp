@@ -143,6 +143,14 @@ JDBC.closeConnection();
 	<br>
 	<button type="submit" name="Submit">START</button>
 </form>
+	<%
+		String userClass=(String)session.getAttribute("usertype");
+	if(userClass.equals("a")){
+		out.println("<FORM NAME='backForm' ACTION='Admin_Homepage.jsp' METHOD='post' >");
+	}
+	out.println("<INPUT TYPE='submit' NAME='Back' VALUE='RETURN'></CENTER>");
+	out.println("</FORM>");
+	%>
 </div>
 </body>
 </html>
