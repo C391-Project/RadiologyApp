@@ -1,6 +1,6 @@
 
-//adapted form Pro Yan Li-Yuan's login module's example
-//Author: Cheng
+
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -18,6 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import database.DataSource;
+
+/**
+ * login authentication
+ * retrieve essential personal information from the database
+ * and store them in the session
+ * 
+ * adapted form Pro Yan's login module's example
+ * 
+ * @author Cheng Chen
+ *
+ */
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
