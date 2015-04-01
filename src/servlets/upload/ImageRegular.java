@@ -36,7 +36,7 @@ public class ImageRegular extends UploadServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
-		// Get the id of full size image to retrieve.
+		// Get the id of regular size image to retrieve.
 		Integer imageId = Integer.parseInt(request.getParameter("id"));
 		
 		// Write the binary data of the SQL blob directly into the page as an image.

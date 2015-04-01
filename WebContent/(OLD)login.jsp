@@ -1,6 +1,7 @@
 <HTML>
 <HEAD>
 
+<!-- jsp version of LoginServlet -->
 
 <TITLE>Your Login Result</TITLE>
 </HEAD>

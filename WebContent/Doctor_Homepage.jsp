@@ -7,8 +7,24 @@
 <body>
 	<h1>Doctor's Homepage </h1>
 	
+	<%@include file="header.html" %>
+	
 	<%
 	String userName = null;
+	String usertype=null;
+	String fulltype=null;
+	Integer person_id=0;
+	
+	person_id=(Integer)session.getAttribute("person_id");
+	userName=session.getAttribute("username").toString().trim();
+	usertype=session.getAttribute("usertype").toString().trim();
+	fulltype=session.getAttribute("fulltype").toString().trim();
+	
+	out.println("Your person ID:"+person_id);
+	
+	
+	
+/* 	String userName = null;
 	String usertype=null;
 	Cookie[] cookies = request.getCookies();
 	if(cookies !=null)
@@ -20,44 +36,38 @@
     		if(cookie.getName().equals("usertype")) 
     			usertype = cookie.getValue();
 		}
-	}
+	} */
 	%>
 	
 	<h3>Hi <%=userName %>.</h3>
-	<h3>Your usertype is <%=usertype %>.</h3>
+	<h3>Your usertype is <%=fulltype %>.</h3>
 	
 	<%
 	//user power contronl, only admin can get access to this page
 		if(userName == null)
 		{
-			out.println("Username error, redireting to login page.");
-			response.setHeader("Refresh", "3; URL=login.jsp");	
+			session.setAttribute("error", "Username Error, redireted to login page.");
+			response.sendRedirect("login.jsp");
+			/* out.println("Username error, redireting to login page.");
+			response.setHeader("Refresh", "3; URL=login.jsp");	 */
 		}
 			
 			//response.sendRedirect("login.html");
-		if(usertype.equals("Doctor"))
+		if(usertype.equals("d"))
 		{
-			out.println("<h3>Login successful!</h3>");
+			//out.println("<h3>Login successful!</h3>");
 		}
 		else
 		{
-			out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
+			session.setAttribute("error", "Access denied, redireted to login page.");
+			response.sendRedirect("login.jsp");
+			/* out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
 			response.setHeader("Refresh", "3; URL=login.jsp");	
-		}
+ */		}
 			
 	%>
+
 	
-	<form action="editprofilepass.jsp">
-    		<input type="submit" value="Edit My Profile and Password">
-		</form>
-	
-	<form action="/RadiologyApp/search.jsp">
-    		<input type="submit" value="Search">
-		</form>
-	
-	<form action="LogoutServlet" method="post">
-		<input type="submit" value="Logout" >
-		</form>
 	
 </body>
 </html>

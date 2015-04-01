@@ -62,18 +62,16 @@
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.*"%>
 
-	<H1>report generating module</H1>
+	<H1>Report generating module</H1>
 
 	<FORM NAME="report_generate_form" ACTION="report.jsp" METHOD="post">
 		<TABLE>
 			<TR>
-				<TD><B><I><font >Diagnosis: </font></I></B></TD>
-				<TD><INPUT TYPE="text" NAME="diagnosis" VALUE=""
-					style="width: 200px;"></TD>
+				<TD>Diagnosis: </TD>
+				<TD><INPUT TYPE="text" NAME="diagnosis" VALUE=""></TD>
 			</TR>
 			<TR>
-				<TD><B><I><font >Time
-								period(MM-DD-YYYY): </font></I></B></TD>
+				<TD>Time period(MM-DD-YYYY): </TD>
 				<TD><label for="from">From</label> <INPUT TYPE="text"
 					class="from" NAME="from" /></TD>
 				<TD><label for="to">To</label> <INPUT TYPE="text" class="to"
@@ -162,9 +160,8 @@
             }
         }
       %>
-	</FORM>
-	<FORM NAME='ReturnForm' ACTION='Admin_Homepage.jsp' METHOD='get'>
-	<INPUT TYPE='submit' NAME='return' VALUE='return'>
-	</FORM>
+	<p>
+		<a href="Admin_Homepage.jsp"><button>Return</button></a>
+	</p>
 </BODY>
 </HTML>

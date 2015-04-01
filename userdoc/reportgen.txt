@@ -1,0 +1,10 @@
+Report Generating Module
+
+Any system administrator can get the list of all patients with a specified diagnosis for a given time period. 
+For each patient, the list includes the name, address and phone number of the patient, and testing date of the first radiology record that contains the specified diagnosis.
+
+(1)Generate Report
+Once you logged into the system as an administrator, you would find a button called “Generate Report”. Click it, you will be redirected to the report generating page.
+Input a diagnosis, and give a specific time period by selecting From date and To date.
+Click the "Generate" button to generate the report after a diagnosis and time period is specified. Click the "Return" button return to the homepage.
+The report contains the list of all patients with the specified diagnosis for the given time period. For each patient, the list contains the Patient Name, Address, Phone Number of the patient, and Test Date of the first radiology record that contains the specified diagnosis.

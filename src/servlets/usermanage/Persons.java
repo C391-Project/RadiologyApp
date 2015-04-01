@@ -36,6 +36,7 @@ public class Persons extends UserManageServlet {
 		//Check Security and DB Connection
 		if (!verifyAccess(request, response)) return;
 		
+		// Render persons display page with information from the database
 		List<Person> personList = dataSource.getPersonList();
 		request.setAttribute("personList", personList);
 		RequestDispatcher view = request.getRequestDispatcher("/UserManage/persons.jsp");
