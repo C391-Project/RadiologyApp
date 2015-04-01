@@ -5,6 +5,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -13,7 +14,16 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType("text/html");
         
         //expire the session to log out
-        request.getSession().invalidate();
+        //request.getSession().invalidate();
+        
+        //In this part, we did not actually logout
+        //this code just set the user name and password to null
+        //and ask user to log in again
+        //we can't use invalidate() function
+        //since it will also erase the database info, which we want to keep
+        HttpSession session=request.getSession();
+        session.setAttribute("username",null);
+        session.setAttribute("password",null);
         
         
         Cookie loginCookie = null;
