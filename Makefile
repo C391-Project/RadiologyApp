@@ -57,6 +57,7 @@ install:
 	cp ./WebContent/WEB-INF/lib/*.jar ~/catalina/lib
 
 	# Put App in catalina/webapps
+	rm -fR ~/RadiologyApp
 	cp ./RadiologyApp.war ~/catalina/webapps
 
 clean:
