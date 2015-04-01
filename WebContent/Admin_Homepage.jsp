@@ -77,6 +77,9 @@
 	<p>
 		<a href="/RadiologyApp/report.jsp"><button>Generate Report</button></a>
 	</p>
+	<p>
+		<a href="/RadiologyApp/data-analysis.jsp"><button>Data Analysis</button></a>
+	</p>
 
 </body>
 </html>
