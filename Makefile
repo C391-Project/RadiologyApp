@@ -2,15 +2,16 @@
 
 #Instructions:
 # - Execute 'make war' to make a war file for Tomcat deployment.
+# - Execute 'make install' to move required files into ~/catalina
 # - Execute 'make clean' to clean up the working space.
 
 JAVAC = javac
 JAVAFLAGS = -O
 
-SERVLET_API = WebContent/WEB-INF/lib/servlet-api.jar
-SCALR = WebContent/WEB-INF/lib/imgscalr-lib-4.2.jar
-OJDBC = WebContent/WEB-INF/lib/ojdbc14.jar
-FILE_UPLOAD = WebContent/WEB-INF/lib/commons-fileupload-1.3.1.jar
+SERVLET_API = tmp/WEB-INF/lib/servlet-api.jar
+SCALR = tmp/WEB-INF/lib/imgscalr-lib-4.2.jar
+OJDBC = tmp/WEB-INF/lib/ojdbc14.jar
+FILE_UPLOAD = tmp/WEB-INF/lib/commons-fileupload-1.3.1.jar
 
 SHELL = /bin/bash
 
@@ -22,6 +23,8 @@ init:
 war: init
 	mkdir -p tmp/META-INF tmp/WEB-INF tmp/Upload tmp/UserManage tmp/includes
 	mkdir -p tmp/WEB-INF/classes tmp/WEB-INF/lib
+	mkdir -p tmp/WEB-INF/classes/database tmp/WEB-INF/classes/security tmp/WEB-INF/classes/servlets
+	mkdir -p tmp/WEB-INF/classes/servlets/upload tmp/WEB-INF/classes/servlets/usermanage
 
 	# Copy HTML, JSP and CSS files
 	cp WebContent/*.jsp tmp
@@ -32,41 +35,29 @@ war: init
 
 	# Copy web.xml
 	cp WebContent/WEB-INF/web.xml tmp/WEB-INF
- 
-	# Compile src classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/*.java
+
+	# Copy libraries
+	cp WebContent/WEB-INF/lib/*.jar tmp/WEB-INF/lib
 
 	# Compile database package classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes/database \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/database/*.java
-
-	# Compile the security package classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes/security \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/security/*.java
-
-	# Compile the servlets package classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes/servlets \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/servlets/*.java
-
-	# Compile the servlets.upload package classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes/security/upload \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
-		src/servlets/upload/*.java
-
-	# Compile the servlets.upload package classes
-	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes/security/usermanage \
-		-classpath $(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
+	$(JAVAC) $(JAVAFLAGS) -d tmp/WEB-INF/classes \
+		-classpath tmp/WEB-INF/classes:$(SERVLET_API):$(SCALR):$(OJDBC):$(FILE_UPLOAD) \
+		src/database/*.java \
+		src/security/*.java \
+		src/*.java \
+		src/servlets/*.java \
+		src/servlets/upload/*.java \
 		src/servlets/usermanage/*.java
 
 	# Create the Web Archive
 	pushd tmp && jar -cf ../RadiologyApp.war * && popd
 
+install:
+	# Put required libraries into catalina/lib
+	cp ./WebContent/WEB-INF/lib/*.jar ~/catalina/lib
+
+	# Put App in catalina/webapps
+	cp ./RadiologyApp.war ~/catalina/webapps
+
 clean:
 	rm -fR tmp *.war
-
-.PHONY: all init doc war jar clean
