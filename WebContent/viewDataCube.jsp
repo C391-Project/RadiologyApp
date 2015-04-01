@@ -230,9 +230,9 @@ try {
 		<%
 		while(rset!=null && rset.next() ) {
 			String name = rset.getString(1);
-			String Month = rset.getString(3);
-			String Year = rset.getString(4);
-			String Num = rset.getString(5);
+			String Month = rset.getString(2);
+			String Year = rset.getString(3);
+			String Num = rset.getString(4);
 			
 			if (name.equals(null) ||  Month.equals(null) || Year.equals(null) || Num.equals(null)) {
 				break; 
@@ -262,9 +262,9 @@ try {
 		while(rset!=null && rset.next() ){
 			while(rset!=null && rset.next() ) {
 				String testtype = rset.getString(1);
-				String Month = rset.getString(3);
-				String Year = rset.getString(4);
-				String Num = rset.getString(5);
+				String Month = rset.getString(2);
+				String Year = rset.getString(3);
+				String Num = rset.getString(4);
 				
 				if (testtype.equals(null) ||  Month.equals(null) || Year.equals(null) || Num.equals(null)) {
 					break; 
