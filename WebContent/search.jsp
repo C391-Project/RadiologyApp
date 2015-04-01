@@ -151,18 +151,6 @@ catch(Exception ex){
 		
 		while (rset.next())
 		{
-			//out.println("hello");
-			/* recordID = rset.getInt("record_id");
-			imageID = rset.getInt("image_id");
-			patientName = rset.getString(3).trim();
-			out.println("test_Patientname:");
-			out.println(patientName);
-			doctorName = rset.getString(4).trim();
-			out.println("   test_doctorname:");
-			out.println(doctorName);
-			out.println("   test_recordID:");
-			out.println(recordID);
-			out.println(imageID); */
 			
 			%> 
 				<tr>
