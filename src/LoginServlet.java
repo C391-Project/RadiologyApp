@@ -1,3 +1,4 @@
+
 //adapted form Pro Yan Li-Yuan's login module's example
 //Author: Cheng
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 	        
 	        // if a user haven't login into the database before login into the system
 	        //redirect him to the database login page
-	        if(session.getAttribute("dbusername")==null)
+	        if(session.getAttribute("dbusername")==null||session.getAttribute("dbpassword")==null)
 	        {
 	        	session.setAttribute("error", "Please login to the database first.");
     			response.setHeader("Refresh", "0; URL=oracle-login");
@@ -181,8 +182,15 @@ public class LoginServlet extends HttpServlet {
         	//request.getSession().setAttribute("id",10 );
         	//display the result
         	
+        	//deal with the null username or password situation
+//        	if(userName.equals(null)||passwd.equals(null))
+//        	{
+//        		session.setAttribute("error", "Username or password can not be null!");
+//    			response.setHeader("Refresh", "0; URL=login.jsp");
+//        	}
+        	
         	//if the username and the password matched, login succeed, redirect it to he user's homepage
-	        if(!DBusername.equals(null)&&!userName.equals(null)&&!passwd.equals(null)&&passwd.equals(truepwd))
+        	if(passwd.equals(truepwd))
 	        {
 		        //System.out.println("<p><b>Login Successful!</b></p>");
 		        //get the full usertype
@@ -233,16 +241,15 @@ public class LoginServlet extends HttpServlet {
                 response.setHeader("Refresh", "0; URL=Doctor_Homepage.jsp");	
         		}
 	        }
-        	
-        	else
-        		{
+        	else 
+        	{
         		   //if the username and the password do not match, redirect it to login and push the warning
         			//System.out.println("<p><b>Invalid combination of username, password!</b></p>");
         			//System.out.println("Redirecting to Login page ...");
         			session.setAttribute("error", "Invalid combination of username, password!");
         			response.setHeader("Refresh", "0; URL=login.jsp");
-        		}
-	        	
+        	}
+     
         	
                 try{
                         conn.close();
