@@ -44,7 +44,13 @@ public class LoginServlet extends HttpServlet {
 	        
 	        // if a user haven't login into the database before login into the system
 	        //redirect him to the database login page
-	        if(session.getAttribute("dbusername")==null||session.getAttribute("dbpassword")==null)
+	        if(!request.isRequestedSessionIdValid())
+	        {
+	        	session.setAttribute("error", "Please login to the database first.");
+				response.setHeader("Refresh", "0; URL=oracle-login");
+	        }
+	        
+	        if(session.getAttribute("dbusername")==null)
 	        {
 	        	session.setAttribute("error", "Please login to the database first.");
     			response.setHeader("Refresh", "0; URL=oracle-login");

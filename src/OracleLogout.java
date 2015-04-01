@@ -25,7 +25,7 @@ public class OracleLogout extends HttpServlet {
 		 //invalidate the session to logout
 		 request.getSession().invalidate();
 		 JDBC.configure(null, null, false);
-		 //reset to JDBC.configure in order to logout
+		 //reset JDBC.configure in order to logout
 	     response.sendRedirect("/RadiologyApp/oracle-login");
 	}
 

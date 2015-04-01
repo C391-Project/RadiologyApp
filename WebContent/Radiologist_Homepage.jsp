@@ -69,7 +69,7 @@
 	%>
 	
 	<p>
-		<a href="uploadt"><button>Upload</button></a>
+		<a href="upload"><button>Upload</button></a>
 	</p>
 		
 </body>
