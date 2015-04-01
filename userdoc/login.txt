@@ -1,0 +1,13 @@
+Login Module
+
+All register users are able to login to the app with proper privileges and they can also modify their own personal information and change the password.
+
+(1)Login part
+Enter a pair of  correct username and password, then click "LOGIN" button to login to the system. If you entered wrong username or password, if you be asked to enter them again.
+
+(2)modify personal profile and change password
+In order to change your profile or password, click the "Edit My Profile and Password" in your homepage once you successfully logged in.
+You are able to modify the following items:
+First Name; Last Name; Address; Email; Phone;Password
+
+After editing the information, click "Update" button to save the changes.

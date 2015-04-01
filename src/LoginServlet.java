@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import database.DataSource;
+
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -41,6 +43,14 @@ public class LoginServlet extends HttpServlet {
 	        String DBusername =null;
 	        String DBpassword = null;
 	        Boolean isConnectingFromLab =false;
+	        
+	        DataSource ds = new DataSource();
+
+	        if(ds.isNotConfigured()) {
+	        	session.setAttribute("error", "Please login to the database first.");
+	        	response.sendRedirect("oracle-login");
+	        }
+	        
 	        
 	        // if a user haven't login into the database before login into the system
 	        //redirect him to the database login page
