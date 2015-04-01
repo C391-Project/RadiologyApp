@@ -21,23 +21,6 @@
 	fulltype=session.getAttribute("fulltype").toString().trim();
 	
 	out.println("Your person ID:"+person_id);
-	
-	
-	/* String userName = null;
-	String usertype=null;
-	String realtype=null;
-	Cookie[] cookies = request.getCookies();
-	if(cookies !=null)
-	{
-		for(Cookie cookie : cookies)
-		{
-    		if(cookie.getName().equals("user")) 
-    			userName = cookie.getValue();
-    		if(cookie.getName().equals("usertype")) 
-    			usertype = cookie.getValue();
-		}
-	}
-	 */
 	%>
 	
 	<h3>Hi <%=userName %>.</h3>
@@ -49,11 +32,8 @@
 		{
 			session.setAttribute("error", "Access denied, redireted to login page.");
 			response.sendRedirect("login.jsp");
-			/* out.println("Username error, redireting to login page.");
-			response.setHeader("Refresh", "3; URL=login.jsp");	 */
 		}
-			
-			//response.sendRedirect("login.html");
+
 		if(usertype.equals("r"))
 		{
 			/* out.println("<h3>Login successful!</h3>"); */
@@ -62,8 +42,6 @@
 		{
 			session.setAttribute("error", "Access denied, redireted to login page.");
 			response.sendRedirect("login.jsp");
-			/* out.println("<t1><b>Access denied, redireting to login page.</b></t1>");
-			response.setHeader("Refresh", "3; URL=login.jsp");	 */
 		}
 			
 	%>
