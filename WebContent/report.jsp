@@ -144,9 +144,7 @@
 					out.println("SQLException: " +
 							e.getMessage());
 				} finally {
-					if (con != null) {
-						con.close();
-					}
+					JDBC.closeConnection();
 				}
 			} else {
               out.println("<br><b>Please fill ALL information</b>");
