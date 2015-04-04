@@ -93,6 +93,12 @@ catch(Exception ex){
 		for (int i = 1; i < keywords.length; i++)	{ sql += " AND " + keywords[i]; }
 		sql += "', 4) > 0)";
 	}
+	if (!dateFrom.isEmpty())	{
+	sql += " AND test_date >= '" + dateFrom + "'";
+	}
+	if (!dateTo.isEmpty())	{
+	sql += " AND test_date <= '" + dateTo + "'";
+	}
 	sql += " ORDER BY";
 	if (orderBy.equals("newest")) { sql += " test_date, record_id DESC"; }
 	else if (orderBy.equals("oldest")) { sql += " test_date, record_id ASC";}
