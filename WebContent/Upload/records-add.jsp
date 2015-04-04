@@ -32,11 +32,11 @@
 			</p>
 			<p>
 				<label for="r_prescribing_date">Prescribing Date: </label><br>
-				<input type="date" id="r_prescribing_date" name="r_prescribing_date" value="" placeholder="">
+				<input type="date" id="r_prescribing_date" name="r_prescribing_date" value="" placeholder="YYYY-MM-DD">
 			</p>
 			<p>
 				<label for="r_test_date">Test Date: </label><br>
-				<input type="date" id="r_test_date" name="r_test_date" value="" placeholder="">
+				<input type="date" id="r_test_date" name="r_test_date" value="" placeholder="YYYY-MM-DD">
 			</p>
 			<p>
 				<label for="r_diagnosis">Diagnosis: </label><br>
