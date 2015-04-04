@@ -94,10 +94,10 @@ catch(Exception ex){
 		for (int i = 1; i < keywords.length; i++)	{ sql += " AND " + keywords[i]; }
 		sql += "', 4) > 0)";
 	}
-	if (!dateFrom.isEmpty())	{
+	if (!dateFrom.isEmpty()) {
 	sql += " AND test_date >= '" + dateFrom + "'";
 	}
-	if (!dateTo.isEmpty())	{
+	if (!dateTo.isEmpty()) {
 	sql += " AND test_date <= '" + dateTo + "'";
 	}
 	sql += " ORDER BY";
