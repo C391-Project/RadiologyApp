@@ -8,10 +8,10 @@ This application is a simple Radiology Information System (RIS) that provides a 
 ###Installation Guide
 
 1. git clone this repo or unpackage the "project.tgz" file
-2. cd RadiologyApp
-3. make
-4. make install (assumes your catalina folder is saved in your home directory).
-5. starttomcat and navigate to [your server]/RadiologyApp
+2. In your terminal execute "cd RadiologyApp"
+3. In your terminal execute "make"
+4. In your terminal execute "make install" (assumes your catalina folder is saved in your home directory).
+5. In your terminal exectue "starttomcat" (on a lab machine) or simply start your tomcat server and navigate to [your-server]/RadiologyApp
 
 ---
 ###Licence 
