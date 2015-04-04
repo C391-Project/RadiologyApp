@@ -15,7 +15,7 @@ public class UploadModuleAccess extends ModuleAccess {
 	public UploadModuleAccess() {
 		super();
 		// Upload modules allow radiologists only.
-		this.allowedUserTypes = Arrays.asList(RADIOLOGIST_USER_TYPE);
+		this.allowedUserTypes = Arrays.asList(RADIOLOGIST_USER_TYPE, ADMIN_USER_TYPE);
 	}
 
 }

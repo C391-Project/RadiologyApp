@@ -21,7 +21,7 @@ init:
 	mkdir -p tmp
 
 tar: 
-	tar -c README.md Makefile LICENSE WebContent src SQL_Scripts | gzip -c > project.tgz
+	tar -c README.md Makefile LICENSE WebContent src SQL_Scripts Documentation | gzip -c > project.tgz
 
 war: init
 	mkdir -p tmp/META-INF tmp/WEB-INF tmp/Upload tmp/UserManage tmp/includes
