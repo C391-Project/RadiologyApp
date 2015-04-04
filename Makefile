@@ -20,6 +20,9 @@ all: war
 init:
 	mkdir -p tmp
 
+tar: 
+	tar -c README.md Makefile LICENSE WebContent src SQL_Scripts | gzip -c > project.tgz
+
 war: init
 	mkdir -p tmp/META-INF tmp/WEB-INF tmp/Upload tmp/UserManage tmp/includes
 	mkdir -p tmp/WEB-INF/classes tmp/WEB-INF/lib
@@ -57,7 +60,8 @@ install:
 	cp ./WebContent/WEB-INF/lib/*.jar ~/catalina/lib
 
 	# Put App in catalina/webapps
+	rm -fR ~/catalina/webapps/RadiologyApp
 	cp ./RadiologyApp.war ~/catalina/webapps
 
 clean:
-	rm -fR tmp *.war
+	rm -fR tmp *.war *.tgz
