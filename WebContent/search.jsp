@@ -11,6 +11,7 @@
 
 <% String pageName = "search"; %>
 <div class="container">
+	<a href="/RadiologyApp/user-manual.jsp#search-module"><button>View Help</button></a>
 	<form name="searchForm" method="post" role="form">
 	<h1>Search</h1>
 	<input type="text" name="KEYWORDS" size="100" placeholder="Keywords...">

@@ -53,6 +53,8 @@
 	<%@ page import="java.util.*"%>
 
 	<H1>Report generating module</H1>
+	
+	<a href="/RadiologyApp/user-manual.jsp#report-generating-module"><button>View Help</button></a>
 
 	<FORM NAME="report_generate_form" ACTION="report.jsp" METHOD="post">
 		<TABLE>

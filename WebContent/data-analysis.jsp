@@ -151,6 +151,7 @@ JDBC.closeConnection();
 	out.println("<INPUT TYPE='submit' NAME='Back' VALUE='RETURN'></CENTER>");
 	out.println("</FORM>");
 	%>
+<a href="/RadiologyApp/user-manual.jsp#data-analysis-module"><button>View Help</button></a>
 </div>
 </body>
 </html>
