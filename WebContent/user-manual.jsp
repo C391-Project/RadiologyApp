@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>User Manual</title>
 </head>
 <body>
+<h1>RadiologyApp User Manual</h1>
 
 <h2 id="login-module">Login Module</h2>
 <p>All register users are able to login to the app with proper privileges and they can also modify their own personal information and change the password.</p>
